@@ -10,15 +10,18 @@ export default function Sidebar({ children, expanded, toggleSidebar }) {
   const { auth } = usePage().props;
 
   return (
-    <aside className={`fixed inset-y-0 z-20 h-screen border-r border-[#1F2937] overflow-auto ${!expanded ? 'w-0' : 'w-0 lg:w-[281px]'}`}>
-      <nav className="w-[280px] h-auto p-5 flex flex-col gap-5 bg-[#ffffff0d]">
-        <div className="py-3 px-4 flex justify-between items-center">
+    <aside className={`fixed inset-y-0 z-20 border-r border-[#1F2937] overflow-auto
+      scrollbar-thin scrollbar-webkit
+      ${!expanded ? 'w-0' : 'w-0 lg:w-[285px]'}`}
+    >
+      <nav className="w-full h-auto p-5 flex flex-col gap-5 bg-[#ffffff0d]">
+        <div className="py-3 px-4 flex justify-start items-center gap-3 hover:bg-[#03071299] rounded-lg">
             <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" alt="" className="rounded-full w-10 h-10"/>
           <div className="flex flex-col ">
             <div className="text-white">
                 {auth.user.name}
             </div>
-            <div className="flex gap-3 text-white">
+            <div className="flex gap-3 text-white text-xs">
                 <div>ID: AID000001</div>
                 <Admin/>
             </div>
@@ -53,7 +56,7 @@ export function SidebarItem({ icon, text, active }) {
       {icon}
       <span
         className={`overflow-hidden transition-all text-sm font-medium ${
-          expanded ? "w-52" : "w-0"
+          expanded ? "w-44" : "w-0"
         }`}
       >
         {text}
@@ -70,8 +73,8 @@ export function SidebarCollapsible({ text, children, icon }) {
     };
   
     return (
-      <li className="py-[10px] px-4">
-        <button className="text-white flex gap-3 items-center w-full" onClick={toggleExpanded}>
+      <li>
+        <button className="py-[10px] px-4 text-white flex gap-3 items-center w-full" onClick={toggleExpanded}>
             {icon}
             <span className="w-36 text-left text-sm font-medium">{text}</span>
             
@@ -79,7 +82,7 @@ export function SidebarCollapsible({ text, children, icon }) {
         </button>
   
         {expanded && (
-          <ul>
+          <ul className="ml-5">
             {children}
           </ul>
         )}

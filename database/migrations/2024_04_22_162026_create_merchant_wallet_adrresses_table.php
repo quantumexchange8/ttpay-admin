@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('running_numbers', function (Blueprint $table) {
+        Schema::create('merchant_wallet_adrresses', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->string('prefix');
-            $table->integer('digit');
-            $table->integer('last_number');
-            $table->softDeletes();
+            $table->unsignedBigInteger('merchant_id');
+            $table->unsignedBigInteger('wallet_address_id');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('running_numbers');
+        Schema::dropIfExists('merchant_wallet_adrresses');
     }
 };

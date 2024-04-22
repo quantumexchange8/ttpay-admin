@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Sidebar, { SidebarItem, SectionLabel, SidebarCollapsible, SidebarCollapseItem } from '@/Components/Sidebar';
 import Navbar from '@/Components/Navbar';
 import { Link, usePage } from '@inertiajs/react';
-import { Dashboard, Pending, DealHistory, Performance, SubLine, SubLine2 } from '@/Components/Icon/Outline';
+import { SubLine, SubLine2 } from '@/Components/Icon/Outline';
+import { Dashboard, Pending, DealHistory, Performance, } from '@/Components/Icon/Menu';
 
 export default function Authenticated({ children }) {
     const { url } = usePage();
@@ -47,7 +48,7 @@ export default function Authenticated({ children }) {
                         <SidebarItem icon={<Performance/>} text="PERFORMANCE"/>
                     </div>
                 </div>
-                {/* <div className='flex flex-col items-center gap-2'>
+                 <div className='flex flex-col items-center gap-2'>
                     <SectionLabel text="MERCHANT"/>
                     <div className='w-full flex flex-col gap-1'>
                         <SidebarItem text="MERCHANT LISTING"/>
@@ -71,7 +72,7 @@ export default function Authenticated({ children }) {
                         <SidebarItem text="FREEZING LISTING"/>
                         <SidebarItem text="TRC-20 ADDRESS"/>
                     </div>
-                </div> */}
+                </div>
                 <div className='flex flex-col items-center gap-2'>
                     <SectionLabel text="OTHERS"/>
                     <div className='w-full flex flex-col gap-1'>

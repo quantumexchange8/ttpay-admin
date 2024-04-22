@@ -9,6 +9,8 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.jsx',
+        "./src/**/*.{js,jsx,ts,tsx}",
+        "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js"
     ],
 
     theme: {
@@ -122,5 +124,30 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        function ({addUtilities}) {
+            const newUtilities = {
+                ".scrollnar-thin" : {
+                    scrollbarWidth : "thin", 
+                    scrollbarColor: "rgba(107, 114, 128, 1) white",
+                }, 
+                ".scrollbar-webkit": {
+                    "&::-webkit-scrollbar" : {
+                        width: "4px"
+                    },
+                    "&::-webkit-scrollbar-track" : {
+                        background: "rgba(107, 114, 128, 0.4)"
+                    },
+                    "&::-webkit-scrollbar-thumb" : {
+                        backgroundColor: "white",
+                        borderRadius: "20px",
+                        border: "1px solid rgba(107, 114, 128, 0.3)",
+                    }
+                }
+            }
+            
+            addUtilities(newUtilities, ["responsive", "hover"])
+        }
+    ],
 };

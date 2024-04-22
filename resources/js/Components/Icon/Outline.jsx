@@ -28,51 +28,6 @@ const LineRight = () => {
     );
 }
 
-const Dashboard = () => {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <rect x="2.17285" y="2.82812" width="5.83333" height="5.83333" stroke="#D1D5DB" strokeWidth="1.25" strokeLinecap="square"/>
-            <rect x="12.1932" y="2.17188" width="5.83333" height="5.83333" transform="rotate(15 12.1932 2.17188)" stroke="#D1D5DB" strokeWidth="1.25" strokeLinecap="square"/>
-            <rect x="2.17285" y="11.9941" width="5.83333" height="5.83333" stroke="#D1D5DB" strokeWidth="1.25" strokeLinecap="square"/>
-            <rect x="11.3395" y="11.9941" width="5.83333" height="5.83333" stroke="#D1D5DB" strokeWidth="1.25" strokeLinecap="square"/>
-        </svg>
-    );
-}
-
-const Pending = () => {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M9.99996 5V10.8333L6.66663 14.1667" stroke="#D1D5DB" strokeWidth="1.5"/>
-            <path d="M9.99996 18.334C8.35178 18.334 6.74062 17.8452 5.37021 16.9296C3.9998 16.0139 2.9317 14.7124 2.30097 13.1897C1.67024 11.667 1.50521 9.99141 1.82675 8.3749C2.1483 6.75839 2.94197 5.27353 4.10741 4.1081C5.27284 2.94266 6.7577 2.14899 8.37421 1.82744C9.99072 1.5059 11.6663 1.67093 13.189 2.30166C14.7117 2.93239 16.0132 4.00049 16.9289 5.3709M16.9289 5.3709L16.6666 0.833984M16.9289 5.3709L12.5 5.00065" stroke="#D1D5DB" strokeWidth="1.5"/>
-            <path d="M17.7082 9.95312C17.7083 9.96878 17.7084 9.98445 17.7084 10.0001C17.7084 11.019 17.5107 11.9916 17.1516 12.8819L18.2483 13.5014C18.6898 12.4627 18.9408 11.3235 18.9575 10.1277L17.7082 9.95312Z" fill="#D1D5DB"/>
-            <path d="M16.5615 14.0476L17.6507 14.6629C17.1312 15.5136 16.4737 16.2709 15.7094 16.9037L15.0017 15.8657C15.611 15.3455 16.1383 14.7322 16.5615 14.0476Z" fill="#D1D5DB"/>
-            <path d="M13.9406 16.6265C13.2011 17.0672 12.3814 17.3877 11.5088 17.5609L11.8498 18.7673C12.854 18.5565 13.7964 18.1774 14.6461 17.661L13.9406 16.6265Z" fill="#D1D5DB"/>
-        </svg>
-    );
-}
-
-const DealHistory = () => {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M17.5 2.5H2.5V17.5H17.5L17.5 2.5Z" stroke="#D1D5DB" strokeWidth="1.25" strokeLinecap="square"/>
-            <path d="M8.75 12.916L10.8333 14.5827L14.1667 10.416" stroke="#D1D5DB" strokeWidth="1.25" strokeLinecap="square"/>
-            <path d="M5.83337 6.25H14.1667" stroke="#D1D5DB" strokeWidth="1.25" strokeLinecap="square"/>
-            <path d="M5.83337 9.58398H9.16671" stroke="#D1D5DB" strokeWidth="1.25" strokeLinecap="square"/>
-        </svg>
-    );
-}
-
-const Performance = () => {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M5.96977 8.68945V13.7143" stroke="#D1D5DB" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="round"/>
-            <path d="M10.0005 6.28516V13.7144" stroke="#D1D5DB" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="round"/>
-            <path d="M14.0304 11.3457V13.7153" stroke="#D1D5DB" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="round"/>
-            <path fillRule="evenodd" clipRule="evenodd" d="M17.7083 17.709L17.7083 2.29232L2.29163 2.29232L2.29163 17.709L17.7083 17.709Z" stroke="#D1D5DB" strokeWidth="1.5" strokeLinecap="round"/>
-        </svg>
-    );
-}
-
 const ChevronUp = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -105,6 +60,7 @@ const SubLine2 = () => {
     );
 }
 
+// TOPBAR ICON
 const Menu = ({ color, className, ...rest }) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} className={className} {...rest}>
@@ -139,4 +95,92 @@ const Logout = ({ color, className, ...rest }) => {
     );
 }
 
-export { LineLeft, LineRight, Dashboard, Pending, DealHistory, Performance, ChevronUp, ChevronDown, SubLine, SubLine2, Menu, Notification, Lang, Logout };
+// ICON
+const ArrowUp = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M19 15.5L12 8.5L5 15.5" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+        </svg>
+    );
+}
+
+const ArrowRight = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M8.5 5L15.5 12L8.5 19" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+        </svg>
+    );
+}
+
+const ArrowDown = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M19 8.5L12 15.5L5 8.5" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+        </svg>
+    );
+}
+
+const ArrowLeft = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M15.5 19L8.5 12L15.5 5" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+        </svg>
+    );
+}
+
+const DArrowUp = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M6 12L12 6L18 12" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+            <path d="M6 18L12 12L18 18" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+        </svg>
+    );
+}
+
+const DArrowRight = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M6 6L12 12L6 18" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+            <path d="M12 6L18 12L12 18" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+        </svg>
+    );
+}
+
+const DArrowDown = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L12 12L6 6" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+            <path d="M18 12L12 18L6 12" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+        </svg>
+    );
+}
+
+const DArrowLeft = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 18L6 12L12 6" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+            <path d="M18 18L12 12L18 6" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+        </svg>
+    );
+}
+
+export { 
+    LineLeft, 
+    LineRight, 
+    ChevronUp, 
+    ChevronDown, 
+    SubLine, 
+    SubLine2, 
+    Menu, 
+    Notification, 
+    Lang, 
+    Logout,
+    ArrowUp,
+    ArrowRight,
+    ArrowDown,
+    ArrowLeft,
+    DArrowUp,
+    DArrowRight,
+    DArrowDown,
+    DArrowLeft,
+};

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('running_numbers', function (Blueprint $table) {
+        Schema::create('rate_profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->string('prefix');
-            $table->integer('digit');
-            $table->integer('last_number');
+            $table->string('name');
+            $table->string('deposit_fee');
+            $table->string('withdrawal_fee');
+            $table->unsignedBigInteger('merchant_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('running_numbers');
+        Schema::dropIfExists('rate_profiles');
     }
 };
