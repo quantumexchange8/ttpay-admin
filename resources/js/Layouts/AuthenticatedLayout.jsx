@@ -3,9 +3,9 @@ import Sidebar, { SidebarItem, SectionLabel, SidebarCollapsible, SidebarCollapse
 import Navbar from '@/Components/Navbar';
 import { Link, usePage } from '@inertiajs/react';
 import { SubLine, SubLine2 } from '@/Components/Icon/Outline';
-import { Dashboard, Pending, DealHistory, Performance, } from '@/Components/Icon/Menu';
+import { Dashboard, Pending, DealHistory, Performance, RateProfile, Tron, } from '@/Components/Icon/Menu';
 
-export default function Authenticated({ children }) {
+export default function Authenticated({ children, header }) {
     const { url } = usePage();
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
@@ -32,7 +32,7 @@ export default function Authenticated({ children }) {
                             <SidebarItem icon={<Pending/>} text="PENDING" />
                         </Link>
                         
-                        <SidebarCollapsible icon={<DealHistory/>} text="DEAL HISTORY" >
+                        {/* <SidebarCollapsible icon={<DealHistory/>} text="DEAL HISTORY" >
                             <div className='flex flex-row gap-[2px]'>
                                 <div className='flex flex-col pl-2'>
                                     <SubLine size={20} />
@@ -43,9 +43,8 @@ export default function Authenticated({ children }) {
                                     <SidebarCollapseItem text="Master Client" />
                                 </div>
                             </div>
-                            
                         </SidebarCollapsible>
-                        <SidebarItem icon={<Performance/>} text="PERFORMANCE"/>
+                        <SidebarItem icon={<Performance/>} text="PERFORMANCE"/> */}
                     </div>
                 </div>
                  <div className='flex flex-col items-center gap-2'>
@@ -56,7 +55,7 @@ export default function Authenticated({ children }) {
                         <SidebarItem text="MERCHANT BIN"/>
                     </div>
                 </div>
-                <div className='flex flex-col items-center gap-2'>
+                {/* <div className='flex flex-col items-center gap-2'>
                     <SectionLabel text="SUB-ADMIN"/>
                     <div className='w-full flex flex-col gap-1'>
                         <SidebarItem text="SUB-ADMIN LISTING"/>
@@ -64,19 +63,28 @@ export default function Authenticated({ children }) {
                         <SidebarItem text="SUB-ADMIN ACTIVITY"/>
                         <SidebarItem text="SUB-ADMIN BIN"/>
                     </div>
-                </div>
+                </div> */}
                 <div className='flex flex-col items-center gap-2'>
                     <SectionLabel text="CONFIGURATION"/>
                     <div className='w-full flex flex-col gap-1'>
-                        <SidebarItem text="RATE PROFILE"/>
-                        <SidebarItem text="FREEZING LISTING"/>
-                        <SidebarItem text="TRC-20 ADDRESS"/>
+                        <Link href={route('configuration.rate_profile')} className={`${
+                                url === '/configuration/rate_profile' ? 'bg-[#03071299] rounded-lg' : ''
+                        }`}>
+                            <SidebarItem icon={<RateProfile/>} text="RATE PROFILE" />
+                        </Link>
+                        {/* <SidebarItem text="FREEZING LISTING"/> */}
+                        <Link href={route('pending')} className={`${
+                                url === '/pending' ? 'bg-[#03071299] rounded-lg' : ''
+                        }`}>
+                            <SidebarItem icon={<Tron/>} text="TRC-20 ADDRESS"/>
+                        </Link>
+                        
                     </div>
                 </div>
                 <div className='flex flex-col items-center gap-2'>
                     <SectionLabel text="OTHERS"/>
                     <div className='w-full flex flex-col gap-1'>
-                        <SidebarItem text="COMPANY EARNINGS"/>
+                        {/* <SidebarItem text="COMPANY EARNINGS"/> */}
 
                         <Link href={route('logout')} method="post" as="button">
                             <SidebarItem text="LOG OUT"/>
@@ -87,7 +95,7 @@ export default function Authenticated({ children }) {
             </Sidebar>
 
             <div className={`min-h-screen flex flex-col ${isSidebarExpanded ? 'lg:ml-[280px]' : 'ml-0'}`}>
-                <Navbar toggleSidebar={toggleSidebar}/>
+                <Navbar toggleSidebar={toggleSidebar} header={header}/>
                 <main className='w-full flex justify-center'>
                     <div className='max-w-[1440px] w-full p-5'>
                         {children}

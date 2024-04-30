@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('manager_name');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('dial_code', 50)->nullable();
             $table->string('phone')->unique();
             $table->string('url')->nullable();
+            $table->string('deposit_type');
             $table->string('api_key')->nullable();
             $table->string('security_pin')->nullable();
             $table->string('rate_id');

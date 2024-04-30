@@ -1,7 +1,8 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { XIcon } from './Icon/Outline';
 
-export default function Modal({ children, show = false, maxWidth = '2xl', closeable = true, onClose = () => {} }) {
+export default function Modal({ children, title, show = false, maxWidth = '2xl', closeable = true, onClose = () => {} }) {
     const close = () => {
         if (closeable) {
             onClose();
@@ -10,7 +11,7 @@ export default function Modal({ children, show = false, maxWidth = '2xl', closea
 
     const maxWidthClass = {
         sm: 'sm:max-w-sm',
-        md: 'sm:max-w-md',
+        md: 'sm:max-w-[460px]',
         lg: 'sm:max-w-lg',
         xl: 'sm:max-w-xl',
         '2xl': 'sm:max-w-2xl',
@@ -33,7 +34,7 @@ export default function Modal({ children, show = false, maxWidth = '2xl', closea
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="absolute inset-0 bg-gray-500/75 dark:bg-gray-900/75" />
+                    <div className="absolute inset-0 bg-gray-500/75 dark:bg-gray-900/60" />
                 </Transition.Child>
 
                 <Transition.Child
@@ -46,8 +47,19 @@ export default function Modal({ children, show = false, maxWidth = '2xl', closea
                     leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
                     <Dialog.Panel
-                        className={`mb-6 bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
+                        className={`p-8 flex flex-col gap-8 bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
                     >
+                        <div className='flex justify-between'>
+                            {title && (
+                                <h2 className="text-lg font-semibold text-gray-800 dark:text-white">{title}</h2>
+                            )}
+                            {closeable && (
+                                <button className="dark:hover:text-gray-300" onClick={close}>
+                                    <XIcon className="h-6 w-6 text-gray-400 hover:text-gray-700" aria-hidden="true" />
+                                </button>
+                            )}
+                        </div>
+                        
                         {children}
                     </Dialog.Panel>
                 </Transition.Child>

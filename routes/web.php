@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PendingController;
+use App\Http\Controllers\ConfigurationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -10,6 +11,10 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
+Route::get('/components/buttons', function () {
+    return Inertia::render('Components/Buttons');
+})->middleware(['auth', 'verified'])->name('components.buttons');
 
 Route::middleware('auth', 'verified')->group(function () {
 
@@ -49,7 +54,11 @@ Route::middleware('auth', 'verified')->group(function () {
      * ==============================
      */
 
-
+     Route::prefix('configuration')->group(function () {
+        Route::get('/rate_profile', [ConfigurationController::class, 'rate_profile'])->name('configuration.rate_profile');
+        Route::post('/add_rate_profile', [ConfigurationController::class, 'storeRateProfile'])->name('configuration.add_rate_profile');
+        Route::get('/getRateProfile', [ConfigurationController::class, 'getRateProfile'])->name('configuration.getRateProfile');
+     });
 
      /**
      * ==============================

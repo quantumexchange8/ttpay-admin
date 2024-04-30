@@ -97,7 +97,7 @@ return (
     <li
     className={`
         flex items-center
-        font-medium rounded-md cursor-pointer
+        font-medium rounded-md cursor-pointer pt-[9px] pr-4
         transition-colors
         ${
         active
@@ -108,7 +108,7 @@ return (
     >
     {icon}
     <span
-        className={`overflow-hidden transition-all pt-[9px] pr-4 ${
+        className={`overflow-hidden transition-all ${
         expanded ? "w-44" : "w-0"
         }`}
     >

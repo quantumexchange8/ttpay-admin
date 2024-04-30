@@ -23,7 +23,7 @@ export default function Navbar({ user, header, toggleSidebar }) {
                     </div>
                     
                     <div className='text-xl font-bold w-full text-gray-50'>
-                        Header
+                        {header}
                     </div>
                     <div className='flex items-center gap-3'>
                         <div className='p-[10px]'>
@@ -73,12 +73,6 @@ export default function Navbar({ user, header, toggleSidebar }) {
                     </div>
                 </div>
             </nav>
-
-            {header && (
-                <header className="bg-white dark:bg-gray-800 shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
-                </header>
-            )}
         </div>
     )
 }

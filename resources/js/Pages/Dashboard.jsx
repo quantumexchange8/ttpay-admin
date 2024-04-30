@@ -1,22 +1,45 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
+import Input from '@/Components/Input'
 
 export default function Dashboard({ auth }) {
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+    })
+
+    const onHandleChange = (event) => {
+        setData(
+            event.target.name,
+            event.target.type === 'checkbox'
+                ? event.target.checked
+                : event.target.value
+        )
+    }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard</h2>}
+            header="Dashboard"
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
-                            Dashboard
-                        </div>
-                    </div>
-                </div>
+            <div>
+                <Input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    value={data.name}
+                    className="block w-full"
+                    autoComplete="name"
+                    isFocused={true}
+                    handleChange={onHandleChange}
+                    required
+                    cursorColor="#5200FF"
+                />
             </div>
         </AuthenticatedLayout>
     );

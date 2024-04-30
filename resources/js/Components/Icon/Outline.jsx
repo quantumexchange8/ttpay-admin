@@ -95,71 +95,10 @@ const Logout = ({ color, className, ...rest }) => {
     );
 }
 
-// ICON
-const ArrowUp = () => {
+const XIcon = () => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M19 15.5L12 8.5L5 15.5" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-        </svg>
-    );
-}
-
-const ArrowRight = () => {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M8.5 5L15.5 12L8.5 19" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-        </svg>
-    );
-}
-
-const ArrowDown = () => {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M19 8.5L12 15.5L5 8.5" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-        </svg>
-    );
-}
-
-const ArrowLeft = () => {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M15.5 19L8.5 12L15.5 5" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-        </svg>
-    );
-}
-
-const DArrowUp = () => {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M6 12L12 6L18 12" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-            <path d="M6 18L12 12L18 18" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-        </svg>
-    );
-}
-
-const DArrowRight = () => {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M6 6L12 12L6 18" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-            <path d="M12 6L18 12L12 18" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-        </svg>
-    );
-}
-
-const DArrowDown = () => {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M18 6L12 12L6 6" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-            <path d="M18 12L12 18L6 12" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-        </svg>
-    );
-}
-
-const DArrowLeft = () => {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M12 18L6 12L12 6" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-            <path d="M18 18L12 12L18 6" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+            <path d="M15.7998 5L5.7998 15M5.7998 5L15.7998 15" stroke="#9CA3AF" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
     );
 }
@@ -175,12 +114,5 @@ export {
     Notification, 
     Lang, 
     Logout,
-    ArrowUp,
-    ArrowRight,
-    ArrowDown,
-    ArrowLeft,
-    DArrowUp,
-    DArrowRight,
-    DArrowDown,
-    DArrowLeft,
+    XIcon,
 };
