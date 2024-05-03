@@ -1,53 +1,76 @@
 import React, { useState, useEffect } from 'react';
-// import TanStackTable from '@/Components/TanStackTable';
+import TanStackTable from '@/Components/TanStackTable';
 import axios from 'axios';
+import { Edit, Delete } from '@/Components/Icon/Icon';
 
 export default function RateProfileTable() {
 
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetchData(); // Fetch data when the component mounts
+        fetchData(); 
     }, []);
 
     const fetchData = async () => {
         try {
-            // Make a GET request to your Laravel backend API to fetch data
             const response = await axios.get('/configuration/getRateProfile');
 
-            // Set the fetched data to the state
             setData(response.data);
+            
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
     const columns = [
-        { Header: 'ID', accessor: 'id' },
-        { Header: 'Name', accessor: 'name' },
-        // Add more columns as needed
+        {
+            accessor: 'name',
+            header: 'Rate Profile Name',
+        },
+        {
+            accessor: 'merchant_id',
+            header: 'Merchant',
+        },
+        {
+            accessor: 'deposit_fee',
+            header: 'Deposit Fee',
+        },
+        {
+            accessor: 'withdrawal_fee',
+            header: 'Withdrawal Fee',
+        },
+        // {
+        //     accessor: 'edit',
+        //     header: 'Action',
+        //     Cell: ({ row }) => (
+        //         <div>
+        //             <Edit onClick={() => handleEdit(row)} />
+        //             <Delete onClick={() => handleDelete(row)} />
+        //         </div>
+        //     )
+        // },
     ];
+
+
+    const handleEdit = (row) => {
+        
+    };
+
+    const handleDelete = (row) => {
+        
+    };
 
     return (  
     <div>
-        {/* <table className='w-full'>
-            <thead className='text-xs text-gray-500 bg-gray-600 px-3 font-bold'>
-                <tr>
-                    <th className='py-3 text-left'>RATE RPOFILE NAME</th>
-                    <th className='py-3 text-left'>Merchant</th>
-                    <th className='py-3 text-left'>Deposit Fee</th>
-                    <th className='py-3 text-left'>Withdrawal Fee</th>
-                </tr>
-            </thead>
-            <tbody className='bg-gray-800 p-3 text-xs '>
-                <tr>
-                    <td>test</td>
-                    <td>test</td>
-                    <td>test</td>
-                    <td>test</td>
-                </tr>
-            </tbody>
-        </table> */}
+        {data.length > 0 ? (
+            <TanStackTable columns={columns} data={data} actions={[
+                <Edit width={14} height={14} onClick={handleEdit}/>,
+                <Delete width={14} height={14} color="#dc2626" onClick={handleDelete}/>
+              ]} />
+        ) : (
+            <div className='text-white flex justify-center items-center'>Loading...</div>
+        )}
+        
     </div>
     )
 }

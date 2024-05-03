@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\RateProfile;
 use Inertia\Inertia;
+use App\Http\Requests\NewRateProfileRequest;
 
 class ConfigurationController extends Controller
 {
@@ -21,15 +22,15 @@ class ConfigurationController extends Controller
         return response()->json($rate);
     }
 
-    public function storeRateProfile(Request $request)
+    public function storeRateProfile(NewRateProfileRequest $request)
     {
         // dd($request->all());
         $newRate = RateProfile::create([
-            'name' => $request->rate_profile_name,
+            'name' => $request->name,
             'deposit_fee' => $request->deposit_fee,
             'withdrawal_fee' => $request->withdrawal_fee,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('toast', 'Rate profile created successfully!');
     }
 }

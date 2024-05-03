@@ -34,7 +34,7 @@ export default function Modal({ children, title, show = false, maxWidth = '2xl',
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="absolute inset-0 bg-gray-500/75 dark:bg-gray-900/60" />
+                    <div className="absolute inset-0 bg-gray-500/75 dark:bg-black/50" />
                 </Transition.Child>
 
                 <Transition.Child

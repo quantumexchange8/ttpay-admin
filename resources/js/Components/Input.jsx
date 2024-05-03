@@ -4,6 +4,7 @@ export default ({
     type = 'text',
     name,
     value,
+    min,
     className,
     autoComplete,
     required,
@@ -32,6 +33,7 @@ export default ({
             type={type}
             name={name}
             value={value}
+            min={min}
             className={`${baseClasses} ${
                 withIcon ? 'pl-11 pr-4' : 'px-4 py-2 text-md'
             } ${className}`}
