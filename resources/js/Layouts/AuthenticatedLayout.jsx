@@ -4,6 +4,7 @@ import Navbar from '@/Components/Navbar';
 import { Link, usePage } from '@inertiajs/react';
 import { SubLine, SubLine2 } from '@/Components/Icon/Outline';
 import { Dashboard, Pending, DealHistory, Performance, RateProfile, Tron, } from '@/Components/Icon/Menu';
+import {CustomToaster} from '@/Components/CustomToaster';
 
 export default function Authenticated({ children, header }) {
     const { url } = usePage();
@@ -100,6 +101,8 @@ export default function Authenticated({ children, header }) {
                     <div className='max-w-[1440px] w-full p-5'>
                         {children}
                     </div>
+
+                    <CustomToaster/>
                 </main>
             </div>
 

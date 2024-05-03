@@ -6,10 +6,17 @@ import InputError from '@/Components/InputError';
 import Modal from "@/Components/Modal";
 import React, { useState } from 'react';
 import { AddIcon } from '@/Components/Icon/Icon';
+// import CustomToaster from '@/Components/CustomToaster';
+import toast from 'react-hot-toast';
+import { dotPulse } from 'ldrs'
+
+
 
 export default function NewRateProfile() {
     
     const [isOpen, modalDetails] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+    dotPulse.register()
 
     const openModal = () => {
         modalDetails(true)
@@ -31,12 +38,18 @@ export default function NewRateProfile() {
     })
     
     const submit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        setIsLoading(true);
         post('/configuration/add_rate_profile', {
             preserveScroll: true,
             onSuccess: () => {
                 closeModal();
+                setIsLoading(false);
                 reset();
+                toast.success('You have successfully created a rate profile!', { duration: 3000 });
+            }, 
+            onError: () => {
+                setIsLoading(false);
             }
 
         })
@@ -53,6 +66,8 @@ export default function NewRateProfile() {
                 <AddIcon aria-hidden="true"/>
                 New Rate Profile
             </Button>
+
+            {/* <CustomToaster/> */}
 
             <Modal show={isOpen} onClose={closeModal} title="New Rate Profile" maxWidth='md'>
                 <form onSubmit={submit}>
@@ -118,8 +133,13 @@ export default function NewRateProfile() {
                                 type="submit"
                                 size='lg'
                                 className='w-full flex justify-center'
+                                disabled={isLoading}
                             >
-                                Create
+                                {isLoading ? ( // Show loading indicator if isLoading is true
+                                <l-dot-pulse size="43" speed="1.3" color="white" />
+                                ) : (
+                                'Create'
+                                )}
                             </Button>
                         </div>
                     </div>

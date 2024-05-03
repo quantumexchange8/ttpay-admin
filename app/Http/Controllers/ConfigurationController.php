@@ -25,11 +25,11 @@ class ConfigurationController extends Controller
     public function storeRateProfile(NewRateProfileRequest $request)
     {
         // dd($request->all());
-        $newRate = RateProfile::create([
-            'name' => $request->name,
-            'deposit_fee' => $request->deposit_fee,
-            'withdrawal_fee' => $request->withdrawal_fee,
-        ]);
+        // $newRate = RateProfile::create([
+        //     'name' => $request->name,
+        //     'deposit_fee' => $request->deposit_fee,
+        //     'withdrawal_fee' => $request->withdrawal_fee,
+        // ]);
 
         return redirect()->back()->with('toast', 'Rate profile created successfully!');
     }
