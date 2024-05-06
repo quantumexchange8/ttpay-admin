@@ -58,6 +58,8 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/rate_profile', [ConfigurationController::class, 'rate_profile'])->name('configuration.rate_profile');
         Route::post('/add_rate_profile', [ConfigurationController::class, 'storeRateProfile'])->name('configuration.add_rate_profile');
         Route::get('/getRateProfile', [ConfigurationController::class, 'getRateProfile'])->name('configuration.getRateProfile');
+        Route::post('/edit_rate_profile', [ConfigurationController::class, 'EditRateProfile'])->name('configuration.edit_rate_profile');
+        Route::post('/delete_rate_profile', [ConfigurationController::class, 'DeleteRateProfile'])->name('configuration.delete_rate_profile');
      });
 
      /**

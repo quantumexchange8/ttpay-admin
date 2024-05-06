@@ -70,7 +70,9 @@ const TanStackTable = ({ columns, data, actions }) => {
               {actions && actions.length > 0 && (
                 <td className='p-3 flex justify-center items-center gap-3'>
                   {actions.map((action, index) => (
-                    <span className='flex justify-center items-center w-6 h-6 cursor-pointer rounded-full hover:bg-[#ffffff1a]' key={index}>{action}</span>
+                    <span className='flex justify-center items-center' key={index} onClick={() => action(row)}>
+                      {typeof action === 'function' && action(row)}
+                    </span>
                   ))}
                 </td>
               )}

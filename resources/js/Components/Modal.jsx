@@ -2,9 +2,9 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from './Icon/Outline';
 
-export default function Modal({ children, title, show = false, maxWidth = '2xl', closeable = true, onClose = () => {} }) {
+export default function Modal({ children, title, show = false, maxWidth = '2xl', showCloseButton = true, onClose = () => {} }) {
     const close = () => {
-        if (closeable) {
+        if (showCloseButton) {
             onClose();
         }
     };
@@ -49,16 +49,14 @@ export default function Modal({ children, title, show = false, maxWidth = '2xl',
                     <Dialog.Panel
                         className={`p-8 flex flex-col gap-8 bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
                     >
-                        <div className='flex justify-between'>
-                            {title && (
-                                <h2 className="text-lg font-semibold text-gray-800 dark:text-white">{title}</h2>
-                            )}
-                            {closeable && (
-                                <button className="dark:hover:text-gray-300" onClick={close}>
+                        {showCloseButton && (
+                            <div className='flex justify-between'>
+                                {title && <h2 className="text-lg font-semibold text-gray-800 dark:text-white">{title}</h2>}
+                                <button className="dark:hover:text-gray-300" onClick={onClose}>
                                     <XIcon className="h-6 w-6 text-gray-400 hover:text-gray-700" aria-hidden="true" />
                                 </button>
-                            )}
-                        </div>
+                            </div>
+                        )}
                         
                         {children}
                     </Dialog.Panel>

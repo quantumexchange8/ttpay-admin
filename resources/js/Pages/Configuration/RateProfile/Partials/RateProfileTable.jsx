@@ -4,6 +4,9 @@ import axios from 'axios';
 import { Edit, Delete } from '@/Components/Icon/Icon';
 import { tailChase } from 'ldrs'
 import EditRateProfile from "@/Pages/Configuration/RateProfile/Partials/EditRateProfile";
+import Button from '@/Components/Button';
+import Action from '@/Pages/Configuration/RateProfile/Partials/Actions';
+
 
 export default function RateProfileTable() {
 
@@ -46,20 +49,16 @@ export default function RateProfileTable() {
 
 
     const handleEdit = (row) => {
-        
-    };
-
-    const handleDelete = (row) => {
-        
+        console.log('Edit', row.id);
     };
 
     return (  
     <div>
         {data.length > 0 ? (
             <TanStackTable columns={columns} data={data} actions={[
-                <Edit width={14} height={14} onClick={handleEdit} />,
-                <Delete width={14} height={14} color="#dc2626" onClick={handleDelete}/>
-              ]} />
+                (row) => <Action rpDetail={row} fetchDataCallback={fetchData} />
+              ]}   
+            />
         ) : (
             <div className='flex justify-center items-center'>
                 <l-tail-chase

@@ -136,7 +136,7 @@ const EyeOff = () => {
 
 const Search = () => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path fillRule="evenodd" clipRule="evenodd" d="M10.9985 3.5C6.97315 3.5 3.70996 6.76319 3.70996 10.7885C3.70996 14.8139 6.97315 18.0771 10.9985 18.0771C15.0238 18.0771 18.287 14.8139 18.287 10.7885C18.287 6.76319 15.0238 3.5 10.9985 3.5ZM2.20996 10.7885C2.20996 5.93476 6.14472 2 10.9985 2C15.8523 2 19.787 5.93476 19.787 10.7885C19.787 15.6423 15.8523 19.5771 10.9985 19.5771C6.14472 19.5771 2.20996 15.6423 2.20996 10.7885Z" fill="white"/>
             <path fillRule="evenodd" clipRule="evenodd" d="M16.4858 15.6474L22.1013 21.2484L21.0421 22.3104L15.4265 16.7095L16.4858 15.6474Z" fill="white"/>
         </svg>
@@ -161,6 +161,69 @@ const AddIcon = () => {
     );
 }
 
+
+
+
+
+// Feature icon
+const FeatureSuccessIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="24" fill="url(#paint0_linear_2430_19815)"/>
+            <path d="M24 0C10.7676 0 0 10.7664 0 23.9972C0 37.2281 10.7676 48 24 48C37.2324 48 48 37.2336 48 24.0028C48 10.7719 37.2324 0 24 0ZM34.3411 19.4226L22.3383 32.3434C21.7955 32.9304 21.0533 33.2295 20.3056 33.2295C19.663 33.2295 19.0261 33.008 18.4999 32.5649L12.036 27.0266C10.8728 26.0298 10.7399 24.2852 11.7369 23.1222C12.7339 21.9592 14.4787 21.8207 15.6418 22.8231L20.084 26.6279L30.2756 15.6566C31.3169 14.5379 33.0672 14.4714 34.1916 15.5126C35.3159 16.5538 35.3769 18.3039 34.3411 19.4226Z" fill="url(#paint1_linear_2430_19815)"/>
+            <defs>
+                <linearGradient id="paint0_linear_2430_19815" x1="44.5968" y1="8.66785" x2="-15.2182" y2="0.397062" gradientUnits="userSpaceOnUse">
+                <stop stopColor="white"/>
+                <stop offset="1" stopColor="white" stopOpacity="0.61"/>
+                </linearGradient>
+                <linearGradient id="paint1_linear_2430_19815" x1="48" y1="0" x2="14.1556" y2="39.5827" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#B2F763"/>
+                <stop offset="1" stopColor="#26AB3F"/>
+                </linearGradient>
+            </defs>
+        </svg>
+    );
+}
+
+const FeatureErrorIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="24" fill="url(#paint0_linear_2430_19814)"/>
+            <path fillRule="evenodd" clipRule="evenodd" d="M24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48ZM14.3993 33.5993C13.4353 32.6353 13.4353 31.0724 14.3993 30.1084L20.5075 24.0002L14.3991 17.8918C13.4351 16.9278 13.4351 15.3649 14.3991 14.4009C15.3631 13.4369 16.926 13.4369 17.89 14.4009L23.9984 20.5093L30.1084 14.3993C31.0724 13.4353 32.6353 13.4353 33.5993 14.3993C34.5633 15.3633 34.5633 16.9263 33.5993 17.8902L27.4894 24.0002L33.5991 30.11C34.5631 31.074 34.5631 32.6369 33.5991 33.6009C32.6351 34.5649 31.0722 34.5649 30.1082 33.6009L23.9984 27.4911L17.8902 33.5993C16.9263 34.5633 15.3633 34.5633 14.3993 33.5993Z" fill="url(#paint1_linear_2430_19814)"/>
+            <defs>
+                <linearGradient id="paint0_linear_2430_19814" x1="44.5968" y1="8.66785" x2="-15.2182" y2="0.397062" gradientUnits="userSpaceOnUse">
+                <stop stopColor="white"/>
+                <stop offset="1" stopColor="white" stopOpacity="0.61"/>
+                </linearGradient>
+                <linearGradient id="paint1_linear_2430_19814" x1="48" y1="0" x2="14.1556" y2="39.5827" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#ED5C5C"/>
+                <stop offset="1" stopColor="#FF0000"/>
+                </linearGradient>
+            </defs>
+        </svg>
+    )
+}
+
+const FeatureWarningIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="24" fill="url(#paint0_linear_2430_19813)"/>
+            <path fillRule="evenodd" clipRule="evenodd" d="M48 24C48 37.2548 37.2548 48 24 48C10.7452 48 0 37.2548 0 24C0 10.7452 10.7452 0 24 0C37.2548 0 48 10.7452 48 24ZM24.0001 30.2458C25.5007 30.2458 26.7171 29.0293 26.7171 27.5287V11.52C26.7171 10.0194 25.5007 8.80297 24.0001 8.80297C22.4995 8.80297 21.2831 10.0194 21.2831 11.52V27.5287C21.2831 29.0293 22.4995 30.2458 24.0001 30.2458ZM23.9808 40.0088C22.3902 40.0088 21.1008 38.7193 21.1008 37.1288C21.1008 35.5382 22.3902 34.2488 23.9808 34.2488H24.0192C25.6098 34.2488 26.8992 35.5382 26.8992 37.1288C26.8992 38.7193 25.6098 40.0088 24.0192 40.0088H23.9808Z" fill="url(#paint1_linear_2430_19813)"/>
+            <defs>
+                <linearGradient id="paint0_linear_2430_19813" x1="44.5968" y1="8.66785" x2="-15.2182" y2="0.397062" gradientUnits="userSpaceOnUse">
+                <stop stopColor="white"/>
+                <stop offset="1" stopColor="white" stopOpacity="0.61"/>
+                </linearGradient>
+                <linearGradient id="paint1_linear_2430_19813" x1="48" y1="0" x2="14.1556" y2="39.5827" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#FCD34D"/>
+                <stop offset="1" stopColor="#D97706"/>
+                </linearGradient>
+            </defs>
+        </svg>
+    )
+}
+
+
 export { 
     ArrowUp,
     ArrowRight,
@@ -179,4 +242,7 @@ export {
     Alert,
     Search,
     AddIcon,
+    FeatureSuccessIcon,
+    FeatureErrorIcon,
+    FeatureWarningIcon,
 };

@@ -11,9 +11,7 @@ export default function RateProfile({ auth }) {
     
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        deposit_fee: '',
-        withdrawal_fee: '',
+        search: '',
     })
 
     const onHandleChange = (event) => {
@@ -33,7 +31,7 @@ export default function RateProfile({ auth }) {
             <Head title="Rate Profile" />
 
             <div className='flex gap-5 flex-col'>
-                <div className='w-full flex justify-between items-center'>
+                <div className='w-full flex justify-between items-center select-none'>
                     <InputIconWrapper 
                         icon={
                             <Search
@@ -44,15 +42,15 @@ export default function RateProfile({ auth }) {
                     >
                         <Input
                             type="text"
-                            name="name"
-                            placeholder="Name"
-                            value={data.name}
-                            className="block w-full"
-                            autoComplete="name"
+                            name="search"
+                            placeholder="Search"
+                            value={data.search}
+                            className="block w-full caret-primary-700"
+                            autoComplete="search"
                             isFocused={false}
                             handleChange={onHandleChange}
                             required
-                            cursorColor="#5200FF"
+                            // cursorColor="#5200FF"
                             withIcon
                         />
                     </InputIconWrapper>
