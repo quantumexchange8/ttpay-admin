@@ -20,7 +20,7 @@ export default function RateProfileTable() {
     const fetchData = async () => {
         try {
             const response = await axios.get('/configuration/getRateProfile');
-
+            
             setData(response.data);
             
         } catch (error) {
@@ -32,18 +32,22 @@ export default function RateProfileTable() {
         {
             accessor: 'name',
             header: 'Rate Profile Name',
+            sortable: false,
         },
         {
             accessor: 'merchant_id',
             header: 'Merchant',
+            sortable: true,
         },
         {
             accessor: 'deposit_fee',
             header: 'Deposit Fee',
+            sortable: true,
         },
         {
             accessor: 'withdrawal_fee',
             header: 'Withdrawal Fee',
+            sortable: true,
         },
     ];
 
@@ -54,21 +58,10 @@ export default function RateProfileTable() {
 
     return (  
     <div>
-        {data.length > 0 ? (
-            <TanStackTable columns={columns} data={data} actions={[
-                (row) => <Action rpDetail={row} fetchDataCallback={fetchData} />
-              ]}   
-            />
-        ) : (
-            <div className='flex justify-center items-center'>
-                <l-tail-chase
-                    size="30"
-                    speed="1.5" 
-                    color="white" 
-                ></l-tail-chase>
-            </div>
-            
-        )}
+        <TanStackTable columns={columns} data={data} actions={[
+            (row) => <Action rpDetail={row} fetchDataCallback={fetchData} />
+            ]}   
+        />
         
         <EditRateProfile/>
     </div>

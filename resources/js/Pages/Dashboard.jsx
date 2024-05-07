@@ -40,6 +40,7 @@ export default function Dashboard({ auth }) {
                     required
                     cursorColor="#5200FF"
                 />
+                
             </div>
         </AuthenticatedLayout>
     );

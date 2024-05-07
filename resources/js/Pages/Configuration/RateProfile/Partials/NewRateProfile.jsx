@@ -94,8 +94,7 @@ export default function NewRateProfile() {
                                 </div>
                                 <Input 
                                     id="deposit_fee" 
-                                    type='number' 
-                                    min='0'
+                                    type='text'
                                     value={data.deposit_fee}
                                     handleChange={(e) => setData('deposit_fee', e.target.value)}
                                     // required
@@ -109,8 +108,7 @@ export default function NewRateProfile() {
                                 </div>
                                 <Input 
                                     id="withdrawal_fee" 
-                                    type='number' 
-                                    min='0'
+                                    type='text'
                                     value={data.withdrawal_fee}
                                     handleChange={(e) => setData('withdrawal_fee', e.target.value)}
                                     // required

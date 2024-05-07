@@ -22,8 +22,11 @@ export default function Sidebar({ children, expanded, toggleSidebar }) {
                 {auth.user.name}
             </div>
             <div className="flex gap-3 text-white text-xs">
-                <div>ID: AID000001</div>
-                <Admin/>
+                <div>ID: {auth.user.role_id}</div>
+                {
+                  auth.user.role === 'admin' ? <Admin/> : <Merchant/>
+                }
+                
             </div>
           </div>
         </div>

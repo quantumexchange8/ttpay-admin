@@ -15,8 +15,9 @@ export default function Action({ rpDetail, fetchDataCallback }) {
     const [isOpen, setIsOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const [actionType, setActionType] = useState(null);
-
+    
     const handleEdit = () => {
+        console.log("row data", rpDetail)
         setActionType('edit');
         setIsOpen(true);
 
@@ -126,7 +127,7 @@ export default function Action({ rpDetail, fetchDataCallback }) {
                                     <Input 
                                         id="name" 
                                         type='text' 
-                                        value={data.name}
+                                        value={rpDetail.name}
                                         handleChange={(e) => setData('name', e.target.value)}
                                         // required
                                         isFocused={true}
@@ -140,9 +141,8 @@ export default function Action({ rpDetail, fetchDataCallback }) {
                                     </div>
                                     <Input 
                                         id="deposit_fee" 
-                                        type='number' 
-                                        min='0'
-                                        value={data.deposit_fee}
+                                        type='text'
+                                        value={rpDetail.deposit_fee}
                                         handleChange={(e) => setData('deposit_fee', e.target.value)}
                                         // required
                                         className="w-full"
@@ -155,9 +155,8 @@ export default function Action({ rpDetail, fetchDataCallback }) {
                                     </div>
                                     <Input 
                                         id="withdrawal_fee" 
-                                        type='number' 
-                                        min='0'
-                                        value={data.withdrawal_fee}
+                                        type='text'
+                                        value={rpDetail.withdrawal_fee}
                                         handleChange={(e) => setData('withdrawal_fee', e.target.value)}
                                         // required
                                         className="w-full"
