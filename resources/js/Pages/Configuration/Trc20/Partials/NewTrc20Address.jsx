@@ -12,7 +12,7 @@ import { dotPulse } from 'ldrs'
 
 
 
-export default function NewTrc20Address() {
+export default function NewTrc20Address({ onNewAddressAdded }) {
     
     const [isOpen, modalDetails] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
@@ -44,8 +44,14 @@ export default function NewTrc20Address() {
             onSuccess: () => {
                 closeModal();
                 setIsLoading(false);
+
+                if (onNewAddressAdded) {
+                    onNewAddressAdded();
+                }
+
                 reset();
                 toast.success('You have successfully created a new TRC-20 address!', { duration: 3000 });
+                
             }, 
             onError: () => {
                 setIsLoading(false);

@@ -12,6 +12,7 @@ import Button from '@/Components/Button';
 import { NoData } from '@/Components/Icon/NoData';
 import { tailChase } from 'ldrs'
 import { Default, AscIcon, DescIcon } from '@/Components/Icon/Sort';
+import formatDateTime from '@/Composables/index';
 
 const TanStackTable = ({ columns, data, actions }) => {
   const [pagination, setPagination] = useState({
@@ -149,7 +150,11 @@ const TanStackTable = ({ columns, data, actions }) => {
                 <tr key={rowIndex} className='p-3 hover:bg-[#ffffff1a]'>
                   {columns.map((column, colIndex) => (
                     <td key={`${rowIndex}-${colIndex}`} className='text-sm text-white p-3'>
-                      {row[column.accessor] !== null ? row[column.accessor] : '-'}
+                      {column.accessor === 'created_at'
+                        ? formatDateTime(row[column.accessor])
+                        : row[column.accessor] !== null
+                        ? row[column.accessor]
+                        : '-'}
                     </td>
                   ))}
                   {actions && actions.length > 0 && (

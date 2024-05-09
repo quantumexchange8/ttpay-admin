@@ -17,7 +17,7 @@ export default ({
     onClick,
     disabled,
 }) => {
-    const baseClasses = `inline-flex items-center transition-colors font-medium select-none disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none`
+    const baseClasses = `inline-flex items-center transition-colors font-medium text-center select-none disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none`
 
     let variantClasses = ``
 

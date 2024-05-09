@@ -2,7 +2,11 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
+import { ForgetPasswordIcon, BackIcon } from '@/Components/Icon/Auth';
+import Label from '@/Components/Label';
+import Input from '@/Components/Input';
+import Button from '@/Components/Button';
 
 export default function ForgotPassword({ status }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -18,33 +22,60 @@ export default function ForgotPassword({ status }) {
     return (
         <GuestLayout>
             <Head title="Forgot Password" />
+            {/* {status && <div className="mb-4 font-medium text-sm text-green-600 dark:text-green-400">{status}</div>} */}
 
-            <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
-                Forgot your password? No problem. Just let us know your email address and we will email you a password
-                reset link that will allow you to choose a new one.
-            </div>
+            <div className='flex flex-col items-center gap-8'>
+                <div className='w-full flex flex-col items-center gap-6'>
+                    <div className='w-12 h-12 flex items-center justify-center bg-gradient-to-r from-[#ffffff0a] to-[#ffffff29] rounded-xl p-1'>
+                        <ForgetPasswordIcon />
+                    </div>
+                    
 
-            {status && <div className="mb-4 font-medium text-sm text-green-600 dark:text-green-400">{status}</div>}
+                    <div className='flex flex-col items-center gap-2'>
+                        <span className='text-white text-4xl font-semibold'>Forgot password?</span>
 
-            <form onSubmit={submit}>
-                <TextInput
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={data.email}
-                    className="mt-1 block w-full"
-                    isFocused={true}
-                    onChange={(e) => setData('email', e.target.value)}
-                />
-
-                <InputError message={errors.email} className="mt-2" />
-
-                <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Email Password Reset Link
-                    </PrimaryButton>
+                        <span className='text-2xl text-gray-500'>No worries, we'll send you reset instructions.</span>
+                    </div>
                 </div>
-            </form>
+
+                <form onSubmit={submit} className='w-full'>
+                    <div className='flex flex-col gap-8'>
+                        <div className='flex flex-col space-y-1.5'>
+                            <Label htmlFor="email" value="Email" />
+
+                            <Input
+                                id="email"
+                                type="email"
+                                name="email"
+                                placeholder={'Enter registered email'}
+                                value={data.email}
+                                className="mt-1 block w-full"
+                                isFocused={true}
+                                handleChange={(e) => setData('email', e.target.value)}
+                                hasError={!!errors.email}
+                            />
+
+                            <InputError message={errors.email} className="mt-2" />
+
+                        </div>
+                        <div className='flex flex-col gap-3'>
+                            <Button type='submit' size='lg' className='flex justify-center' disabled={processing}>
+                                Send Email
+                            </Button>
+
+                            <Link href={route('login')}>
+                                <Button type='button' size='lg' className='w-full flex justify-center gap-2 bg-transparent hover:bg-transparent' iconOnly>
+                                    <BackIcon/>
+                                    <span className='text-gray-300 text-sm font-semibold'>Back to log in</span>
+                                </Button>
+                            </Link>
+                        </div>
+                        
+                    </div>
+                    
+                </form>
+            </div>
+            
         </GuestLayout>
     );
 }

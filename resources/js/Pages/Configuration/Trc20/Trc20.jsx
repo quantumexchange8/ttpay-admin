@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm, } from '@inertiajs/react';
-import React from 'react';
+import React, { useState } from 'react';
 import InputIconWrapper from '@/Components/InputIconWrapper';
 import { Search, AddIcon } from '@/Components/Icon/Icon';
 import Input from '@/Components/Input';
@@ -14,6 +14,13 @@ export default function RateProfile({ auth }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         search: '',
     })
+
+    const [refreshTable, setRefreshTable] = useState(false);
+
+    const handleNewAddressAdded = () => {
+        // Set state to trigger table data refresh
+        setRefreshTable(prevState => !prevState);
+    };
 
     const onHandleChange = (event) => {
         setData(
@@ -57,7 +64,7 @@ export default function RateProfile({ auth }) {
                     </InputIconWrapper>
                     
                     <div className='flex items-center gap-3'>
-                        <NewTrc20Address/>
+                        <NewTrc20Address onNewAddressAdded={handleNewAddressAdded}/>
                         <Button
                             variant='secondary'
                             size='lg'
@@ -71,7 +78,7 @@ export default function RateProfile({ auth }) {
                 </div>
 
                 <div>
-                    <Trc20Table/>
+                    <Trc20Table key={refreshTable.toString()}/>
                 </div>
             </div>
         </AuthenticatedLayout>

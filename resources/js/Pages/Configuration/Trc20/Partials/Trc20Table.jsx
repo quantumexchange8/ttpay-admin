@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react';
 import TanStackTable from '@/Components/TanStackTable';
 import axios from 'axios';
 import Action from '@/Pages/Configuration/Trc20/Partials/Actions';
+import formatDateTime from '@/Composables/index';
 
 export default function Trc20Table() {
 
     const [data, setData] = useState([]);
-
-    useEffect(() => {
-        fetchData(); 
-    }, []);
 
     const fetchData = async () => {
         try {
@@ -21,6 +18,10 @@ export default function Trc20Table() {
             console.error('Error fetching data:', error);
         }
     };
+
+    useEffect(() => {
+        fetchData(); 
+    }, []);
 
     const columns = [
         {
@@ -43,6 +44,7 @@ export default function Trc20Table() {
 
     return (
         <div>
+            <span className='text-white'></span>
             <TanStackTable columns={columns} data={data} actions={[
                 (row) => <Action trc20Address={row} fetchDataCallback={fetchData} />
                 ]}   
