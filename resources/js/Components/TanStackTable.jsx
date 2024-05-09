@@ -115,7 +115,7 @@ const TanStackTable = ({ columns, data, actions }) => {
         <thead className='text-xs font-bold text-gray-500 uppercase'>
           <tr className='bg-[#ffffff0d] '>
             {columns.map((column, index) => (
-              <th key={index} className='py-3' onClick={() => column.sortable && handleSort(column)}>
+              <th key={index} className='p-3' onClick={() => column.sortable && handleSort(column)}>
                 <div className='flex items-center gap-2'>
                   <div>
                     {column.header} 
@@ -156,7 +156,7 @@ const TanStackTable = ({ columns, data, actions }) => {
                     <td className='p-3 flex justify-center items-center gap-3'>
                       {actions.map((action, index) => (
                         <span className='flex justify-center items-center text-white' key={index} onClick={() => action(row)}>
-                          {row.id}{typeof action === 'function' && action(row)}
+                          {typeof action === 'function' && action(row)}
                         </span>
                       ))}
                     </td>

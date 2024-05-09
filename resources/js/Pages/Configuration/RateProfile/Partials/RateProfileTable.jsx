@@ -51,11 +51,6 @@ export default function RateProfileTable() {
         },
     ];
 
-
-    const handleEdit = (row) => {
-        console.log('Edit', row.id);
-    };
-
     return (  
     <div>
         <TanStackTable columns={columns} data={data} actions={[

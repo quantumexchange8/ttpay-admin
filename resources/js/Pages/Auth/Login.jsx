@@ -7,13 +7,16 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import Input from '@/Components/Input';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Switch } from '@headlessui/react'
+import { EyeOff, EyeOn } from '@/Components/Icon/Icon';
+import InputIconWrapper from '@/Components/InputIconWrapper';
 
 export default function Login({ status, canResetPassword }) {
 
-    const [enabled, setEnabled] = useState(false)
+    const [enabled, setEnabled] = useState(false);
+    const [showPassword, setShowPassword ] = useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        email: '',
+        role_id: '',
         password: '',
         remember: false,
     });
@@ -40,37 +43,42 @@ export default function Login({ status, canResetPassword }) {
                 <div className='flex flex-col gap-8'>
                     <div className='flex flex-col gap-5'>
                         <div className='flex flex-col space-y-1.5'>
-                            <Label htmlFor="email" value="Email" />
+                            <Label htmlFor="role_id" value="ID Number" />
 
                             <Input
-                                id="email"
-                                type="email"
-                                name="email"
-                                value={data.email}
+                                id="role_id"
+                                type="text"
+                                name="role_id"
+                                value={data.id}
                                 className="w-full"
-                                autoComplete="username"
+                                autoComplete="role_id"
                                 isFocused={true}
-                                handleChange={(e) => setData('email', e.target.value)}
-                                hasError={!!errors.email}
+                                handleChange={(e) => setData('role_id', e.target.value)}
+                                hasError={!!errors.role_id}
                             />
 
-                            <InputError message={errors.email} className="mt-2" />
+                            <InputError message={errors.role_id} className="mt-2" />
                         </div>
 
                         <div className='flex flex-col space-y-1.5'>
                             <Label htmlFor="password" value="Password" />
 
-                            <Input
-                                id="password"
-                                type="password"
-                                name="password"
-                                value={data.password}
-                                className="w-full"
-                                autoComplete="current-password"
-                                handleChange={(e) => setData('password', e.target.value)}
-                                hasError={!!errors.password}
-                            />
-
+                            <InputIconWrapper>
+                                <Input
+                                    id="password"
+                                    type={showPassword ? 'text' : 'password'}
+                                    name="password"
+                                    value={data.password}
+                                    className="w-full"
+                                    autoComplete="current-password"
+                                    handleChange={(e) => setData('password', e.target.value)}
+                                    hasError={!!errors.password}
+                                />
+                                <div className='absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
+                                    {showPassword ? <EyeOn /> : <EyeOff />}
+                                </div>
+                            </InputIconWrapper>
+                            
                             <InputError message={errors.password} className="mt-2" />
                         </div>
                     </div>

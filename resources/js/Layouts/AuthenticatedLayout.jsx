@@ -74,8 +74,8 @@ export default function Authenticated({ children, header }) {
                             <SidebarItem icon={<RateProfile/>} text="RATE PROFILE" />
                         </Link>
                         {/* <SidebarItem text="FREEZING LISTING"/> */}
-                        <Link href={route('pending')} className={`${
-                                url === '/pending' ? 'bg-[#03071299] rounded-lg' : ''
+                        <Link href={route('configuration.trc20-address')} className={`${
+                                url === '/configuration/trc20-address' ? 'bg-[#03071299] rounded-lg' : ''
                         }`}>
                             <SidebarItem icon={<Tron/>} text="TRC-20 ADDRESS"/>
                         </Link>
