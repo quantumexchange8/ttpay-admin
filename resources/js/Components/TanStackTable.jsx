@@ -270,7 +270,7 @@ const TanStackTable = ({ columns, data, actions }) => {
                         onClick={handleNextPageClick}
                         disabled={pagination.pageIndex === totalPages - 1}
                       >
-                        <ArrowRight width={20} height={20} />
+                        <ArrowRight width={20} height={20} color='currentColor' className='text-white'/>
                       </div>
                     )}
                     

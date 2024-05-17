@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PendingController;
 use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\MerchantController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,6 +39,11 @@ Route::middleware('auth', 'verified')->group(function () {
      *           MERCHANT
      * ==============================
      */
+    Route::prefix('merchant')->group(function () {
+        // CREATE MERCHANT
+        Route::get('/create-merchant', [MerchantController::class, 'createMerchant'])->name('merchant.create-merchant');
+        Route::post('/store-merchant', [MerchantController::class, 'storeMerchant'])->name('merchant.store-merchant');
+    });
 
 
      /**

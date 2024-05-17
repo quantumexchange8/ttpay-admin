@@ -9,10 +9,10 @@ const ArrowUp = () => {
     );
 }
 
-const ArrowRight = ({ width, height }) => {
+const ArrowRight = ({ width, height, color, className, ...rest }) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none">
-            <path d="M8.5 5L15.5 12L8.5 19" stroke="white" strokeWidth="1.5" strokeLinecap="square"/>
+            <path d="M8.5 5L15.5 12L8.5 19" stroke={color} className={className} {...rest} strokeWidth="1.5" strokeLinecap="square"/>
         </svg>
     );
 }
@@ -103,12 +103,12 @@ const Edit = ({ width, height }) => {
     );
 }
 
-const Delete = ({ width, height, color }) => {
+const Delete = ({ width, height, color, className }) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none">
-            <path fillRule="evenodd" clipRule="evenodd" d="M3.29382 5.70117H20.7056L19.1445 22.0003H4.85488L3.29382 5.70117ZM4.94435 7.20117L6.21808 20.5003H17.7813L19.055 7.20117H4.94435Z" fill={color}/>
-            <path fillRule="evenodd" clipRule="evenodd" d="M8.05037 2H15.9508L17.4236 6.47529L15.9988 6.94421L14.8653 3.5H9.13586L8.00233 6.94421L6.57751 6.47529L8.05037 2Z" fill={color}/>
-            <path fillRule="evenodd" clipRule="evenodd" d="M12.751 10.6133L12.751 17.0861L11.251 17.0861L11.251 10.6133L12.751 10.6133Z" fill={color}/>
+            <path fillRule="evenodd" clipRule="evenodd" d="M3.29382 5.70117H20.7056L19.1445 22.0003H4.85488L3.29382 5.70117ZM4.94435 7.20117L6.21808 20.5003H17.7813L19.055 7.20117H4.94435Z" fill={color} className={className}/>
+            <path fillRule="evenodd" clipRule="evenodd" d="M8.05037 2H15.9508L17.4236 6.47529L15.9988 6.94421L14.8653 3.5H9.13586L8.00233 6.94421L6.57751 6.47529L8.05037 2Z" fill={color} className={className}/>
+            <path fillRule="evenodd" clipRule="evenodd" d="M12.751 10.6133L12.751 17.0861L11.251 17.0861L11.251 10.6133L12.751 10.6133Z" fill={color} className={className}/>
         </svg>
     );
 }
@@ -223,6 +223,14 @@ const FeatureWarningIcon = () => {
     )
 }
 
+const PlusIcon = ({ color, className }) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 5V12M12 12V19M12 12H5M12 12H19" stroke={color} className={className} strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="round"/>
+        </svg>
+    )
+}
+
 
 export { 
     ArrowUp,
@@ -245,4 +253,5 @@ export {
     FeatureSuccessIcon,
     FeatureErrorIcon,
     FeatureWarningIcon,
+    PlusIcon,
 };

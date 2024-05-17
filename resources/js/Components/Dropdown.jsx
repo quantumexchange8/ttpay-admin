@@ -1,91 +1,61 @@
-import { useState, createContext, useContext, Fragment } from 'react';
-import { Link } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
+import { Menu, Transition } from '@headlessui/react'
+import { Fragment, useEffect, useRef, useState } from 'react'
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid'
 
-const DropDownContext = createContext();
+export default function Dropdown({ defaultOptions, options }) {
 
-const Dropdown = ({ children }) => {
-    const [open, setOpen] = useState(false);
-
-    const toggleOpen = () => {
-        setOpen((previousState) => !previousState);
-    };
-
-    return (
-        <DropDownContext.Provider value={{ open, setOpen, toggleOpen }}>
-            <div className="relative">{children}</div>
-        </DropDownContext.Provider>
-    );
-};
-
-const Trigger = ({ children }) => {
-    const { open, setOpen, toggleOpen } = useContext(DropDownContext);
-
-    return (
-        <>
-            <div onClick={toggleOpen}>{children}</div>
-
-            {open && <div className="fixed inset-0 z-40" onClick={() => setOpen(false)}></div>}
-        </>
-    );
-};
-
-const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-white dark:bg-gray-700', children }) => {
-    const { open, setOpen } = useContext(DropDownContext);
-
-    let alignmentClasses = 'origin-top';
-
-    if (align === 'left') {
-        alignmentClasses = 'ltr:origin-top-left rtl:origin-top-right start-0';
-    } else if (align === 'right') {
-        alignmentClasses = 'ltr:origin-top-right rtl:origin-top-left end-0';
-    }
-
-    let widthClasses = '';
-
-    if (width === '48') {
-        widthClasses = 'w-48';
-    }
-
-    return (
-        <>
-            <Transition
-                as={Fragment}
-                show={open}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-            >
-                <div
-                    className={`absolute z-50 mt-2 rounded-md shadow-lg ${alignmentClasses} ${widthClasses}`}
-                    onClick={() => setOpen(false)}
-                >
-                    <div className={`rounded-md ring-1 ring-black ring-opacity-5 ` + contentClasses}>{children}</div>
-                </div>
-            </Transition>
-        </>
-    );
-};
-
-const DropdownLink = ({ className = '', children, ...props }) => {
-    return (
-        <Link
-            {...props}
+    const [isOpen, setIsOpen] = useState(false);
+    
+  return (
+    <div className="">
+      <Menu as="div" className="w-full relative inline-block text-left">
+        <div>
+          <Menu.Button 
             className={
-                'block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out ' +
-                className
-            }
+                isOpen 
+                ? 
+                'inline-flex w-full h-10 justify-center items-center rounded-md bg-[#ffffff0d] px-4 py-2 text-sm font-medium text-white hover:bg-[#ffffff1a] ring-2 ring-primary-800'
+                :
+                'inline-flex w-full h-10 justify-center items-center rounded-md bg-[#ffffff0d] px-4 py-2 text-sm font-medium text-white hover:bg-[#ffffff1a] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75'
+            } 
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <div className='w-full flex items-center justify-between'>
+                <span className='w-full text-left'>
+                    {defaultOptions != null ? defaultOptions : <span className='text-gray-500'>Select</span>}
+                </span>
+                <span>
+                    {isOpen ? (
+                        <ChevronUpIcon
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                        />
+                        ) : (
+                        <ChevronDownIcon
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                        />
+                    )}
+                </span>
+            </div>
+            
+            
+          </Menu.Button>
+        </div>
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
         >
-            {children}
-        </Link>
-    );
-};
-
-Dropdown.Trigger = Trigger;
-Dropdown.Content = Content;
-Dropdown.Link = DropdownLink;
-
-export default Dropdown;
+          <Menu.Items className="absolute z-10 w-full mt-1 py-2 rounded-md bg-[#ffffff0d] backdrop-blur-[60px]">
+            {options}
+          </Menu.Items>
+        </Transition>
+      </Menu>
+    </div>
+  )
+}
