@@ -3,8 +3,67 @@ import { Alert } from '@/Components/Icon/Icon';
 import Label from '@/Components/Label';
 import Input from '@/Components/Input';
 import InputError from '@/Components/InputError';
+import Button from '@/Components/Button';
+import { Menu, Switch, Transition } from '@headlessui/react'
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
-export default function MerchantProfile() {
+export default function MerchantProfile({ data, phoneCodes, selectedPhoneCode, setSelectedPhoneCode, nextPage, setData }) {
+
+    const [errors, setErrors] = useState({});
+
+    const options = phoneCodes.map(phoneCode => ({
+        value: phoneCode.value,
+        label: phoneCode.label,
+        dialCode: phoneCode.dial_code
+    }));
+
+    const onSelect = (phoneCode) => {
+        setSelectedPhoneCode(phoneCode);
+    };
+
+    const handleInputChange = (field, value) => {
+        setData(field, value);
+        setErrors(prevErrors => ({ ...prevErrors, [field]: undefined }));
+    };
+
+    const handleSubmit = async () => {
+        let tempErrors = {};
+
+        if (!data.name) {
+            tempErrors.name = 'Merchant Name is required';
+        }
+
+        if (!data.manager_name) {
+            tempErrors.manager_name = 'Manager Name is required';
+        }
+
+        if (!data.email) {
+            tempErrors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+            tempErrors.email = 'Invalid Email';
+        }
+
+        if (!data.phone) {
+            tempErrors.phone = 'Phone Number is required';
+        }
+
+        setErrors(tempErrors);
+
+        if (Object.keys(tempErrors).length === 0) {
+            try {
+                const response = await axios.post('/merchant/step1Validate-merchant', { email: data.email, name: data.name, phone: data.phone });
+                if (response.data.errors) {
+                    setErrors(response.data.errors);
+                } else {
+                    nextPage();
+                }
+            } catch (error) {
+                console.error('Error checking email:', error);
+                // Handle error appropriately
+            }
+        }
+    }
 
     return (
         <div className='w-full flex flex-col gap-10'>
@@ -31,11 +90,12 @@ export default function MerchantProfile() {
                         <Input 
                             className='w-full'
                             type='text'
-                            value={data.merchant_name}
-                            handleChange={e => setData('merchant_name', e.target.value)}
-                            hasError={!!errors.merchant_name}
+                            value={data.name}
+                            handleChange={e => handleInputChange('name', e.target.value)}
+                            hasError={!!errors.name}
+                            cursorColor="#5200FF"
                         />
-                        {errors.merchant_name && <InputError message={errors.merchant_name} />}
+                        {errors.name && <InputError message={errors.name} />}
                     </div>
                     <div className="space-y-1.5">
                         <div className='flex items-center gap-1'>
@@ -45,8 +105,9 @@ export default function MerchantProfile() {
                             className='w-full'
                             type='text'
                             value={data.manager_name}
-                            handleChange={e => setData('manager_name', e.target.value)}
+                            handleChange={e => handleInputChange('manager_name', e.target.value)}
                             hasError={!!errors.manager_name}
+                            cursorColor="#5200FF"
                         />
                         {errors.manager_name && <InputError message={errors.manager_name} />}
                     </div>
@@ -57,11 +118,12 @@ export default function MerchantProfile() {
                         <Input 
                             className='w-full'
                             type='email'
-                            value={data.merchant_email}
-                            handleChange={e => setData('merchant_email', e.target.value)}
-                            hasError={!!errors.merchant_email}
+                            value={data.email}
+                            handleChange={e => handleInputChange('email', e.target.value)}
+                            hasError={!!errors.email}
+                            cursorColor="#5200FF"
                         />
-                        {errors.merchant_email && <InputError message={errors.merchant_email} />}
+                        {errors.email && <InputError message={errors.email} />}
                     </div>
                     <div className="space-y-1.5">
                         <div className='flex items-center gap-1'>
@@ -73,7 +135,7 @@ export default function MerchantProfile() {
                                     <div>
                                         <Menu.Button 
                                             type='button'
-                                            className="inline-flex w-full justify-center items-center rounded-md bg-[#ffffff0d] hover:bg-[#ffffff1a] px-4 py-2 text-base font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+                                            className="inline-flex w-full justify-center items-center rounded-md bg-[#ffffff0d] hover:bg-[#ffffff1a] px-4 py-2 text-base font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-700"
                                         >
                                             <span className='w-12 text-left'>
                                                 {selectedPhoneCode}
@@ -105,6 +167,7 @@ export default function MerchantProfile() {
                                                                 onClick={() => {
                                                                     onSelect(phoneCode.dialCode);
                                                                 }}
+                                                                type="button"
                                                             >
                                                                 {phoneCode.dialCode}
                                                             </button>
@@ -120,12 +183,13 @@ export default function MerchantProfile() {
                             <Input 
                                 className='w-full'
                                 type='text'
-                                value={data.phone_number}
-                                handleChange={e => setData('phone_number', e.target.value)}
-                                hasError={!!errors.phone_number}
+                                value={data.phone}
+                                handleChange={e => handleInputChange('phone', e.target.value)}
+                                hasError={!!errors.phone}
+                                cursorColor="#5200FF"
                             />
                         </div>
-                        {errors.phone_number && <InputError message={errors.phone_number} />}
+                        {errors.phone && <InputError message={errors.phone} />}
                         {/* <InputError/> */}
                     </div>
                 </div>
@@ -133,7 +197,7 @@ export default function MerchantProfile() {
                 {/* <Button variant='secondary' size='lg' onClick={handleSubmit} className="button" type="button">
                     Cancel
                 </Button> */}
-                <Button size='lg' onClick={nextPage} className="button" type="button">
+                <Button size='lg' onClick={handleSubmit} className="button" type="button">
                     Continue
                 </Button>
                 </div>

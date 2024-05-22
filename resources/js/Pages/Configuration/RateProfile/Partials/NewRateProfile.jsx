@@ -12,7 +12,7 @@ import { dotPulse } from 'ldrs'
 
 
 
-export default function NewRateProfile() {
+export default function NewRateProfile({ onNewRateProfileAdded }) {
     
     const [isOpen, modalDetails] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
@@ -46,6 +46,11 @@ export default function NewRateProfile() {
                 closeModal();
                 setIsLoading(false);
                 reset();
+
+                if (onNewRateProfileAdded) {
+                    onNewRateProfileAdded();
+                }
+
                 toast.success('You have successfully created a rate profile!', { duration: 3000 });
             }, 
             onError: () => {

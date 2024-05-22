@@ -27,5 +27,7 @@ class Merchant extends Model
         'security_pin',
         'rate_id',
         'refresh_time',
+        'role_id',
+        'status',
     ];
 }

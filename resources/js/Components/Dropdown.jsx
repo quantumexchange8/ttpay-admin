@@ -2,7 +2,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid'
 
-export default function Dropdown({ defaultOptions, options }) {
+export default function Dropdown({ defaultOptions, options, hasError }) {
 
     const [isOpen, setIsOpen] = useState(false);
     
@@ -10,16 +10,12 @@ export default function Dropdown({ defaultOptions, options }) {
     <div className="">
       <Menu as="div" className="w-full relative inline-block text-left">
         <div>
-          <Menu.Button 
-            className={
-                isOpen 
-                ? 
-                'inline-flex w-full h-10 justify-center items-center rounded-md bg-[#ffffff0d] px-4 py-2 text-sm font-medium text-white hover:bg-[#ffffff1a] ring-2 ring-primary-800'
-                :
-                'inline-flex w-full h-10 justify-center items-center rounded-md bg-[#ffffff0d] px-4 py-2 text-sm font-medium text-white hover:bg-[#ffffff1a] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75'
-            } 
+        <Menu.Button
+            className={`inline-flex w-full h-10 justify-center items-center rounded-md bg-[#ffffff0d] px-4 py-2 text-sm font-medium text-white hover:bg-[#ffffff1a] focus:outline-none ${
+                isOpen ? 'ring-2 ring-primary-800' : ''
+            } ${hasError ? 'border border-error-600 focus:ring-1 focus:ring-error-600 focus:border-error-600' : 'border-none focus:border-primary-800 focus:ring focus:ring-primary-800'}`}
             onClick={() => setIsOpen(!isOpen)}
-          >
+        >
             <div className='w-full flex items-center justify-between'>
                 <span className='w-full text-left'>
                     {defaultOptions != null ? defaultOptions : <span className='text-gray-500'>Select</span>}

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('merchants', function (Blueprint $table) {
             $table->id();
+            $table->string('role_id');
             $table->string('name');
             $table->string('manager_name');
             $table->string('email')->unique()->nullable();
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->string('security_pin')->nullable();
             $table->string('rate_id');
             $table->string('refresh_time');
+            $table->string('status');
             $table->softDeletes();
             $table->timestamps();
         });

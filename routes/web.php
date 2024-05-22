@@ -43,6 +43,8 @@ Route::middleware('auth', 'verified')->group(function () {
         // CREATE MERCHANT
         Route::get('/create-merchant', [MerchantController::class, 'createMerchant'])->name('merchant.create-merchant');
         Route::post('/store-merchant', [MerchantController::class, 'storeMerchant'])->name('merchant.store-merchant');
+        Route::post('/step1Validate-merchant', [MerchantController::class, 'step1Validate'])->name('merchant.step1Validate-merchant');
+        Route::post('/step2Validate-merchant', [MerchantController::class, 'step2Validate'])->name('merchant.step2Validate-merchant');
     });
 
 

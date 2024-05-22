@@ -14,6 +14,13 @@ export default function RateProfile({ auth }) {
         search: '',
     })
 
+    const [refreshTable, setRefreshTable] = useState(false);
+
+    const handleNewRateProfileAdded = () => {
+        // Set state to trigger table data refresh
+        setRefreshTable(prevState => !prevState);
+    };
+
     const onHandleChange = (event) => {
         setData(
             event.target.name,
@@ -54,12 +61,12 @@ export default function RateProfile({ auth }) {
                             withIcon
                         />
                     </InputIconWrapper>
-                    <NewRateProfile/>
+                    <NewRateProfile onNewRateProfileAdded={handleNewRateProfileAdded}/>
                     
                 </div>
 
                 <div>
-                    <RateProfileTable/>
+                    <RateProfileTable key={refreshTable.toString()}/>
                 </div>
             </div>
         </AuthenticatedLayout>

@@ -1,4 +1,4 @@
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import Button from '@/Components/Button';
 import Input from '@/Components/Input';
 import Label from '@/Components/Label';
@@ -9,8 +9,6 @@ import { AddIcon } from '@/Components/Icon/Icon';
 // import CustomToaster from '@/Components/CustomToaster';
 import toast from 'react-hot-toast';
 import { dotPulse } from 'ldrs'
-
-
 
 export default function NewTrc20Address({ onNewAddressAdded }) {
     
@@ -35,6 +33,10 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
         name: '',
         token_address: '',
     })
+
+    const redirectRoute = () => {
+        
+    }
     
     const submit = (e) => {
         e.preventDefault();
@@ -50,8 +52,13 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
                 }
 
                 reset();
-                toast.success('You have successfully created a new TRC-20 address!', { duration: 3000 });
+                // toast.success('You have successfully created a new TRC-20 address!', { duration: Infinity });
                 
+                toast.success('New merchant created', {
+                    title: 'New merchant created',
+                    duration: 3000,
+                    variant: 'variant3',
+                  });
             }, 
             onError: () => {
                 setIsLoading(false);

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('wallet_addresses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('address')->unique();
+            $table->string('token_address')->unique();
             $table->softDeletes();
             $table->timestamps();
         });

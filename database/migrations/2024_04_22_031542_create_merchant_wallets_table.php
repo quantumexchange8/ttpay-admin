@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('merchant_wallets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            // $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('merchant_id');
             $table->string('merchant_wallet')->nullable(); //wallet no
             $table->decimal('deposit_balance', 13, 2)->default(0);

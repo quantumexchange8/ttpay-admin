@@ -81,10 +81,10 @@ class ConfigurationController extends Controller
 
     public function storeTrc20Address(Trc20AddressRequest $request)
     {
-        $newTrc20Address = WalletAddress::create([
-            'name' => $request->name,
-            'token_address' => $request->token_address,
-        ]);
+        // $newTrc20Address = WalletAddress::create([
+        //     'name' => $request->name,
+        //     'token_address' => $request->token_address,
+        // ]);
 
         return redirect()->back()->with('toast', 'Trc-20 Address successfully created!');
     }
