@@ -14,4 +14,9 @@ class MerchantWalletAdrress extends Model
         'merchant_id',
         'wallet_address_id',
     ];
+
+    public function walletAddress(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(WalletAddress::class, 'wallet_address_id', 'id');
+    }
 }

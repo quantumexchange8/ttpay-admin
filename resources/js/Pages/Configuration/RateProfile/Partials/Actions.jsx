@@ -17,7 +17,6 @@ export default function Action({ rpDetail, fetchDataCallback }) {
     const [actionType, setActionType] = useState(null);
     
     const handleEdit = () => {
-        console.log("row data", rpDetail)
         setActionType('edit');
         setIsOpen(true);
 

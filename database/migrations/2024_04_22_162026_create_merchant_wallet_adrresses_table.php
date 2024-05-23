@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('merchant_id');
             $table->unsignedBigInteger('wallet_address_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

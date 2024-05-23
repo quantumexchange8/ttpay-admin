@@ -10,8 +10,11 @@ use App\Models\MerchantEmail;
 use App\Models\MerchantEmailContent;
 use App\Models\MerchantWallet;
 use App\Models\MerchantWalletAdrress;
+use App\Notifications\MerchantNotification;
 use App\Services\RunningNumberService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
@@ -95,11 +98,15 @@ class MerchantController extends Controller
     {
 
         $rateProfiles = RateProfile::find($request->rate_profile);
+
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $ramdomPass = substr(str_shuffle($characters), 0, 8);
         
         $merchant = Merchant::create([
             'name' => $request->name,
             'manager_name' => $request->manager_name,
             'email' => $request->email,
+            'password' => Hash::make($ramdomPass),
             'dial_code' => $request->dial_code,
             'phone' => $request->dial_code . $request->phone,
             'url' => $request->url,
@@ -109,6 +116,8 @@ class MerchantController extends Controller
             'role_id' => RunningNumberService::getID('merchant'),
             'status' => 'Active',
         ]);
+
+
 
         // for wallet address
         foreach ($request->wallet_address as $addressId) {
@@ -151,7 +160,47 @@ class MerchantController extends Controller
         ]);
 
 
+        Notification::route('mail', $request->email)
+        ->notify(new MerchantNotification($request->name, $ramdomPass, $merchant->role_id));
+
 
         return redirect()->back()->with('success', 'successfull created merchant');
+    }
+
+    public function merchantListing()
+    {
+
+        return Inertia::render('Merchant/MerchantListing/MerchantListing');
+    }
+
+    public function getMerchantListing()
+    {
+
+        $merchantListing = Merchant::with(['merchantWallet', 'merchantWalletAddress', 'merchantWalletAddress.walletAddress', ])->get();
+
+        // dd($merchantListing);
+
+        return response()->json($merchantListing);
+    }
+
+    public function updateStatus(Request $request)
+    {
+
+        $merchant = Merchant::find($request->id);
+
+        $merchant->status = $request->status;
+
+        $merchant->save();
+
+        return redirect()->back()->with('success');
+    }
+
+    public function deleteWalletAddress(Request $request)
+    {
+        dd($request->all());
+        $merchantWalletAddress = MerchantWalletAdrress::find($request->id);
+        $merchantWalletAddress->delete();
+
+        return redirect()->back()->with('success');
     }
 }

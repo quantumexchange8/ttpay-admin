@@ -17,7 +17,6 @@ export default function Action({ trc20Address, fetchDataCallback }) {
     const [actionType, setActionType] = useState(null);
     
     const handleEdit = () => {
-        console.log("row data", trc20Address)
         setActionType('edit');
         setIsOpen(true);
 

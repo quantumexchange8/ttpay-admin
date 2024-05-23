@@ -13,8 +13,9 @@ import { NoData } from '@/Components/Icon/NoData';
 import { tailChase } from 'ldrs'
 import { Default, AscIcon, DescIcon } from '@/Components/Icon/Sort';
 import formatDateTime from '@/Composables/index';
+import { Switch } from '@headlessui/react';
 
-const TanStackTable = ({ columns, data, actions }) => {
+const TanStackTable = ({ columns, data, actions, statuses }) => {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -107,6 +108,10 @@ const TanStackTable = ({ columns, data, actions }) => {
     });
   }
 
+  const getNestedValue = (obj, path) => {
+    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+  };
+
   tailChase.register()
 
   return (
@@ -115,6 +120,9 @@ const TanStackTable = ({ columns, data, actions }) => {
         {/* Table Header */}
         <thead className='text-xs font-bold text-gray-500 uppercase'>
           <tr className='bg-[#ffffff0d] '>
+            {statuses && statuses.length > 0 && (
+              <th className='py-3 text-center'></th>
+            )}
             {columns.map((column, index) => (
               <th key={index} className='p-3' onClick={() => column.sortable && handleSort(column)}>
                 <div className='flex items-center gap-2'>
@@ -147,20 +155,39 @@ const TanStackTable = ({ columns, data, actions }) => {
                 (pagination.pageIndex + 1) * pagination.pageSize
               )
               .map((row, rowIndex) => (
-                <tr key={rowIndex} className='p-3 hover:bg-[#ffffff1a]'>
+                <tr key={rowIndex} className="p-3 hover:bg-[#ffffff1a]">
+                  {statuses && statuses.length > 0 && (
+                    <td className="p-3 flex justify-center items-center gap-3">
+                      {statuses.map((status, index) => (
+                        <span
+                          className="flex justify-center items-center text-white"
+                          key={index}
+                          onClick={() => status(row)}
+                        >
+                          {typeof status === 'function' && status(row)}
+                        </span>
+                      ))}
+                    </td>
+                  )}
                   {columns.map((column, colIndex) => (
-                    <td key={`${rowIndex}-${colIndex}`} className='text-sm text-white p-3'>
-                      {column.accessor === 'created_at'
-                        ? formatDateTime(row[column.accessor])
-                        : row[column.accessor] !== null
-                        ? row[column.accessor]
-                        : '-'}
+                    <td key={`${rowIndex}-${colIndex}`} className="text-sm text-white p-3">
+                      {column.Cell
+                      ? column.Cell({ row })
+                      : column.accessor === 'created_at'
+                      ? formatDateTime(row[column.accessor])
+                      : getNestedValue(row, column.accessor) !== null
+                      ? getNestedValue(row, column.accessor)
+                      : '-'}
                     </td>
                   ))}
                   {actions && actions.length > 0 && (
-                    <td className='p-3 flex justify-center items-center gap-3'>
+                    <td className="p-3 flex justify-center items-center gap-3">
                       {actions.map((action, index) => (
-                        <span className='flex justify-center items-center text-white' key={index} onClick={() => action(row)}>
+                        <span
+                          className="flex justify-center items-center text-white"
+                          key={index}
+                          onClick={() => action(row)}
+                        >
                           {typeof action === 'function' && action(row)}
                         </span>
                       ))}
@@ -170,12 +197,13 @@ const TanStackTable = ({ columns, data, actions }) => {
               ))
           ) : (
             <tr>
-              <td colSpan={columns.length + (actions && actions.length > 0 ? 1 : 0)} className='text-center py-20 text-gray-500 text-sm font-medium'>
-                <div className='flex flex-col items-center gap-3'>
-                  <NoData/>
-                  <span>
-                    No data to show
-                  </span>
+              <td
+                colSpan={columns.length + (actions && actions.length > 0 ? 1 : 0)}
+                className="text-center py-20 text-gray-500 text-sm font-medium"
+              >
+                <div className="flex flex-col items-center gap-3">
+                  <NoData />
+                  <span>No data to show</span>
                 </div>
               </td>
             </tr>
@@ -185,7 +213,7 @@ const TanStackTable = ({ columns, data, actions }) => {
         <tfoot>
           {data.length > 0 ? (
             <tr>
-              <td className='py-5 px-4' colSpan={columns.length + (actions && actions.length > 0 ? 1 : 0)}>
+              <td className='py-5 px-4' colSpan={columns.length + (actions && actions.length > 0 ? 1 : 0) + (statuses && statuses.length > 0 ? 1 : 0)}>
                 <div className="flex justify-between items-center">
                   {/* Rows per page dropdown */}
                   <div>

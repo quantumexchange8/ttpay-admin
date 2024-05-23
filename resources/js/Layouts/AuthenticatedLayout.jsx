@@ -51,7 +51,11 @@ export default function Authenticated({ children, header }) {
                  <div className='flex flex-col items-center gap-2'>
                     <SectionLabel text="MERCHANT"/>
                     <div className='w-full flex flex-col gap-1'>
-                        <SidebarItem text="MERCHANT LISTING"/>
+                        <Link href={route('merchant.merchant-listing')} className={`${
+                                url === '/merchant/merchant-listing' ? 'bg-[#03071299] rounded-lg' : ''
+                        }`}>
+                            <SidebarItem text="MERCHANT LISTING"/>
+                        </Link>
                         <Link href={route('merchant.create-merchant')} className={`${
                                 url === '/merchant/create-merchant' ? 'bg-[#03071299] rounded-lg' : ''
                         }`}>

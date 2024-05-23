@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('manager_name');
             $table->string('email')->unique()->nullable();
+            $table->string('password');
             $table->string('dial_code', 50)->nullable();
             $table->string('phone')->unique();
             $table->string('url')->nullable();
