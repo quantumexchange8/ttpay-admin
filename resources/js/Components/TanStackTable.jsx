@@ -10,12 +10,12 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { ArrowLeft, ArrowRight, DArrowLeft, DArrowRight } from '@/Components/Icon/Icon';
 import Button from '@/Components/Button';
 import { NoData } from '@/Components/Icon/NoData';
-import { tailChase } from 'ldrs'
+import { tailChase, bouncy } from 'ldrs'
 import { Default, AscIcon, DescIcon } from '@/Components/Icon/Sort';
 import formatDateTime from '@/Composables/index';
 import { Switch } from '@headlessui/react';
 
-const TanStackTable = ({ columns, data, actions, statuses }) => {
+const TanStackTable = ({ columns, data, actions, statuses, isLoading }) => {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -113,6 +113,7 @@ const TanStackTable = ({ columns, data, actions, statuses }) => {
   };
 
   tailChase.register()
+  bouncy.register()
 
   return (
     <div>
@@ -148,66 +149,84 @@ const TanStackTable = ({ columns, data, actions, statuses }) => {
         </thead>
         {/* Table Body */}
         <tbody>
-          {sortedData.length > 0 ? (
-            sortedData
-              .slice(
-                pagination.pageIndex * pagination.pageSize,
-                (pagination.pageIndex + 1) * pagination.pageSize
-              )
-              .map((row, rowIndex) => (
-                <tr key={rowIndex} className="p-3 hover:bg-[#ffffff1a]">
-                  {statuses && statuses.length > 0 && (
-                    <td className="p-3 flex justify-center items-center gap-3">
-                      {statuses.map((status, index) => (
-                        <span
-                          className="flex justify-center items-center text-white"
-                          key={index}
-                          onClick={() => status(row)}
-                        >
-                          {typeof status === 'function' && status(row)}
-                        </span>
+          {
+            isLoading ? (
+              <tr>
+                <td
+                    colSpan={columns.length + (actions && actions.length > 0 ? 1 : 0)}
+                    className="text-center py-20 text-gray-500 text-sm font-medium"
+                  >
+                    <l-bouncy
+                      size="45"
+                      speed="1.2"
+                      color="#5200FF"
+                    >
+                    </l-bouncy>
+                  </td>
+              </tr>
+            ) : (
+              sortedData.length > 0 ? (
+                sortedData
+                  .slice(
+                    pagination.pageIndex * pagination.pageSize,
+                    (pagination.pageIndex + 1) * pagination.pageSize
+                  )
+                  .map((row, rowIndex) => (
+                    <tr key={rowIndex} className="p-3 hover:bg-[#ffffff1a]">
+                      {statuses && statuses.length > 0 && (
+                        <td className="p-3 flex justify-center items-center gap-3">
+                          {statuses.map((status, index) => (
+                            <span
+                              className="flex justify-center items-center text-white"
+                              key={index}
+                              onClick={() => status(row)}
+                            >
+                              {typeof status === 'function' && status(row)}
+                            </span>
+                          ))}
+                        </td>
+                      )}
+                      {columns.map((column, colIndex) => (
+                        <td key={`${rowIndex}-${colIndex}`} className="text-sm text-white p-3">
+                          {column.Cell
+                          ? column.Cell({ row })
+                          : column.accessor === 'created_at'
+                          ? formatDateTime(row[column.accessor])
+                          : getNestedValue(row, column.accessor) !== null
+                          ? getNestedValue(row, column.accessor)
+                          : '-'}
+                        </td>
                       ))}
-                    </td>
-                  )}
-                  {columns.map((column, colIndex) => (
-                    <td key={`${rowIndex}-${colIndex}`} className="text-sm text-white p-3">
-                      {column.Cell
-                      ? column.Cell({ row })
-                      : column.accessor === 'created_at'
-                      ? formatDateTime(row[column.accessor])
-                      : getNestedValue(row, column.accessor) !== null
-                      ? getNestedValue(row, column.accessor)
-                      : '-'}
-                    </td>
-                  ))}
-                  {actions && actions.length > 0 && (
-                    <td className="p-3 flex justify-center items-center gap-3">
-                      {actions.map((action, index) => (
-                        <span
-                          className="flex justify-center items-center text-white"
-                          key={index}
-                          onClick={() => action(row)}
-                        >
-                          {typeof action === 'function' && action(row)}
-                        </span>
-                      ))}
-                    </td>
-                  )}
+                      {actions && actions.length > 0 && (
+                        <td className="p-3 flex justify-center items-center gap-3">
+                          {actions.map((action, index) => (
+                            <span
+                              className="flex justify-center items-center text-white"
+                              key={index}
+                              onClick={() => action(row)}
+                            >
+                              {typeof action === 'function' && action(row)}
+                            </span>
+                          ))}
+                        </td>
+                      )}
+                    </tr>
+                  ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan={columns.length + (actions && actions.length > 0 ? 1 : 0)}
+                    className="text-center py-20 text-gray-500 text-sm font-medium"
+                  >
+                    <div className="flex flex-col items-center gap-3">
+                      <NoData />
+                      <span>No data to show</span>
+                    </div>
+                  </td>
                 </tr>
-              ))
-          ) : (
-            <tr>
-              <td
-                colSpan={columns.length + (actions && actions.length > 0 ? 1 : 0)}
-                className="text-center py-20 text-gray-500 text-sm font-medium"
-              >
-                <div className="flex flex-col items-center gap-3">
-                  <NoData />
-                  <span>No data to show</span>
-                </div>
-              </td>
-            </tr>
-          )}
+              )
+            )
+          }
         </tbody>
         {/* Table Footer */}
         <tfoot>

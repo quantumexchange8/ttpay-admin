@@ -11,11 +11,8 @@ import Action from '@/Pages/Configuration/RateProfile/Partials/Actions';
 export default function RateProfileTable() {
 
     const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     tailChase.register()
-
-    useEffect(() => {
-        fetchData(); 
-    }, []);
 
     const fetchData = async () => {
         try {
@@ -25,8 +22,20 @@ export default function RateProfileTable() {
             
         } catch (error) {
             console.error('Error fetching data:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchData(); 
+    }, []);
+
+    useEffect(() => {
+        if (!isLoading) {
+            // console.log('Data length:', data.length);
+        }
+    }, [isLoading, data]);
 
     const columns = [
         {
@@ -53,7 +62,7 @@ export default function RateProfileTable() {
 
     return (  
     <div>
-        <TanStackTable columns={columns} data={data} actions={[
+        <TanStackTable isLoading={isLoading} columns={columns} data={data} actions={[
             (row) => <Action rpDetail={row} fetchDataCallback={fetchData} />
             ]}   
         />

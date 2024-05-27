@@ -12,7 +12,7 @@ class MerchantController extends Controller
     public function merchant()
     {
 
-        $merchant = Merchant::all();
+        $merchant = auth()->user();
 
         $data = [
             'status' => 200,

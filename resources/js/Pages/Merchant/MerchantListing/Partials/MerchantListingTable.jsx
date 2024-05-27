@@ -13,6 +13,7 @@ export default function MerchantListingTable({}) {
     const [selectedRow, setSelectedRow] = useState(null);
     const [isOpen, setIsOpen] = useState(false)
     const [walletFields, setWalletFields] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const fetchData = async () => {
         try {
@@ -22,6 +23,8 @@ export default function MerchantListingTable({}) {
             
         } catch (error) {
             console.error('Error fetching data:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -29,7 +32,13 @@ export default function MerchantListingTable({}) {
         fetchData(); 
     }, []);
 
-    console.log(data)
+    useEffect(() => {
+        if (!isLoading) {
+            // console.log('Data length:', data.length);
+        }
+    }, [isLoading, data]);
+
+    // console.log(data)
 
     const openModal = (row) => {
         setSelectedRow(row);
@@ -42,11 +51,11 @@ export default function MerchantListingTable({}) {
     };
 
     const deleteWalletAddress = (walletID) => {
-        console.log('wallet id: ', walletID)
+        // console.log('wallet id: ', walletID)
     }
 
     const updateWalletAddress = (address) => {
-        console.log(address)
+        // console.log(address)
         // try {
         //     const response = await axios.post('/merchant/updateWalletAddress', { id: walletAddressId });
         //     console.log('Delete response:', response.data);
@@ -121,7 +130,7 @@ export default function MerchantListingTable({}) {
 
     return (
         <div>
-            <TanStackTable columns={columns} data={data} 
+            <TanStackTable isLoading={isLoading} columns={columns} data={data} 
             actions={[(row) => <Action fetchDataCallback={fetchData} />]}
             statuses={[(row) => <SwitchStatus merchant={row} fetchDataCallback={fetchData}  />]}
             />

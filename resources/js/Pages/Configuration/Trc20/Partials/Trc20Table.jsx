@@ -7,6 +7,7 @@ import formatDateTime from '@/Composables/index';
 export default function Trc20Table() {
 
     const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const fetchData = async () => {
         try {
@@ -16,12 +17,20 @@ export default function Trc20Table() {
             
         } catch (error) {
             console.error('Error fetching data:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
         fetchData(); 
     }, []);
+
+    useEffect(() => {
+        if (!isLoading) {
+            // console.log('Data length:', data.length);
+        }
+    }, [isLoading, data]);
 
     const columns = [
         {
@@ -45,7 +54,7 @@ export default function Trc20Table() {
     return (
         <div>
             <span className='text-white'></span>
-            <TanStackTable columns={columns} data={data} actions={[
+            <TanStackTable isLoading={isLoading} columns={columns} data={data} actions={[
                 (row) => <Action trc20Address={row} fetchDataCallback={fetchData} />
                 ]}   
             />
