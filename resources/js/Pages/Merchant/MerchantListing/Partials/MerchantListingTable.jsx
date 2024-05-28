@@ -7,7 +7,7 @@ import Modal from '@/Components/Modal';
 import { Delete, PlusIcon } from '@/Components/Icon/Icon';
 import axios from 'axios';
 
-export default function MerchantListingTable({}) {
+export default function MerchantListingTable({ searchVal }) {
 
     const [data, setData] = useState([]);
     const [selectedRow, setSelectedRow] = useState(null);
@@ -77,9 +77,14 @@ export default function MerchantListingTable({}) {
             header: 'Merchant',
             sortable: false,
             Cell: ({ row }) => (
-                <div className="flex flex-col">
-                    <div>{row.name}</div>
-                    <div>{row.role_id}</div>
+                <div className="flex items-center gap-2">
+                    
+                    <img className='object-cover w-6 h-6 rounded-full' src='https://img.freepik.com/free-icon/user_318-159711.jpg' alt="merchant_pic" />
+                    
+                    <div className="flex flex-col text-xs">
+                        <div className='text-white'>{row.name}</div>
+                        <div className='text-gray-300'>{row.role_id}</div>
+                    </div>
                 </div>
             ),
         },
@@ -87,50 +92,66 @@ export default function MerchantListingTable({}) {
             accessor: 'merchant_wallet.deposit_balance',
             header: 'Deposit',
             sortable: true,
-            Cell: ({ row }) => `$ ${row.merchant_wallet.deposit_balance}`,
+            Cell: ({ row }) => (
+                <div className='text-xs'>
+                    $ {row.merchant_wallet.total_deposit}
+                </div>
+            ),
         },
         {
             accessor: 'withdrawal',
             header: 'Withdrawal',
             sortable: true,
-            Cell: ({ row }) => `$ ${row.merchant_wallet.deposit_balance}`,
+            Cell: ({ row }) => (
+                <div className='text-xs'>
+                    $ {row.merchant_wallet.total_withdrawal}
+                </div>
+            ),
         },
         {
             accessor: 'freezing',
             header: 'Freezing',
             sortable: true,
-            Cell: ({ row }) => `$ ${row.merchant_wallet.deposit_balance}`,
+            Cell: ({ row }) => (
+                <div className='text-xs'>
+                    $ {row.merchant_wallet.freezing_amount}
+                </div>
+            ),
         },
         {
             accessor: 'fee_charges',
             header: 'Fee Charges',
             sortable: true,
-            Cell: ({ row }) => `$ ${row.merchant_wallet.deposit_balance}`,
+            Cell: ({ row }) => (
+                <div className='text-xs'>
+                    $ {row.merchant_wallet.total_fee}
+                </div>
+            ),
         },
         {
             accessor: 'usdt_address',
             header: 'USDT Address',
             sortable: false,
             Cell: ({ row }) => (
-                <Button
+                <button
                     type="button"
                     size="sm"
-                    variant="secondary"
-                    pill
-                    className='p-1'
+                    className='p-1 rounded-full bg-[#ffffff0d] hover:bg-[#ffffff1a] w-6 h-6 flex items-center'
                     onClick={() => openModal(row)}
                 >
-                    <span className='w-full'>
+                    <span className='w-full text-xs font-semibold'>
                         {row.merchant_wallet_address.length}
                     </span>
-                </Button>
+                </button>
             ),
         },
     ];
 
+    console.log(searchVal)
+
     return (
         <div>
-            <TanStackTable isLoading={isLoading} columns={columns} data={data} 
+            <TanStackTable isLoading={isLoading} columns={columns} data={data} searchVal={searchVal}
             actions={[(row) => <Action fetchDataCallback={fetchData} />]}
             statuses={[(row) => <SwitchStatus merchant={row} fetchDataCallback={fetchData}  />]}
             />

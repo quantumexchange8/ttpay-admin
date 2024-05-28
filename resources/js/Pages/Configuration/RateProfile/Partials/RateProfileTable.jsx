@@ -8,7 +8,7 @@ import Button from '@/Components/Button';
 import Action from '@/Pages/Configuration/RateProfile/Partials/Actions';
 
 
-export default function RateProfileTable() {
+export default function RateProfileTable({ searchVal }) {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -62,7 +62,7 @@ export default function RateProfileTable() {
 
     return (  
     <div>
-        <TanStackTable isLoading={isLoading} columns={columns} data={data} actions={[
+        <TanStackTable isLoading={isLoading} searchVal={searchVal} columns={columns} data={data} actions={[
             (row) => <Action rpDetail={row} fetchDataCallback={fetchData} />
             ]}   
         />

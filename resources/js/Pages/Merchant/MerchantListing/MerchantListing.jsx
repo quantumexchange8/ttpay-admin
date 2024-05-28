@@ -14,14 +14,7 @@ export default function MerchantListing({ auth }) {
         search: '',
     })
 
-    const onHandleChange = (event) => {
-        setData(
-            event.target.name,
-            event.target.type === 'checkbox'
-                ? event.target.checked
-                : event.target.value
-        )
-    }
+    const searchVal = data.search;
 
     return (
         <Authenticated
@@ -44,14 +37,13 @@ export default function MerchantListing({ auth }) {
                         <Input
                             type="text"
                             name="search"
-                            placeholder="Search"
+                            placeholder="Search merchant ID"
                             value={data.search}
                             className="block w-full caret-primary-700"
                             autoComplete="search"
                             isFocused={false}
-                            handleChange={onHandleChange}
+                            handleChange={(e) => setData('search', e.target.value)}
                             required
-                            // cursorColor="#5200FF"
                             withIcon
                         />
                     </InputIconWrapper>
@@ -70,7 +62,7 @@ export default function MerchantListing({ auth }) {
                 </div>
 
                 <div>
-                    <MerchantListingTable />
+                    <MerchantListingTable searchVal={searchVal}/>
                 </div>
             </div>
 

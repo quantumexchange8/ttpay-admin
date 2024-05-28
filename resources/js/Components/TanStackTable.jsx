@@ -15,7 +15,7 @@ import { Default, AscIcon, DescIcon } from '@/Components/Icon/Sort';
 import formatDateTime from '@/Composables/index';
 import { Switch } from '@headlessui/react';
 
-const TanStackTable = ({ columns, data, actions, statuses, isLoading }) => {
+const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal }) => {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -91,7 +91,14 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading }) => {
     }
   };
 
-  let sortedData = [...data];
+  let filteredData = data.filter((item) => {
+    return columns.some((column) => {
+      const cellValue = column.accessor.split('.').reduce((acc, part) => acc && acc[part], item);
+      return cellValue ? cellValue.toString().toLowerCase().includes(searchVal.toLowerCase()) : false;
+    });
+  });
+
+  let sortedData = [...filteredData];
   if (sorting.column) {
     sortedData.sort((a, b) => {
       const aValue = parseFloat((a[sorting.column] || '').replace('%', ''));
@@ -235,7 +242,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading }) => {
               <td className='py-5 px-4' colSpan={columns.length + (actions && actions.length > 0 ? 1 : 0) + (statuses && statuses.length > 0 ? 1 : 0)}>
                 <div className="flex justify-between items-center">
                   {/* Rows per page dropdown */}
-                  <div>
+                  <div className=''>
                     <Menu as="div" className="relative inline-block text-left">
                       <div>
                         <Menu.Button className="inline-flex w-full justify-center gap-2 rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">

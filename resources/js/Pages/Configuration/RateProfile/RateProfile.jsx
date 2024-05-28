@@ -21,14 +21,7 @@ export default function RateProfile({ auth }) {
         setRefreshTable(prevState => !prevState);
     };
 
-    const onHandleChange = (event) => {
-        setData(
-            event.target.name,
-            event.target.type === 'checkbox'
-                ? event.target.checked
-                : event.target.value
-        )
-    }
+    const searchVal = data.search;
 
     return (
         <AuthenticatedLayout
@@ -55,7 +48,7 @@ export default function RateProfile({ auth }) {
                             className="block w-full caret-primary-700"
                             autoComplete="search"
                             isFocused={false}
-                            handleChange={onHandleChange}
+                            handleChange={(e) => setData('search', e.target.value)}
                             required
                             // cursorColor="#5200FF"
                             withIcon
@@ -66,7 +59,7 @@ export default function RateProfile({ auth }) {
                 </div>
 
                 <div>
-                    <RateProfileTable key={refreshTable.toString()}/>
+                    <RateProfileTable searchVal={searchVal} key={refreshTable.toString()}/>
                 </div>
             </div>
         </AuthenticatedLayout>

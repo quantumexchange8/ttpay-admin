@@ -4,8 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" href="icon.ico" />
-        <link rel="apple-touch-icon" href="icon.ico" />
+        <link rel="apple-touch-icon" href="public/assets/logo.png" />
         <title inertia>{{ config('app.name', 'TTPays') }}</title>
 
         <!-- Fonts -->
@@ -18,7 +17,7 @@
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @inertiaHead
     </head>
-    <body class="font-sans antialiased bg-cover bg-center bg-primary-900" style="background-image: url('/assets/tt-bg.png')">
+    <body class="font-sans antialiased bg-cover bg-center bg-gray-950" style="background-image: url('/assets/tt-bg.png')">
         @inertia
     </body>
 </html>

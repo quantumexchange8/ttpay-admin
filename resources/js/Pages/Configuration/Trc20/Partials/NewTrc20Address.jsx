@@ -58,7 +58,7 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
                     title: 'New merchant created',
                     duration: 3000,
                     variant: 'variant3',
-                  });
+                });
             }, 
             onError: () => {
                 setIsLoading(false);

@@ -46,6 +46,13 @@ class AuthController extends Controller
             ], 200);
         }
 
+        if ($merchant->status === 'Inactive') {
+            return response()->json([
+                'message' => 'This merchant is Inactive',
+                'status' => 'failed',
+            ], 200);
+        }
+
         // Create a token for the authenticated merchant
         $token = $merchant->createToken('API Token')->plainTextToken;
 

@@ -51,7 +51,12 @@ export default function NewRateProfile({ onNewRateProfileAdded }) {
                     onNewRateProfileAdded();
                 }
 
-                toast.success('You have successfully created a rate profile!', { duration: 3000 });
+                // toast.success('You have successfully created a rate profile!', { duration: 3000 });
+                toast.success('You have successfully created a rate profile!', {
+                    title: 'You have successfully created a rate profile!',
+                    duration: 3000,
+                    variant: 'variant3',
+                });
             }, 
             onError: () => {
                 setIsLoading(false);
