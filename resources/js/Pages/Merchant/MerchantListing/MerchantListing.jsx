@@ -8,7 +8,7 @@ import Button from '@/Components/Button';
 import { ArrowDown } from '@/Components/Icon/Icon';
 import MerchantListingTable from '@/Pages/Merchant/MerchantListing/Partials/MerchantListingTable'
 
-export default function MerchantListing({ auth }) {
+export default function MerchantListing({ auth, phoneCodes, rateProfiles }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         search: '',
@@ -39,7 +39,7 @@ export default function MerchantListing({ auth }) {
                             name="search"
                             placeholder="Search merchant ID"
                             value={data.search}
-                            className="block w-full caret-primary-700"
+                            className="block w-full caret-primary-700 py-3"
                             autoComplete="search"
                             isFocused={false}
                             handleChange={(e) => setData('search', e.target.value)}
@@ -62,7 +62,7 @@ export default function MerchantListing({ auth }) {
                 </div>
 
                 <div>
-                    <MerchantListingTable searchVal={searchVal}/>
+                    <MerchantListingTable searchVal={searchVal} phoneCodes={phoneCodes} rateProfiles={rateProfiles}/>
                 </div>
             </div>
 

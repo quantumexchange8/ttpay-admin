@@ -51,6 +51,16 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/getMerchantListing', [MerchantController::class, 'getMerchantListing'])->name('merchant.getMerchantListing');
         Route::post('/updateStatus', [MerchantController::class, 'updateStatus'])->name('merchant.updateStatus');
         Route::post('/updateWalletAddress', [MerchantController::class, 'updateWalletAddress'])->name('merchant.updateWalletAddress');
+        Route::post('/deleteWalletAddress', [MerchantController::class, 'deleteWalletAddress'])->name('merchant.deleteWalletAddress');
+        Route::post('/deleteBin', [MerchantController::class, 'deleteMerchant'])->name('merchant.deleteBin');
+        Route::post('/updateMerchant', [MerchantController::class, 'updateMerchant'])->name('merchant.updateMerchant');
+    
+        // MERCHANT BIN
+        Route::get('/merchant-bin', [MerchantController::class, 'merchantBin'])->name('merchant.merchant-bin');
+        Route::get('/getMerchantBin', [MerchantController::class, 'getMerchantBin'])->name('merchant.getMerchantBin');
+        Route::post('/recoverMerchant', [MerchantController::class, 'recoverMerchant'])->name('merchant.recoverMerchant');
+        Route::post('/removeMerchant', [MerchantController::class, 'removeMerchant'])->name('merchant.removeMerchant');
+
     });
 
 

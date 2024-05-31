@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TanStackTable from '@/Components/TanStackTable';
 import axios from 'axios';
 import Action from '@/Pages/Configuration/Trc20/Partials/Actions';
-import formatDateTime from '@/Composables/index';
+import {formatDateTime} from '@/Composables/index';
 
 export default function Trc20Table({ searchVal }) {
 
@@ -54,8 +54,13 @@ export default function Trc20Table({ searchVal }) {
     return (
         <div>
             <span className='text-white'></span>
-            <TanStackTable isLoading={isLoading} searchVal={searchVal} columns={columns} data={data} actions={[
-                (row) => <Action trc20Address={row} fetchDataCallback={fetchData} />
+            <TanStackTable 
+                isLoading={isLoading} 
+                searchVal={searchVal} 
+                columns={columns} 
+                data={data} 
+                actions={[
+                    (row) => <Action key={row.id} trc20Address={row} fetchDataCallback={fetchData} />
                 ]}   
             />
         </div>

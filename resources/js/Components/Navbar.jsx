@@ -39,10 +39,13 @@ export default function Navbar({ user, header, toggleSidebar }) {
                             />
                         </div>
                         <div className='p-[10px]'>
-                            <Logout
-                                color='currentColor'
-                                className='text-gray-400 hover:text-white cursor-pointer'
-                            />
+                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
+                                <Logout
+                                    color='currentColor'
+                                    className='text-gray-400 hover:text-white cursor-pointer'
+                                />
+                            </ResponsiveNavLink>
+                            
                         </div>
                     </div>
                 </div>

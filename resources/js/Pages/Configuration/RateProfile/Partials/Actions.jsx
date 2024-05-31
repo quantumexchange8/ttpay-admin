@@ -126,7 +126,7 @@ export default function Action({ rpDetail, fetchDataCallback }) {
                                     <Input 
                                         id="name" 
                                         type='text' 
-                                        value={rpDetail.name}
+                                        value={data.name}
                                         handleChange={(e) => setData('name', e.target.value)}
                                         // required
                                         isFocused={true}
@@ -141,7 +141,7 @@ export default function Action({ rpDetail, fetchDataCallback }) {
                                     <Input 
                                         id="deposit_fee" 
                                         type='text'
-                                        value={rpDetail.deposit_fee}
+                                        value={data.deposit_fee}
                                         handleChange={(e) => setData('deposit_fee', e.target.value)}
                                         // required
                                         className="w-full"
@@ -155,7 +155,7 @@ export default function Action({ rpDetail, fetchDataCallback }) {
                                     <Input 
                                         id="withdrawal_fee" 
                                         type='text'
-                                        value={rpDetail.withdrawal_fee}
+                                        value={data.withdrawal_fee}
                                         handleChange={(e) => setData('withdrawal_fee', e.target.value)}
                                         // required
                                         className="w-full"

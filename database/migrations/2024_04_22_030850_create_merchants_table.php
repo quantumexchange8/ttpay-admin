@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('rate_id');
             $table->string('refresh_time');
             $table->string('status');
+            $table->dateTime('bin')->nullable();
+            $table->string('handle_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

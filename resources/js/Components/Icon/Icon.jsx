@@ -261,7 +261,18 @@ const SuccessIcon = () => (
     
   );
 
-  
+  const CopyIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none">
+        <path d="M6.5 6.2158V3.90625C6.5 3.1296 7.1296 2.5 7.90625 2.5H20.0938C20.8704 2.5 21.5 3.1296 21.5 3.90625V16.0938C21.5 16.8704 20.8704 17.5 20.0938 17.5H17.7582M16.0938 6.5H3.90625C3.1296 6.5 2.5 7.1296 2.5 7.90625V20.0938C2.5 20.8704 3.1296 21.5 3.90625 21.5H16.0938C16.8704 21.5 17.5 20.8704 17.5 20.0938V7.90625C17.5 7.1296 16.8704 6.5 16.0938 6.5Z" stroke="white" strokeWidth="1.5" strokeLinecap="square"/>
+    </svg>
+    
+  );
+
+  const RecoverIcon = ({ width, height}) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none">
+        <path d="M9.50495 21H4.5C3.67158 21 3 20.3285 3 19.5V4.5C3 3.67158 3.67158 3 4.5 3H19.5C20.3285 3 21 3.67158 21 4.5V9.5152M14.5185 21H20.5C20.7761 21 21 20.7762 21 20.5V14.5174H9M11.5 11.5L8.5 14.5L11.5 17.5" stroke="white" strokeWidth="1.5" strokeLinecap="square"/>
+    </svg>
+  );
 
 export { 
     ArrowUp,
@@ -289,4 +300,6 @@ export {
     SuccessIcon,
     ErrorIcon,
     WarningIcon,
+    CopyIcon,
+    RecoverIcon,
 };

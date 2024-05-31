@@ -4,10 +4,12 @@ import Action from '@/Pages/Merchant/MerchantListing/Partials/Action';
 import SwitchStatus from '@/Pages/Merchant/MerchantListing/Partials/SwitchStatus';
 import Button from '@/Components/Button';
 import Modal from '@/Components/Modal';
-import { Delete, PlusIcon } from '@/Components/Icon/Icon';
+import { CopyIcon, Delete, PlusIcon } from '@/Components/Icon/Icon';
 import axios from 'axios';
+import Tooltip from '@/Components/Tooltip';
+import Input from '@/Components/Input';
 
-export default function MerchantListingTable({ searchVal }) {
+export default function MerchantListingTable({ searchVal, phoneCodes, rateProfiles }) {
 
     const [data, setData] = useState([]);
     const [selectedRow, setSelectedRow] = useState(null);
@@ -42,6 +44,7 @@ export default function MerchantListingTable({ searchVal }) {
 
     const openModal = (row) => {
         setSelectedRow(row);
+        setWalletFields([]);
         setIsOpen(true);
     };
 
@@ -54,22 +57,33 @@ export default function MerchantListingTable({ searchVal }) {
         // console.log('wallet id: ', walletID)
     }
 
-    const updateWalletAddress = (address) => {
-        // console.log(address)
-        // try {
-        //     const response = await axios.post('/merchant/updateWalletAddress', { id: walletAddressId });
-        //     console.log('Delete response:', response.data);
-            
-        //     fetchData();
-        // } catch (error) {
-        //     console.error('Error deleting wallet address:', error);
-        // }
-    }
+    const updateWalletAddress = async () => {
+        try {
+            const response = await axios.post('/merchant/updateWalletAddress', { 
+                id: selectedRow.id, 
+                walletFields,
+            });
+            // console.log('Update response:', response.data);
+            fetchData();
+        } catch (error) {
+            console.error('Error updating wallet address:', error);
+        }
+        closeModal();
+    };
 
     const addWalletField = () => {
         setWalletFields([...walletFields, { newWallet: '' }]);
-    }
+    };
 
+    const removeWalletField = (index) => {
+        setWalletFields(walletFields.filter((_, i) => i !== index));
+    };
+
+    const handleWalletFieldChange = (index, value) => {
+        const updatedFields = [...walletFields];
+        updatedFields[index].newWallet = value;
+        setWalletFields(updatedFields);
+    };
 
     const columns = [
         {
@@ -147,13 +161,21 @@ export default function MerchantListingTable({ searchVal }) {
         },
     ];
 
-    console.log(searchVal)
+    const handleCopy = (tokenAddress) => {
+        // console.log(tokenAddress)
+        const textToCopy = tokenAddress;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            console.log('Copied to clipboard:', textToCopy);
+        }).catch(err => {
+            console.error('Failed to copy:', err);
+        });
+    };
 
     return (
         <div>
             <TanStackTable isLoading={isLoading} columns={columns} data={data} searchVal={searchVal}
-            actions={[(row) => <Action fetchDataCallback={fetchData} />]}
-            statuses={[(row) => <SwitchStatus merchant={row} fetchDataCallback={fetchData}  />]}
+            actions={[(row) => <Action key={row.id} merchant={row} fetchDataCallback={fetchData} phoneCodes={phoneCodes} rateProfiles={rateProfiles}/>]}
+            statuses={[(row) => <SwitchStatus key={row.id} merchant={row} fetchDataCallback={fetchData}  />]}
             />
 
             <Modal show={isOpen} onClose={closeModal} title='View USDT Addresses' maxWidth='md'>
@@ -169,13 +191,41 @@ export default function MerchantListingTable({ searchVal }) {
                                 {selectedRow.merchant_wallet_address.map((address) => (
                                     <tr key={address.id} className='border-b border-[#ffffff0d] p-3'>
                                         <td className='pl-3 py-3 text-white text-sm'>
-                                            {address.wallet_address.token_address}
+                                            <div className='flex items-center gap-2'>
+                                                <div>{address.wallet_address.token_address}</div>
+                                                <div onClick={() => handleCopy(address.wallet_address.token_address)} className='cursor-pointer'>
+                                                    <Tooltip text='copy'>
+                                                        <CopyIcon />
+                                                    </Tooltip>
+                                                </div>
+                                            </div>
                                         </td>
-                                        <td className='pr-3 py-3 w-20 flex justify-center'>
-                                            <Button variant='secondary' pill className='bg-transparent hover:bg-transparent' type='button' onClick={() => deleteWalletAddress(address.id)}>
-                                                <Delete width={16} height={16} color='currentColor' className='text-error-600'/>
-                                            </Button>
-                                            
+                                        <td className='pr-3 py-3 w-20'>
+                                            <div className='flex items-center justify-center'>
+                                                <Button variant='secondary' pill className='bg-transparent hover:bg-transparent' type='button' onClick={() => deleteWalletAddress(address.id)}>
+                                                    <Delete width={16} height={16} color='currentColor' className='text-error-600'/>
+                                                </Button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                                {walletFields.map((field, index) => (
+                                    <tr key={index} className='border-b border-[#ffffff0d] p-3'>
+                                        <td className='pl-3 py-3 text-white text-sm'>
+                                            <Input 
+                                                type='text' 
+                                                className='w-full bg-transparent border border-gray-700 rounded px-2 py-1 text-white'
+                                                isFocused={true}
+                                                value={field.newWallet}
+                                                handleChange={(e) => handleWalletFieldChange(index, e.target.value)}
+                                            />
+                                        </td>
+                                        <td className='pr-3 py-3 w-20'>
+                                            <div className='flex items-center justify-center'>
+                                                <Button variant='secondary' pill className='bg-transparent hover:bg-transparent' type='button' onClick={() => removeWalletField(index)}>
+                                                    <Delete width={16} height={16} color='currentColor' className='text-error-600'/>
+                                                </Button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
@@ -204,7 +254,7 @@ export default function MerchantListingTable({ searchVal }) {
                                 variant='primary'
                                 size='lg'
                                 className='w-full flex justify-center items-center'
-                                onClick={() => updateWalletAddress(address)}
+                                onClick={() => updateWalletAddress(selectedRow.id)}
                                 type='button'
                             >
                                 Save

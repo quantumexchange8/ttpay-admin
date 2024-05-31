@@ -4,7 +4,7 @@ import { toast, Toaster, resolveValue } from 'react-hot-toast';
 import { CloseIcon, SuccessIcon, ErrorIcon, WarningIcon } from "@/Components/Icon/Icon";
 import Button from "@/Components/Button";
 
-const CustomToaster = () => {
+const CustomToaster = ({ t }) => {
   return (
     <Toaster position="top-center">
       {(t) => (

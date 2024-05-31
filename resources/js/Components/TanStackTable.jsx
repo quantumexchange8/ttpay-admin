@@ -12,10 +12,12 @@ import Button from '@/Components/Button';
 import { NoData } from '@/Components/Icon/NoData';
 import { tailChase, bouncy } from 'ldrs'
 import { Default, AscIcon, DescIcon } from '@/Components/Icon/Sort';
-import formatDateTime from '@/Composables/index';
+import { formatDateTime } from '@/Composables/index';
 import { Switch } from '@headlessui/react';
+import { format, endOfDay } from "date-fns";
 
-const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal }) => {
+const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal, selectedDate }) => {
+
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -91,12 +93,26 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal 
     }
   };
 
-  let filteredData = data.filter((item) => {
-    return columns.some((column) => {
-      const cellValue = column.accessor.split('.').reduce((acc, part) => acc && acc[part], item);
-      return cellValue ? cellValue.toString().toLowerCase().includes(searchVal.toLowerCase()) : false;
+  const hasBinAccessor = columns.some(column => column.accessor === 'bin');
+
+  const filteredData = data.filter((item) => {
+        let isWithinDateRange = true;
+
+        if (hasBinAccessor && selectedDate.startDate && selectedDate.endDate) {
+          const binDate = new Date(item.bin);
+          const startDate = new Date(selectedDate.startDate);
+          const endDate = endOfDay(new Date(selectedDate.endDate)); // Include the entire end date
+
+          isWithinDateRange = binDate >= startDate && binDate <= endDate;
+      }
+
+        const matchesSearchVal = columns.some((column) => {
+            const cellValue = column.accessor.split('.').reduce((acc, part) => acc && acc[part], item);
+            return cellValue ? cellValue.toString().toLowerCase().includes(searchVal.toLowerCase()) : false;
+        }) || item.name.toLowerCase().includes(searchVal.toLowerCase()) || (item.role_id && item.role_id.toLowerCase().includes(searchVal.toLowerCase()));
+
+        return isWithinDateRange && matchesSearchVal;
     });
-  });
 
   let sortedData = [...filteredData];
   if (sorting.column) {
@@ -165,7 +181,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal 
                   >
                     <l-bouncy
                       size="45"
-                      speed="1.2"
+                      speed="0.9"
                       color="#5200FF"
                     >
                     </l-bouncy>

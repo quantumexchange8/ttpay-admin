@@ -189,7 +189,7 @@ export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, ph
                     description: 'You have successfully created a new merchant to the portal. Check it out in the merchant listing.',
                     variant: 'variant1',
                     actionText: 'Go to merchant listing',
-                    // action: redirectRoute 
+                    action: () => window.location.href = route('merchant.merchant-listing')
                 });
             }, 
             onError: () => {

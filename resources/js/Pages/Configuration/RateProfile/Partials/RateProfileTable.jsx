@@ -62,8 +62,13 @@ export default function RateProfileTable({ searchVal }) {
 
     return (  
     <div>
-        <TanStackTable isLoading={isLoading} searchVal={searchVal} columns={columns} data={data} actions={[
-            (row) => <Action rpDetail={row} fetchDataCallback={fetchData} />
+        <TanStackTable 
+            isLoading={isLoading} 
+            searchVal={searchVal} 
+            columns={columns} 
+            data={data} 
+            actions={[
+                (row) => <Action key={row.id} rpDetail={row} fetchDataCallback={fetchData} />
             ]}   
         />
         

@@ -32,6 +32,8 @@ class Merchant extends Model
         'refresh_time',
         'role_id',
         'status',
+        'bin',
+        'handle_by',
     ];
 
     protected $hidden = [
@@ -47,6 +49,11 @@ class Merchant extends Model
         ];
     }
 
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'handle_by', 'id');
+    }
+
     public function merchantWallet(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(MerchantWallet::class, 'id', 'merchant_id');
@@ -55,5 +62,15 @@ class Merchant extends Model
     public function merchantWalletAddress(): \Illuminate\Database\Eloquent\Relations\hasMany
     {
         return $this->hasMany(MerchantWalletAdrress::class, 'merchant_id', 'id');
+    }
+    
+    public function merchantEmailContent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(MerchantEmailContent::class, 'id', 'merchant_id');
+    }
+
+    public function merchantEmail(): \Illuminate\Database\Eloquent\Relations\hasMany
+    {
+        return $this->hasMany(MerchantEmail::class, 'merchant_id', 'id');
     }
 }

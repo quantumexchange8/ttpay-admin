@@ -12,7 +12,7 @@ export default function Sidebar({ children, expanded, toggleSidebar }) {
   return (
     <aside className={`fixed inset-y-0 z-20 border-r border-[#1F2937] overflow-auto
       scrollbar-thin scrollbar-webkit
-      ${!expanded ? 'w-0' : 'w-0 lg:w-[285px]'}`}
+      ${!expanded ? 'w-0' : 'w-0 lg:w-[281px]'}`}
     >
       <nav className="w-full h-auto p-5 flex flex-col gap-5 bg-[#ffffff0d]">
         <div className="py-3 px-4 flex justify-start items-center gap-3 hover:bg-[#03071299] rounded-lg">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MerchantRequest;
 use App\Models\RateProfile;
 use App\Models\WalletAddress;
 use App\Models\Country;
@@ -10,12 +11,16 @@ use App\Models\MerchantEmail;
 use App\Models\MerchantEmailContent;
 use App\Models\MerchantWallet;
 use App\Models\MerchantWalletAdrress;
+use App\Models\User;
 use App\Notifications\MerchantNotification;
 use App\Services\RunningNumberService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class MerchantController extends Controller
@@ -170,15 +175,26 @@ class MerchantController extends Controller
     public function merchantListing()
     {
 
-        return Inertia::render('Merchant/MerchantListing/MerchantListing');
+        $formattedCountries = Country::whereIn('id', [132, 102, 101, 45, 240, 199])->get()->map(function ($country) {
+            return [
+                'value' => $country->id,
+                'label' => $country->name,
+                'dial_code' => '+' . $country->phone_code,
+            ];
+        });
+
+        $rateProfiles = RateProfile::where('merchant_id', null)->get();
+
+        return Inertia::render('Merchant/MerchantListing/MerchantListing', [
+            'phoneCodes' => $formattedCountries,
+            'rateProfiles' => $rateProfiles,
+        ]);
     }
 
     public function getMerchantListing()
     {
 
-        $merchantListing = Merchant::with(['merchantWallet', 'merchantWalletAddress', 'merchantWalletAddress.walletAddress', ])->get();
-
-        // dd($merchantListing);
+        $merchantListing = Merchant::where('bin', null)->with(['merchantWallet', 'merchantWalletAddress', 'merchantWalletAddress.walletAddress', 'merchantEmailContent', 'merchantEmail' ])->get();
 
         return response()->json($merchantListing);
     }
@@ -197,9 +213,105 @@ class MerchantController extends Controller
 
     public function deleteWalletAddress(Request $request)
     {
-        dd($request->all());
-        $merchantWalletAddress = MerchantWalletAdrress::find($request->id);
-        $merchantWalletAddress->delete();
+        // dd($request->all());
+        // $merchantWalletAddress = MerchantWalletAdrress::find($request->id);
+        // $merchantWalletAddress->delete();
+
+        return redirect()->back()->with('success');
+    }
+
+    public function deleteMerchant(Request $request)
+    {
+
+        $merchant = Merchant::find($request->id);
+
+        $now = Carbon::now();
+
+        $merchant->update([
+            'bin' => $now,
+            'status' => 'Inactive',
+            'handle_by' => Auth::user()->id,
+        ]);
+
+        return redirect()->back()->with('success');
+    }
+
+    public function merchantBin()
+    {
+
+        return Inertia::render('Merchant/MerchantBin/MerchantBin');
+    }
+
+    public function getMerchantBin()
+    {
+
+        $merchantBin = Merchant::whereNotNull('bin')->with(['user'])->get();
+        
+        return response()->json($merchantBin);
+    }
+
+    public function recoverMerchant(Request $request)
+    {
+
+        // dd($request->all());
+
+        $merchant = Merchant::find($request->id);
+
+        $merchant->update([
+            'bin' => null,
+            'handle_by' => Auth::user()->id,
+        ]);
+
+        return redirect()->back()->with('success');
+    }
+
+    public function removeMerchant(Request $request)
+    {
+
+        $merchant = Merchant::find($request->id);
+
+        $merchant->delete();
+
+        return redirect()->back()->with('success');
+    }
+
+    public function updateWalletAddress(Request $request)
+    {
+
+        // dd($request->all());
+
+        return redirect()->back()->with('success');
+    }
+
+    public function updateMerchant(MerchantRequest $request)
+    {
+
+        
+        $merchant = Merchant::find($request->id);
+        $merchant_email = MerchantEmail::where('merchant_id', $request->id)->get();
+        
+        foreach ($merchant_email as $merchantMail) {
+            dd($merchantMail);
+        }
+
+        if ($merchant->name != $request->name) {
+
+           
+            $merchant->update([
+                'name' => $request->name
+            ]);
+        }
+
+        $merchant->manager_name = $request->manager_name;
+        $merchant->email = $request->manager_name;
+        $merchant->dial_code = $request->dial_code;
+        $merchant->phone = $request->phone;
+        $merchant->rate_profile = $request->rate_profile;
+        $merchant->url = $request->url;
+        $merchant->refresh_time = $request->auto_refresh;
+        $merchant->deposit_type = $request->approval_mode;
+        $merchant->save();
+
 
         return redirect()->back()->with('success');
     }

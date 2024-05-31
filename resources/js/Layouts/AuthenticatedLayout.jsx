@@ -61,8 +61,11 @@ export default function Authenticated({ children, header }) {
                         }`}>
                             <SidebarItem text="CREATE MERCHANT"/>
                         </Link>
-                        
-                        <SidebarItem text="MERCHANT BIN"/>
+                        <Link href={route('merchant.merchant-bin')} className={`${
+                                url === '/merchant/merchant-bin' ? 'bg-[#03071299] rounded-lg' : ''
+                        }`}>
+                            <SidebarItem text="MERCHANT BIN"/>
+                        </Link>
                     </div>
                 </div>
                 {/* <div className='flex flex-col items-center gap-2'>
