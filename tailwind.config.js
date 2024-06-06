@@ -122,6 +122,12 @@ export default {
                 lineHeight: '42px'
             }],
         },
+        screens: {
+            'xl': '1280px',
+            'lg': '1024px',
+            'md': '768px',
+            'sm': '320px',
+        }
     },
 
     plugins: [
