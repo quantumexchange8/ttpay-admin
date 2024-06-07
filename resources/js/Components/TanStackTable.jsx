@@ -18,7 +18,7 @@ import { format, endOfDay } from "date-fns";
 
 const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal, selectedDate }) => {
 
-  const [pagination, setPagination] = useState({
+  const [ pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
@@ -148,8 +148,8 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
               <th className='py-3 text-center'></th>
             )}
             {columns.map((column, index) => (
-              <th key={index} className='p-3' onClick={() => column.sortable && handleSort(column)}>
-                <div className='flex items-center gap-2'>
+              <th key={index} className={`sm:px-2 sm:py-3 xl:px-3 lg:px-3 md:px-3 xl:py-3 lg:py-3 md:py-3 ${column.className || ''}`} onClick={() => column.sortable && handleSort(column)}>
+                <div className='flex items-center gap-2 w-[85.33px]'>
                   <div>
                     {column.header} 
                   </div>
@@ -162,11 +162,10 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
                     </div>
                   )}
                 </div>
-                
               </th>
             ))}
             {actions && actions.length > 0 && (
-              <th className='py-3 text-center'>Actions</th>
+              <th className='py-3 text-center w-[85.33px]'>Actions</th>
             )}
           </tr>
         </thead>
@@ -195,7 +194,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
                     (pagination.pageIndex + 1) * pagination.pageSize
                   )
                   .map((row, rowIndex) => (
-                    <tr key={rowIndex} className="p-3 hover:bg-[#ffffff1a]">
+                    <tr key={rowIndex} className="p-3 hover:bg-[#ffffff1a] overflow-y-auto">
                       {statuses && statuses.length > 0 && (
                         <td className="p-3 flex justify-center items-center gap-3">
                           {statuses.map((status, index) => (
@@ -210,7 +209,8 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
                         </td>
                       )}
                       {columns.map((column, colIndex) => (
-                        <td key={`${rowIndex}-${colIndex}`} className="text-sm text-white p-3">
+                        <td key={`${rowIndex}-${colIndex}`} 
+                        className={`text-sm text-white p-3 ${colIndex === 1 ? 'hidden md:table-cell lg:table-cell xl:table-cell' : ''}`}>
                           {column.Cell
                           ? column.Cell({ row })
                           : column.accessor === 'created_at'
@@ -255,114 +255,179 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
         <tfoot>
           {data.length > 0 ? (
             <tr>
-              <td className='py-5 px-4' colSpan={columns.length + (actions && actions.length > 0 ? 1 : 0) + (statuses && statuses.length > 0 ? 1 : 0)}>
-                <div className="flex justify-between items-center">
-                  {/* Rows per page dropdown */}
-                  <div className=''>
-                    <Menu as="div" className="relative inline-block text-left">
-                      <div>
-                        <Menu.Button className="inline-flex w-full justify-center gap-2 rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
-                          {pagination.pageSize}
-                          <ChevronDownIcon
-                            className="-mr-1 ml-2 h-5 w-5 text-violet-200 hover:text-violet-100"
-                            aria-hidden="true"
-                          />
-                        </Menu.Button>
-                      </div>
-                      <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                      >
-                        <Menu.Items className="absolute mt-2 divide-gray-100 rounded-md bg-[#ffffff0d] backdrop-blur-lg shadow-lg ring-1 ring-black/5 focus:outline-none">
-                          <div className="py-2 ">
-                            {pageSizeOptions.map((option) => (
-                              <Menu.Item key={option}>
-                                {({ active }) => (
-                                  <button
-                                    className={`${
-                                      active ? 'bg-primary-700 text-white' : 'text-white'
-                                    } group flex w-full items-center rounded-md px-4 py-2 text-sm font-medium`}
-                                    onClick={() => setPageSize(option)}
-                                  >
-                                    <span className='w-[43px]'>{option}</span>
-                                  </button>
-                                )}
-                              </Menu.Item>
-                            ))}
-                          </div>
-                        </Menu.Items>
-                      </Transition>
-                    </Menu>
+              <td className='py-5 xl:px-4 lg:px-4 md:px-4 px-3' colSpan={columns.length + (actions && actions.length > 0 ? 1 : 0) + (statuses && statuses.length > 0 ? 1 : 0)}>
+                <div className='flex flex-col gap-3'>
+                  {/* Mobile View */}
+                  <div className='flex flex-col items-center xl:hidden lg:hidden md:hidden sm:block '>
+                    {/* Pagination controls */}
+                    <div className='flex items-center justify-center gap-1'>
+                      {/* First Page Icon */}
+                      {totalPages > 2 && (
+                        <div 
+                          className={`flex justify-center items-center py-2 px-[10px] w-9 h-9 ${pagination.pageIndex === 0 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800 rounded-full'}`}
+                          onClick={handleFirstPageClick}
+                          disabled={pagination.pageIndex === 0}
+                        >
+                          <DArrowLeft width={20} height={20} />
+                        </div>
+                      )}
+                      {/* Previous Page Icon */}
+                      {totalPages >= 2 && (
+                        <div 
+                          className={`flex justify-center items-center py-2 px-[10px] w-9 h-9 ${pagination.pageIndex === 0 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800 rounded-full'}`}
+                          onClick={handlePrevPageClick}
+                          disabled={pagination.pageIndex === 0}
+                        >
+                          <ArrowLeft width={20} height={20} />
+                        </div>
+                      )}
+                      
+                      {/* Page Numbers */}
+                      {Array.from({ length: totalPages }, (_, index) => (
+                        <span
+                          key={index}
+                          className={`flex justify-center items-center text-sm text-white font-semibold py-2 px-[10px] w-9 h-9 rounded-full cursor-pointer hover:bg-gray-800 ${index === pagination.pageIndex ? 'bg-primary-700' : ''}`}
+                          onClick={() => handlePageChange(index)}
+                        >
+                          {index + 1}
+                        </span>
+                      ))}
+                      {/* Next Page Icon */}
+                      {totalPages >= 2 && (
+                        <div 
+                          className={`flex justify-center items-center py-2 px-[10px] w-9 h-9 ${pagination.pageIndex === totalPages - 1 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800 rounded-full'}`}
+                          onClick={handleNextPageClick}
+                          disabled={pagination.pageIndex === totalPages - 1}
+                        >
+                          <ArrowRight width={20} height={20} color='currentColor' className='text-white'/>
+                        </div>
+                      )}
+                      
+                      {/* Last Page Icon */}
+                      {totalPages > 2 && (
+                        <div 
+                          className={`flex justify-center items-center py-2 px-[10px] w-9 h-9 ${pagination.pageIndex === totalPages - 1 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800 rounded-full'}`}
+                          onClick={handleLastPageClick}
+                          disabled={pagination.pageIndex === totalPages - 1}
+                        >
+                          <DArrowRight width={20} height={20} />
+                        </div>
+                      )}
+                    </div>
                   </div>
+                
+                  <div className="flex justify-between items-center">
+                    {/* Rows per page dropdown */}
+                    <div className=''>
+                      <Menu as="div" className="relative inline-block text-left">
+                        <div>
+                          <Menu.Button className="inline-flex w-full justify-center gap-2 rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+                            {pagination.pageSize}
+                            <ChevronDownIcon
+                              className="-mr-1 ml-2 h-5 w-5 text-violet-200 hover:text-violet-100"
+                              aria-hidden="true"
+                            />
+                          </Menu.Button>
+                        </div>
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <Menu.Items className="absolute mt-2 divide-gray-100 rounded-md bg-[#ffffff0d] backdrop-blur-lg shadow-lg ring-1 ring-black/5 focus:outline-none">
+                            <div className="py-2 ">
+                              {pageSizeOptions.map((option) => (
+                                <Menu.Item key={option}>
+                                  {({ active }) => (
+                                    <button
+                                      className={`${
+                                        active ? 'bg-primary-700 text-white' : 'text-white'
+                                      } group flex w-full items-center rounded-md px-4 py-2 text-sm font-medium`}
+                                      onClick={() => setPageSize(option)}
+                                    >
+                                      <span className='w-[43px]'>{option}</span>
+                                    </button>
+                                  )}
+                                </Menu.Item>
+                              ))}
+                            </div>
+                          </Menu.Items>
+                        </Transition>
+                      </Menu>
+                    </div>
 
-                  {/* Pagination controls */}
-                  <div className='flex items-center justify-center gap-1'>
-                    {/* First Page Icon */}
-                    {totalPages > 2 && (
-                      <div 
-                        className={`flex justify-center items-center py-2 px-[10px] w-9 h-9 ${pagination.pageIndex === 0 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800 rounded-full'}`}
-                        onClick={handleFirstPageClick}
-                        disabled={pagination.pageIndex === 0}
-                      >
-                        <DArrowLeft width={20} height={20} />
+                    {/* Web View */}
+                    {/* Pagination controls */}
+                    <div className='sm:hidden flex xl:block lg:block md:block'>
+                      <div className='flex items-center justify-center gap-1'>
+                        {/* First Page Icon */}
+                        {totalPages > 2 && (
+                          <div 
+                            className={`flex justify-center items-center py-2 px-[10px] w-9 h-9 ${pagination.pageIndex === 0 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800 rounded-full'}`}
+                            onClick={handleFirstPageClick}
+                            disabled={pagination.pageIndex === 0}
+                          >
+                            <DArrowLeft width={20} height={20} />
+                          </div>
+                        )}
+                        {/* Previous Page Icon */}
+                        {totalPages >= 2 && (
+                          <div 
+                            className={`flex justify-center items-center py-2 px-[10px] w-9 h-9 ${pagination.pageIndex === 0 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800 rounded-full'}`}
+                            onClick={handlePrevPageClick}
+                            disabled={pagination.pageIndex === 0}
+                          >
+                            <ArrowLeft width={20} height={20} />
+                          </div>
+                        )}
+                        
+                        {/* Page Numbers */}
+                        {Array.from({ length: totalPages }, (_, index) => (
+                          <span
+                            key={index}
+                            className={`flex justify-center items-center text-sm text-white font-semibold py-2 px-[10px] w-9 h-9 rounded-full cursor-pointer hover:bg-gray-800 ${index === pagination.pageIndex ? 'bg-primary-700' : ''}`}
+                            onClick={() => handlePageChange(index)}
+                          >
+                            {index + 1}
+                          </span>
+                        ))}
+                        {/* Next Page Icon */}
+                        {totalPages >= 2 && (
+                          <div 
+                            className={`flex justify-center items-center py-2 px-[10px] w-9 h-9 ${pagination.pageIndex === totalPages - 1 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800 rounded-full'}`}
+                            onClick={handleNextPageClick}
+                            disabled={pagination.pageIndex === totalPages - 1}
+                          >
+                            <ArrowRight width={20} height={20} color='currentColor' className='text-white'/>
+                          </div>
+                        )}
+                        
+                        {/* Last Page Icon */}
+                        {totalPages > 2 && (
+                          <div 
+                            className={`flex justify-center items-center py-2 px-[10px] w-9 h-9 ${pagination.pageIndex === totalPages - 1 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800 rounded-full'}`}
+                            onClick={handleLastPageClick}
+                            disabled={pagination.pageIndex === totalPages - 1}
+                          >
+                            <DArrowRight width={20} height={20} />
+                          </div>
+                        )}
                       </div>
-                    )}
-                    {/* Previous Page Icon */}
-                    {totalPages >= 2 && (
-                      <div 
-                        className={`flex justify-center items-center py-2 px-[10px] w-9 h-9 ${pagination.pageIndex === 0 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800 rounded-full'}`}
-                        onClick={handlePrevPageClick}
-                        disabled={pagination.pageIndex === 0}
-                      >
-                        <ArrowLeft width={20} height={20} />
-                      </div>
-                    )}
+                    </div>
                     
-                    {/* Page Numbers */}
-                    {Array.from({ length: totalPages }, (_, index) => (
-                      <span
-                        key={index}
-                        className={`flex justify-center items-center text-sm text-white font-semibold py-2 px-[10px] w-9 h-9 rounded-full cursor-pointer hover:bg-gray-800 ${index === pagination.pageIndex ? 'bg-primary-700' : ''}`}
-                        onClick={() => handlePageChange(index)}
-                      >
-                        {index + 1}
+                    {/* Showing page number */}
+                    <div>
+                      <span className="px-4 py-2 text-gray-400">
+                        Showing {pagination.pageIndex * pagination.pageSize + 1} to {Math.min((pagination.pageIndex + 1) * pagination.pageSize, data.length)} of {data.length} entries
                       </span>
-                    ))}
-                    {/* Next Page Icon */}
-                    {totalPages >= 2 && (
-                      <div 
-                        className={`flex justify-center items-center py-2 px-[10px] w-9 h-9 ${pagination.pageIndex === totalPages - 1 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800 rounded-full'}`}
-                        onClick={handleNextPageClick}
-                        disabled={pagination.pageIndex === totalPages - 1}
-                      >
-                        <ArrowRight width={20} height={20} color='currentColor' className='text-white'/>
-                      </div>
-                    )}
-                    
-                    {/* Last Page Icon */}
-                    {totalPages > 2 && (
-                      <div 
-                        className={`flex justify-center items-center py-2 px-[10px] w-9 h-9 ${pagination.pageIndex === totalPages - 1 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-800 rounded-full'}`}
-                        onClick={handleLastPageClick}
-                        disabled={pagination.pageIndex === totalPages - 1}
-                      >
-                        <DArrowRight width={20} height={20} />
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* Showing page number */}
-                  <div>
-                    <span className="px-4 py-2 text-gray-400">
-                      Showing {pagination.pageIndex * pagination.pageSize + 1} to {Math.min((pagination.pageIndex + 1) * pagination.pageSize, data.length)} of {data.length} entries
-                    </span>
+                    </div>
                   </div>
                 </div>
+
               </td>
             </tr>
           ) : null }

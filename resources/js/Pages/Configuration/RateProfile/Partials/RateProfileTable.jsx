@@ -47,6 +47,7 @@ export default function RateProfileTable({ searchVal }) {
             accessor: 'merchant_id',
             header: 'Merchant',
             sortable: true,
+            className: 'hide-on-mobile', /* Hide the column in mobile view */
         },
         {
             accessor: 'deposit_fee',
@@ -61,7 +62,7 @@ export default function RateProfileTable({ searchVal }) {
     ];
 
     return (  
-    <div>
+    <div className='flex flex-col overflow-x-auto overflow-y-auto'>
         <TanStackTable 
             isLoading={isLoading} 
             searchVal={searchVal} 

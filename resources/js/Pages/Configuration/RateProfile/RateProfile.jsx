@@ -31,7 +31,7 @@ export default function RateProfile({ auth }) {
             <Head title="Rate Profile" />
 
             <div className='flex gap-5 flex-col'>
-                <div className='w-full flex justify-between items-center select-none'>
+                <div className='hidden md:flex w-full justify-between items-center select-none'>
                     <InputIconWrapper 
                         icon={
                             <Search
@@ -55,7 +55,33 @@ export default function RateProfile({ auth }) {
                         />
                     </InputIconWrapper>
                     <NewRateProfile onNewRateProfileAdded={handleNewRateProfileAdded}/>
-                    
+                </div>
+
+                <div className='w-full flex flex-col gap-3 justify-between select-none md:hidden'>
+                    <InputIconWrapper 
+                        icon={
+                            <Search
+                                aria-hidden="true"
+                                className="w-5 h-5"
+                            />
+                        }
+                    >
+                        <Input
+                            type="text"
+                            name="search"
+                            placeholder="Search"
+                            value={data.search}
+                            className="block w-full caret-primary-700"
+                            autoComplete="search"
+                            isFocused={false}
+                            handleChange={(e) => setData('search', e.target.value)}
+                            required
+                            // cursorColor="#5200FF"
+                            withIcon
+                        />
+                    </InputIconWrapper>
+                    <div className='flex flex-col sm:items-end'>
+                    <NewRateProfile onNewRateProfileAdded={handleNewRateProfileAdded}/></div>
                 </div>
 
                 <div>

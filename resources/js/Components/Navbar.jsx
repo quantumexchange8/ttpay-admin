@@ -4,7 +4,7 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
-import { Menu, Notification, Lang, Logout } from '@/Components/Icon/Outline';
+import { Menu, Notification, Navbars, Lang, Logout } from '@/Components/Icon/Outline';
 
 export default function Navbar({ user, header, toggleSidebar }) {
 
@@ -13,7 +13,7 @@ export default function Navbar({ user, header, toggleSidebar }) {
     return (
         <div>
             <nav className="bg-white dark:bg-[#ffffff0d] border-b border-gray-800 dark:border-gray-800">
-                <div className="px-5 pt-8 pb-3 sm:px-6 lg:px-8 flex justify-between items-center gap-3">
+                <div className="px-5 pt-8 pb-3 sm:px-3 lg:px-5 xl:px-5 md:px-5 flex justify-between items-center gap-3">
                     <div className='p-2'>
                         <Menu 
                             color='currentColor'
@@ -22,7 +22,7 @@ export default function Navbar({ user, header, toggleSidebar }) {
                         />
                     </div>
                     
-                    <div className='text-xl font-bold w-full text-gray-50'>
+                    <div className='sm:text-base xl:text-xl lg:text-xl md:text-xl font-bold w-full text-gray-50'>
                         {header}
                     </div>
                     <div className='flex items-center gap-3'>
@@ -32,20 +32,25 @@ export default function Navbar({ user, header, toggleSidebar }) {
                                 className='text-gray-400 hover:text-white cursor-pointer'
                             />
                         </div>
-                        <div className='p-[10px]'>
+                        <div className='hidden md:flex p-[10px]'>
                             <Lang
                                 color='currentColor'
                                 className='text-gray-400 hover:text-white cursor-pointer'
                             />
                         </div>
-                        <div className='p-[10px]'>
+                        <div className='hidden md:flex p-[10px]'>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 <Logout
                                     color='currentColor'
                                     className='text-gray-400 hover:text-white cursor-pointer'
                                 />
                             </ResponsiveNavLink>
-                            
+                        </div>
+                        <div className='p-[10px] md:hidden'>
+                                <Navbars
+                                    color='currentColor'
+                                    className='text-gray-400 hover:text-white cursor-pointer'
+                                />
                         </div>
                     </div>
                 </div>

@@ -17,3 +17,9 @@
         --primary-950: #210077;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .hide-on-mobile {
+        display: none;
+    }
+}

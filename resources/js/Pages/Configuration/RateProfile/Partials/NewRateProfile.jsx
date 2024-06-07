@@ -70,7 +70,7 @@ export default function NewRateProfile({ onNewRateProfileAdded }) {
             <Button 
                 size='lg'
                 iconOnly
-                className='gap-2 justify-center items-center'
+                className='gap-2 justify-center items-center w-auto text-sm font-semibold'
                 onClick={openModal}
             >
                 <AddIcon aria-hidden="true"/>
@@ -152,7 +152,6 @@ export default function NewRateProfile({ onNewRateProfileAdded }) {
                         </div>
                     </div>
                 </form>
-                
             </Modal>
 
         </div>
