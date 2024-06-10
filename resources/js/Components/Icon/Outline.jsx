@@ -61,7 +61,7 @@ const SubLine2 = () => {
 }
 
 // TOPBAR ICON
-const Menu = ({ color, className, ...rest }) => {
+const Menuu = ({ color, className, ...rest }) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} className={className} {...rest}>
             <path d="M3 12H21M3 6H21M3 18H15" strokeWidth="2" strokeLinecap="square" strokeLinejoin="round"/>
@@ -93,7 +93,7 @@ const Navbars = ({color, className, ...rest}) => {
     <path d="M10.0003 4.9987C10.4606 4.9987 10.8337 4.6256 10.8337 4.16536C10.8337 3.70513 10.4606 3.33203 10.0003 3.33203C9.54009 3.33203 9.16699 3.70513 9.16699 4.16536C9.16699 4.6256 9.54009 4.9987 10.0003 4.9987Z" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M10.0003 16.6654C10.4606 16.6654 10.8337 16.2923 10.8337 15.832C10.8337 15.3718 10.4606 14.9987 10.0003 14.9987C9.54009 14.9987 9.16699 15.3718 9.16699 15.832C9.16699 16.2923 9.54009 16.6654 10.0003 16.6654Z" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-    )
+    );
 }
 
 const Logout = ({ color, className, ...rest }) => {
@@ -120,7 +120,7 @@ export {
     ChevronDown, 
     SubLine, 
     SubLine2, 
-    Menu, 
+    Menuu, 
     Notification, 
     Navbars,
     Lang, 

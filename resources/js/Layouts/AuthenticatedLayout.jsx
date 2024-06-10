@@ -91,7 +91,6 @@ export default function Authenticated({ children, header }) {
                         }`}>
                             <SidebarItem icon={<Tron/>} text="TRC-20 ADDRESS"/>
                         </Link>
-                        
                     </div>
                 </div>
                 <div className='flex flex-col items-center gap-2'>
@@ -102,7 +101,6 @@ export default function Authenticated({ children, header }) {
                         <Link href={route('logout')} method="post" as="button">
                             <SidebarItem text="LOG OUT"/>
                         </Link>
-                        
                     </div>
                 </div>
             </Sidebar>
@@ -113,12 +111,9 @@ export default function Authenticated({ children, header }) {
                     <div className='max-w-[1440px] w-full p-5'>
                         {children}
                     </div>
-
                     <CustomToaster/>
                 </main>
             </div>
-
-            
         </div>
     );
 }

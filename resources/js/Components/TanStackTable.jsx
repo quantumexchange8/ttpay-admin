@@ -149,7 +149,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
             )}
             {columns.map((column, index) => (
               <th key={index} className={`sm:px-2 sm:py-3 xl:px-3 lg:px-3 md:px-3 xl:py-3 lg:py-3 md:py-3 ${column.className || ''}`} onClick={() => column.sortable && handleSort(column)}>
-                <div className='flex items-center gap-2 w-[85.33px]'>
+                <div className='flex items-center gap-2'>
                   <div>
                     {column.header} 
                   </div>
@@ -165,7 +165,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
               </th>
             ))}
             {actions && actions.length > 0 && (
-              <th className='py-3 text-center w-[85.33px]'>Actions</th>
+              <th className='py-3 text-center'>Actions</th>
             )}
           </tr>
         </thead>
@@ -427,11 +427,9 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
                     </div>
                   </div>
                 </div>
-
               </td>
             </tr>
           ) : null }
-          
         </tfoot>
       </table>
     </div>

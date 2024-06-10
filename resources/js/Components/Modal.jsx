@@ -51,7 +51,7 @@ export default function Modal({ children, title, show = false, maxWidth = '2xl',
                     leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
                     <Dialog.Panel
-                        className={`xl:p-8 lg:p-8 md:p-8 py-[20px] px-[12px] flex flex-col gap-8 bg-white dark:bg-[#ffffff0d] backdrop-blur-[60px] rounded-lg overflow-y-auto shadow-[0_24px_40px_0px_rgba(0,0,0,0.25)] transform transition-all sm:w-full sm:mx-auto ${maxWidthClass} ${maxHeightClass} scrollbar-thin scrollbar-webkit`}
+                        className={`xl:p-8 lg:p-8 md:p-8 px-8 py-5 flex flex-col gap-8 bg-white dark:bg-[#ffffff0d] backdrop-blur-[60px] rounded-lg overflow-y-auto shadow-[0_24px_40px_0px_rgba(0,0,0,0.25)] transform transition-all sm:w-full sm:mx-auto ${maxWidthClass} ${maxHeightClass} scrollbar-thin scrollbar-webkit`}
                     >
                         {showCloseButton && (
                             <div className='flex justify-between'>
