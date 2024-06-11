@@ -8,27 +8,27 @@ const SidebarContext = createContext()
 export default function Sidebar({ children, expanded, toggleSidebar }) {
   
   const { auth } = usePage().props;
-
   return (
     <aside className={`fixed inset-y-0 z-20 border-r border-[#1F2937] overflow-auto
       scrollbar-thin scrollbar-webkit
       ${!expanded ? 'w-0' : 'w-0 lg:w-[281px]'}`}
     >
-      <nav className="w-full h-auto p-5 flex flex-col gap-5 bg-[#ffffff0d]">
+      <nav className="w-full h-auto p-5 flex flex-col gap-5 bg-[#ffffff0d]">  
         <div className="py-3 px-4 flex justify-start items-center gap-3 hover:bg-[#03071299] rounded-lg">
-            <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" alt="" className="rounded-full w-10 h-10"/>
-          <div className="flex flex-col ">
-            <div className="text-white">
-                {auth.user.name}
-            </div>
-            <div className="flex gap-3 text-white text-xs">
-                <div>ID: {auth.user.role_id}</div>
-                {
-                  auth.user.role === 'admin' ? <Admin/> : <Merchant/>
-                }
-                
-            </div>
-          </div>
+          <Link href={route('profile.profile')} className="flex justify-start items-center gap-3 hover:bg-[#03071299] rounded-lg" >
+              <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" alt="" className="rounded-full w-10 h-10 cursor-pointer"/>
+              <div className="flex flex-col ">
+                <div className="text-white">
+                    {auth.user.name}
+                </div>
+                <div className="flex gap-3 text-white text-xs">
+                    <div>ID: {auth.user.role_id}</div>
+                    {
+                      auth.user.role === 'admin' ? <Admin/> : <Merchant/>
+                    }
+                </div>
+              </div>
+          </Link>
         </div>
         <SidebarContext.Provider value={{ expanded }}>
           <ul className="flex flex-col gap-5">{children}</ul>

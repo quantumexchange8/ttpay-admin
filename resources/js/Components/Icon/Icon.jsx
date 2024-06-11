@@ -162,6 +162,13 @@ const AddIcon = () => {
 }
 
 
+const UploadIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M11.9997 3.23005V16.0078M8.7251 5.77004L12.0001 2.48047L15.2761 5.77004M16.625 10.9937H21.25V21.5176H2.75V10.9937H7.375" stroke="white" strokeWidth="1.5" strokeLinecap="square"/>
+        </svg>
+    );
+}
 
 
 
@@ -274,6 +281,13 @@ const SuccessIcon = () => (
     </svg>
   );
 
+  const UserProfileIcon = ({ width, height}) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 93 93" fill="none">
+        <path fillRule="evenodd" clipRule="evenodd" d="M75.1152 74.6229C71.2544 62.4135 60.8804 55.4177 46.6418 55.4177H46.5392C32.2626 55.3379 21.8354 62.3831 17.967 74.6229L17.5186 76.0441L18.7878 76.8193C26.2282 81.3565 35.5078 83.6555 46.3606 83.6555C46.4822 83.6555 46.6038 83.6555 46.7216 83.6555C57.7264 83.6555 66.7476 81.4173 74.2944 76.8193L75.5636 76.0441L75.1152 74.6229Z" fill="white"/>
+        <path fillRule="evenodd" clipRule="evenodd" d="M46.5411 46.9506C56.8885 46.9506 65.3093 38.5336 65.3093 28.1862C65.3093 17.835 56.8885 9.41797 46.5411 9.41797C36.1937 9.41797 27.7767 17.835 27.7767 28.1862C27.7767 38.5336 36.1937 46.9506 46.5411 46.9506Z" fill="white"/>
+    </svg>
+  );
+
 export { 
     ArrowUp,
     ArrowRight,
@@ -292,6 +306,7 @@ export {
     Alert,
     Search,
     AddIcon,
+    UploadIcon,
     FeatureSuccessIcon,
     FeatureErrorIcon,
     FeatureWarningIcon,
@@ -302,4 +317,5 @@ export {
     WarningIcon,
     CopyIcon,
     RecoverIcon,
+    UserProfileIcon,
 };

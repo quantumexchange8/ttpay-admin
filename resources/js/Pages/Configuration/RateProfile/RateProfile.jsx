@@ -81,7 +81,8 @@ export default function RateProfile({ auth }) {
                         />
                     </InputIconWrapper>
                     <div className='flex flex-col sm:items-end'>
-                    <NewRateProfile onNewRateProfileAdded={handleNewRateProfileAdded}/></div>
+                        <NewRateProfile onNewRateProfileAdded={handleNewRateProfileAdded}/>
+                    </div>
                 </div>
 
                 <div>

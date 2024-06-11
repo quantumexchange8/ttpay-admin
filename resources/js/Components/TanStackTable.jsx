@@ -209,8 +209,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
                         </td>
                       )}
                       {columns.map((column, colIndex) => (
-                        <td key={`${rowIndex}-${colIndex}`} 
-                        className={`text-sm text-white p-3 ${colIndex === 1 ? 'hidden md:table-cell lg:table-cell xl:table-cell' : ''}`}>
+                        <td key={`${rowIndex}-${colIndex}`} className="text-sm text-white p-3">
                           {column.Cell
                           ? column.Cell({ row })
                           : column.accessor === 'created_at'

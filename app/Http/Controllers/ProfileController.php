@@ -60,4 +60,32 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-}
+
+    /**
+     * Update the user's profile information.
+     */
+
+     public function profile()
+     {
+         $userProfile = Auth::user();
+
+         return Inertia::render('Profile/Profile', [
+            'userProfile' => $userProfile
+         ]);
+     }
+     
+     public function updateProfile(ProfileUpdateRequest $request)
+    {
+        $userProfile = User::find($request->id);
+        $userProfile->update([
+            'name' => $request->name,
+            'role' => $request->role,
+            'email' => $request->email,
+        ]);
+        
+        return redirect()->back()->with('toast', 'User profile updated successfully!');
+        
+    }
+
+// return Inertia::render('/Profile/Profile');
+}// return response()->json(['message' => 'Profile updated successfully', 'user' => $userProfile]);

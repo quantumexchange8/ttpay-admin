@@ -99,6 +99,18 @@ Route::middleware('auth', 'verified')->group(function () {
 
      });
 
+
+     /**
+     * ==============================
+     *           PROFILE
+     * ==============================
+     */
+    Route::prefix('profile')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'profile'])->name('profile.profile');
+        // Route::post('/update_profile', [ProfileController::class, 'updateProfile'])->name('profile.update_profile');
+    });
+
+
      /**
      * ==============================
      *           OTHERS
