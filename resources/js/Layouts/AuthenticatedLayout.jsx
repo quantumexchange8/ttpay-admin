@@ -33,7 +33,7 @@ export default function Authenticated({ children, header }) {
                             <SidebarItem icon={<Pending/>} text="PENDING" />
                         </Link>
                         
-                        {/* <SidebarCollapsible icon={<DealHistory/>} text="DEAL HISTORY" >
+                        <SidebarCollapsible icon={<DealHistory/>} text="DEAL HISTORY" >
                             <div className='flex flex-row gap-[2px]'>
                                 <div className='flex flex-col pl-2'>
                                     <SubLine size={20} />
@@ -45,7 +45,7 @@ export default function Authenticated({ children, header }) {
                                 </div>
                             </div>
                         </SidebarCollapsible>
-                        <SidebarItem icon={<Performance/>} text="PERFORMANCE"/> */}
+                        {/* <SidebarItem icon={<Performance/>} text="PERFORMANCE"/> */}
                     </div>
                 </div>
                  <div className='flex flex-col items-center gap-2'>

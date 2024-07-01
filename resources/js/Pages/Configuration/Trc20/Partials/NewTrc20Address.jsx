@@ -32,11 +32,8 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         token_address: '',
+        contract_address: '',
     })
-
-    const redirectRoute = () => {
-        
-    }
     
     const submit = (e) => {
         e.preventDefault();
@@ -92,7 +89,6 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
                                     type='text' 
                                     value={data.name}
                                     handleChange={(e) => setData('name', e.target.value)}
-                                    // required
                                     isFocused={true}
                                     className="w-full"
                                 />
@@ -107,10 +103,22 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
                                     type='text'
                                     value={data.token_address}
                                     handleChange={(e) => setData('token_address', e.target.value)}
-                                    // required
                                     className="w-full"
                                 />
                                 <InputError message={errors.token_address}/>
+                            </div>
+                            <div className="space-y-1.5">
+                                <div className='flex items-center gap-1'>
+                                    <Label for="contract_address" value="Contract Address"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                </div>
+                                <Input 
+                                    id="contract_address" 
+                                    type='text'
+                                    value={data.contract_address}
+                                    handleChange={(e) => setData('contract_address', e.target.value)}
+                                    className="w-full"
+                                />
+                                <InputError message={errors.contract_address}/>
                             </div>
                         </div>
                         <div className='flex justify-center gap-3'>
