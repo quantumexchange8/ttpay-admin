@@ -262,7 +262,7 @@ class MerchantController extends Controller
     public function recoverMerchant(Request $request)
     {
 
-        dd($request->all());
+        // dd($request->all());
 
         $merchant = Merchant::find($request->id);
 
@@ -287,7 +287,7 @@ class MerchantController extends Controller
     public function updateWalletAddress(Request $request)
     {
 
-        dd($request->all());
+        // dd($request->all());
         $merchant = Merchant::find($request->id);
         
 
