@@ -11,6 +11,7 @@ use App\Models\MerchantEmail;
 use App\Models\MerchantEmailContent;
 use App\Models\MerchantWallet;
 use App\Models\MerchantWalletAdrress;
+use App\Models\RefreshOption;
 use App\Models\User;
 use App\Notifications\MerchantNotification;
 use App\Services\RunningNumberService;
@@ -41,6 +42,8 @@ class MerchantController extends Controller
         $rateProfiles = RateProfile::where('merchant_id', null)->get();
 
         $trc20Addressess = WalletAddress::get();
+        
+        $refreshOptions = RefreshOption::get();
 
         // dd($trc20Addressess);
 
@@ -48,6 +51,7 @@ class MerchantController extends Controller
             'rateProfiles' => $rateProfiles,
             'trc20Addressess' => $trc20Addressess,
             'phoneCodes' => $formattedCountries,
+            'refreshOptions' => $refreshOptions,
         ]);
     }
 
@@ -135,6 +139,7 @@ class MerchantController extends Controller
         $merchantEmail = MerchantEmail::create([
             'email' => $request->email_receiving,
             'merchant_id' => $merchant->id,
+            'status' => 1,
         ]);
 
         if ($request->emailOptional != null) {
@@ -142,6 +147,7 @@ class MerchantController extends Controller
                 $merchantEmailOpt = MerchantEmail::create([
                     'email' => $emailOpt,
                     'merchant_id' => $merchant->id,
+                    'status' => 0,
                 ]);
             }
         }
@@ -185,9 +191,12 @@ class MerchantController extends Controller
 
         $rateProfiles = RateProfile::where('merchant_id', null)->get();
 
+        $walletAddress = WalletAddress::get();
+
         return Inertia::render('Merchant/MerchantListing/MerchantListing', [
             'phoneCodes' => $formattedCountries,
             'rateProfiles' => $rateProfiles,
+            'walletAddress' => $walletAddress,
         ]);
     }
 
@@ -253,7 +262,7 @@ class MerchantController extends Controller
     public function recoverMerchant(Request $request)
     {
 
-        // dd($request->all());
+        dd($request->all());
 
         $merchant = Merchant::find($request->id);
 
@@ -278,7 +287,9 @@ class MerchantController extends Controller
     public function updateWalletAddress(Request $request)
     {
 
-        // dd($request->all());
+        dd($request->all());
+        $merchant = Merchant::find($request->id);
+        
 
         return redirect()->back()->with('success');
     }

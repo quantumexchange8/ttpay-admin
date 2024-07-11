@@ -18,15 +18,15 @@ const approvalMode = [
     },
   ];
 
-const refreshOptions = [
-    { label: '20 seconds', value: 20 },
-    { label: '30 seconds', value: 30 },
-    { label: '1 minute', value: 60 },
-    { label: '3 minutes', value: 180 },
-    { label: '5 minutes', value: 300 },
-];
+// const refreshOptions = [
+//     { label: '20 seconds', value: 20 },
+//     { label: '30 seconds', value: 30 },
+//     { label: '1 minute', value: 60 },
+//     { label: '3 minutes', value: 180 },
+//     { label: '5 minutes', value: 300 },
+// ];
 
-export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, phoneCodes }) {
+export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, phoneCodes, refreshOptions }) {
 
     const [step, setStep] = useState(1);
     const [ isActive, setIsActive ] = useState()

@@ -24,7 +24,6 @@ class Trc20AddressRequest extends FormRequest
         return [
             'name' => ['required'],
             'token_address' => ['required'],
-            'contract_address' => ['required'],
         ];
     }
 
@@ -33,7 +32,6 @@ class Trc20AddressRequest extends FormRequest
         return [
             'name' => 'Wallet name',
             'token_address' => 'Token Address',
-            'contract_address' => 'Contract Address',
         ];
     }
 }

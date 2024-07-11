@@ -8,7 +8,7 @@ import Button from '@/Components/Button';
 import { ArrowDown } from '@/Components/Icon/Icon';
 import MerchantListingTable from '@/Pages/Merchant/MerchantListing/Partials/MerchantListingTable'
 
-export default function MerchantListing({ auth, phoneCodes, rateProfiles }) {
+export default function MerchantListing({ auth, phoneCodes, rateProfiles, walletAddress }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         search: '',
@@ -62,7 +62,7 @@ export default function MerchantListing({ auth, phoneCodes, rateProfiles }) {
                 </div>
 
                 <div>
-                    <MerchantListingTable searchVal={searchVal} phoneCodes={phoneCodes} rateProfiles={rateProfiles}/>
+                    <MerchantListingTable searchVal={searchVal} phoneCodes={phoneCodes} rateProfiles={rateProfiles} walletAddress={walletAddress}/>
                 </div>
             </div>
 

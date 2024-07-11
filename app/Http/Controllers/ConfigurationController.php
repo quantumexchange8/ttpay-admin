@@ -84,7 +84,6 @@ class ConfigurationController extends Controller
         $newTrc20Address = WalletAddress::create([
             'name' => $request->name,
             'token_address' => $request->token_address,
-            'contract_address' => $request->contract_address,
         ]);
 
         return redirect()->back()->with('toast', 'Trc-20 Address successfully created!');

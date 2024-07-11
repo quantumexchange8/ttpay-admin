@@ -207,7 +207,7 @@ export default function Configuration({
                     <div className='flex items-center gap-1'>
                         <Label value='Select USDT address (multiple choices)'/> 
                     </div>
-                    <div className='flex flex-col gap-2'>
+                    <div className='flex flex-col gap-2 h-80 overflow-y-scroll scrollbar-thin scrollbar-webkit'>
                         {trc20Addressess.map((address, index) => (
                             <div key={index} className='flex items-center gap-3'>
                                 <Checkbox

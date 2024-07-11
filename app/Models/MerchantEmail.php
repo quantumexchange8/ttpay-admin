@@ -13,5 +13,6 @@ class MerchantEmail extends Model
     protected $fillable = [
         'email',
         'merchant_id',
+        'status',
     ];
 }

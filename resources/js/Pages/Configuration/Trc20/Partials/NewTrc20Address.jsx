@@ -32,7 +32,6 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         token_address: '',
-        contract_address: '',
     })
     
     const submit = (e) => {
@@ -106,19 +105,6 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
                                     className="w-full"
                                 />
                                 <InputError message={errors.token_address}/>
-                            </div>
-                            <div className="space-y-1.5">
-                                <div className='flex items-center gap-1'>
-                                    <Label for="contract_address" value="Contract Address"/> <span className='text-sm text-error-600 font-medium'>*</span>
-                                </div>
-                                <Input 
-                                    id="contract_address" 
-                                    type='text'
-                                    value={data.contract_address}
-                                    handleChange={(e) => setData('contract_address', e.target.value)}
-                                    className="w-full"
-                                />
-                                <InputError message={errors.contract_address}/>
                             </div>
                         </div>
                         <div className='flex justify-center gap-3'>
