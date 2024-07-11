@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Sidebar, { SidebarItem, SectionLabel, SidebarCollapsible, SidebarCollapseItem } from '@/Components/Sidebar';
 import Navbar from '@/Components/Navbar';
 import { Link, usePage } from '@inertiajs/react';
-import { SubLine, SubLine2 } from '@/Components/Icon/Outline';
+import { SubLine, SubLine2, EmptyFilter } from '@/Components/Icon/Outline';
 import { Dashboard, Pending, DealHistory, Performance, RateProfile, Tron, } from '@/Components/Icon/Menu';
 import {CustomToaster} from '@/Components/CustomToaster';
 
@@ -40,8 +40,12 @@ export default function Authenticated({ children, header }) {
                                     <SubLine2 size={20} />
                                 </div>
                                 <div className='flex flex-col'>
-                                    <SidebarCollapseItem text="Master Merchant" />
-                                    <SidebarCollapseItem text="Master Client" />
+                                    <SidebarCollapseItem text="Master - Merchants" />
+                                    <Link href={route('dealHistory.merchants_clients')} className={`${
+                                    url === '/dealHistory/merchants_clients' ? 'bg-[#03071299] rounded-lg' : 'text-neutral-400'
+                                    }`}>
+                                        <SidebarCollapseItem text="Merchant - Clients" />
+                                    </Link>
                                 </div>
                             </div>
                         </SidebarCollapsible>

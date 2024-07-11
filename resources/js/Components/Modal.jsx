@@ -55,7 +55,7 @@ export default function Modal({ children, title, show = false, maxWidth = '2xl',
                     >
                         {showCloseButton && (
                             <div className='flex justify-between'>
-                                {title && <h2 className="text-lg font-semibold text-gray-800 dark:text-white">{title}</h2>}
+                                {title && <h2 className="sm:text-base md:text-lg lg:text-lg xl:md:text-lg font-semibold text-gray-800 dark:text-white">{title}</h2>}
                                 <button className="dark:hover:text-gray-300" onClick={onClose}>
                                     <XIcon className="h-6 w-6 text-gray-400 hover:text-gray-700" aria-hidden="true" />
                                 </button>

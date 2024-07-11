@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\DealHistory;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PendingController;
+use App\Http\Controllers\DealHistoryController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\MerchantController;
 use Illuminate\Foundation\Application;
@@ -33,6 +35,13 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::get('/pending', [PendingController::class, 'index'])->name('pending');
 
+    Route::prefix('dealHistory')->group(function () {
+        // route::get('/master_merchants', [DealHistoryController::class, 'master_merchants'])->name('dealHistory.master_merchants');
+    Route::get('/merchants_clients', [DealHistoryController::class, 'merchants_clients'])->name('dealHistory.merchants_clients');
+    Route::get('/getClientDeposit', [DealHistoryController::class, 'getClientDeposit'])->name('dealHistory.getClientDeposit');
+    Route::get('/getClientWithdrawal', [DealHistoryController::class, 'getClientWithdrawal'])->name('dealHistory.getClientWithdrawal');
+
+    });
 
     /**
      * ==============================

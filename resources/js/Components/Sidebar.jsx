@@ -77,7 +77,7 @@ export function SidebarCollapsible({ text, children, icon }) {
   
     return (
       <li>
-        <button className="py-[10px] px-4 text-white flex gap-3 items-center w-full" onClick={toggleExpanded}>
+        <button className="py-[10px] px-4 text-gray-300 flex gap-3 items-center w-full" onClick={toggleExpanded}>
             {icon}
             <span className="w-36 text-left text-sm font-medium">{text}</span>
             

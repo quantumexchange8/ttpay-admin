@@ -56,6 +56,9 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
     setPagination({ ...pagination, pageIndex: Math.min(pagination.pageIndex + 1, totalPages - 1) });
   };
 
+  const startPage = Math.max(0, Math.min(pagination.pageIndex - 2, totalPages - 5));
+  const endPage = Math.min(totalPages, startPage + 5);
+  
   const [sorting, setSorting] = useState({
     column: null,
     direction: null,
@@ -282,15 +285,16 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
                       )}
                       
                       {/* Page Numbers */}
-                      {Array.from({ length: totalPages }, (_, index) => (
-                        <span
-                          key={index}
-                          className={`flex justify-center items-center text-sm text-white font-semibold py-2 px-[10px] w-9 h-9 rounded-full cursor-pointer hover:bg-gray-800 ${index === pagination.pageIndex ? 'bg-primary-700' : ''}`}
-                          onClick={() => handlePageChange(index)}
-                        >
-                          {index + 1}
-                        </span>
-                      ))}
+                      {Array.from({ length: endPage - startPage }, (_, index) => (
+                          <span
+                            key={startPage + index}
+                            className={`flex justify-center items-center text-sm text-white font-semibold py-2 px-[10px] w-9 h-9 rounded-full cursor-pointer hover:bg-gray-800 ${index === pagination.pageIndex ? 'bg-primary-700' : ''}`}
+                            onClick={() => handlePageChange(startPage + index)}
+                          >
+                            {startPage + index + 1}
+                          </span>
+                        ))}
+
                       {/* Next Page Icon */}
                       {totalPages >= 2 && (
                         <div 
@@ -385,13 +389,13 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
                         )}
                         
                         {/* Page Numbers */}
-                        {Array.from({ length: totalPages }, (_, index) => (
+                        {Array.from({ length: endPage - startPage }, (_, index) => (
                           <span
-                            key={index}
-                            className={`flex justify-center items-center text-sm text-white font-semibold py-2 px-[10px] w-9 h-9 rounded-full cursor-pointer hover:bg-gray-800 ${index === pagination.pageIndex ? 'bg-primary-700' : ''}`}
-                            onClick={() => handlePageChange(index)}
+                            key={startPage + index}
+                            className={`flex justify-center items-center text-sm text-white font-semibold py-2 px-[10px] w-9 h-9 rounded-full cursor-pointer hover:bg-gray-800 ${startPage + index === pagination.pageIndex ? 'bg-primary-700' : ''}`}
+                            onClick={() => handlePageChange(startPage + index)}
                           >
-                            {index + 1}
+                            {startPage + index + 1}
                           </span>
                         ))}
                         {/* Next Page Icon */}
