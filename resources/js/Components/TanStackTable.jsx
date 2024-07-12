@@ -109,10 +109,13 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
           isWithinDateRange = binDate >= startDate && binDate <= endDate;
       }
 
-        const matchesSearchVal = columns.some((column) => {
-            const cellValue = column.accessor.split('.').reduce((acc, part) => acc && acc[part], item);
+      const matchesSearchVal = columns.some((column) => {
+        const cellValue = column.accessor.split('.').reduce((acc, part) => acc && acc[part], item);
             return cellValue ? cellValue.toString().toLowerCase().includes(searchVal.toLowerCase()) : false;
-        }) || item.name.toLowerCase().includes(searchVal.toLowerCase()) || (item.role_id && item.role_id.toLowerCase().includes(searchVal.toLowerCase()));
+        }) || 
+        (item.name && item.name.toLowerCase().includes(searchVal.toLowerCase())) || 
+        (item.role_id && item.role_id.toString().toLowerCase().includes(searchVal.toLowerCase())) ||
+        (item.transaction_number && item.transaction_number.toString().toLowerCase().includes(searchVal.toLowerCase()));
 
         return isWithinDateRange && matchesSearchVal;
     });

@@ -4,7 +4,7 @@ import { ViewDetailsIcon } from '@/Components/Icon/Icon';
 import Tooltip from "@/Components/Tooltip";
 import Button from "@/Components/Button";
 import Modal from "@/Components/Modal";
-import ShowClients from '@/Pages/General/DealHistory/Client/Partials/ShowClients';
+import DealHistoryDetails from '@/Pages/General/DealHistory/Master/Partials/Master_DealHistoryDetails';
 
 export default function ViewDetails({ client_id, fetchDataCallback, transactions }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -35,8 +35,8 @@ export default function ViewDetails({ client_id, fetchDataCallback, transactions
                 </Button>
             </Tooltip>
 
-            <Modal show={isOpen} onClose={closeModal} title='View Client’s Deposit Details' classNames='text-xl'>
-                <ShowClients closeModal={closeModal} transaction={client_id} />
+            <Modal show={isOpen} onClose={closeModal} maxWidth='md' title='View Deal History Details' classNames='text-xl'>
+                <DealHistoryDetails closeModal={closeModal} transaction={client_id} />
             </Modal>
         </div>
     );

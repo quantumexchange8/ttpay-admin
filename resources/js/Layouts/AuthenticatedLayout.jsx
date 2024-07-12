@@ -40,7 +40,11 @@ export default function Authenticated({ children, header }) {
                                     <SubLine2 size={20} />
                                 </div>
                                 <div className='flex flex-col'>
-                                    <SidebarCollapseItem text="Master - Merchants" />
+                                    <Link href={route('dealHistory.master_merchants')} className={`${
+                                    url === '/dealHistory/master_merchants' ? 'bg-[#03071299] rounded-lg' : 'text-neutral-400'
+                                    }`}>
+                                        <SidebarCollapseItem text="Master - Merchants" />
+                                    </Link>
                                     <Link href={route('dealHistory.merchants_clients')} className={`${
                                     url === '/dealHistory/merchants_clients' ? 'bg-[#03071299] rounded-lg' : 'text-neutral-400'
                                     }`}>

@@ -5,8 +5,6 @@ import { ArrowDown } from '@/Components/Icon/Icon';
 
 const months = [
   { num: 'All' },
-  { num: '2023/11' },
-  { num: '2023/12' },
   { num: '2024/01' },
   { num: '2024/02' },
   { num: '2024/03' },
@@ -42,7 +40,7 @@ export default function MonthSelection({selectedMonth}) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute max-h-60 w-full overflow-y-auto rounded-md bg-neutral-800 py-2 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute max-h-60 w-[160px] overflow-y-auto rounded-md bg-white/5 backdrop-blur-[60px] py-2 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm mt-5">
               {months.map((monthSelected, monthIdx) => (
                 <Listbox.Option
                   key={monthIdx}
@@ -55,7 +53,7 @@ export default function MonthSelection({selectedMonth}) {
                 >
                   {({ selected }) => (
                     <>
-                    <div className='flex gap-6'>
+                    <div className='flex items-center justify-between'>
                         <div
                             className={`${
                             selected ? 'font-bold' : 'text-sm font-normal'

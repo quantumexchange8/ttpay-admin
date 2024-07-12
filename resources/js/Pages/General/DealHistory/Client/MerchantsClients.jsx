@@ -7,11 +7,11 @@ import Input from '@/Components/Input';
 import Button from '@/Components/Button';
 import { ArrowDown } from '@/Components/Icon/Icon';
 import { EmptyFilter, FilledFilter } from "@/Components/Icon/Outline";
-import MerchantClient_DepositTable from "./Partials/MerchantClient_DepositTable";
-import MerchantClient_WithdrawalTable from "./Partials/MerchantClient_WithdrawalTable";
+import MerchantClient_DepositTable from "./Partials/Deposit/MerchantClient_DepositTable";
+import MerchantClient_WithdrawalTable from "./Partials/Withdrawal/MerchantClient_WithdrawalTable";
 import { Tab } from '@headlessui/react';
-import MonthSelection from "./Partials/MonthSelection";
-import DealHistory_Filter from "./Partials/DealHistory_Filter";
+import MonthSelection from "./Partials/Client_MonthSelection";
+import DealHistory_Filter from "./Partials/Client_DealHistoryFilter";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -86,7 +86,7 @@ export default function DealHistory({}) {
                                         name="search"
                                         placeholder="Search"
                                         value={data.search}
-                                        className="block w-full caret-primary-700 py-3"
+                                        className="block w-full caret-primary-700 py-3 rounded-r-none"
                                         autoComplete="search"
                                         isFocused={false}
                                         handleChange={(e) => setData('search', e.target.value)}
@@ -110,11 +110,11 @@ export default function DealHistory({}) {
                             </div>
                             
                             <div className="flex gap-3">
-                                <div className="hidden md:flex gap-[12px] items-center bg-[#ffffff0d] px-4 py-3 border-l-[1px] border-neutral-800">
+                                <div className="hidden md:flex gap-[12px] items-center">
                                     <button
                                         type="filter button"
                                         onClick={openFilterModal}
-                                        className="flex gap-[8px]"
+                                        className="flex gap-[8px] bg-[#ffffff0d] px-4 py-[14px] border-l-[1px] border-neutral-800 rounded-r-lg"
                                     >
                                         {filtersApplied ? <FilledFilter /> : <EmptyFilter />}
                                         <div className="text-white text-sm font-semibold justify-center">
@@ -122,7 +122,7 @@ export default function DealHistory({}) {
                                         </div>
                                     </button>
                                 </div>
-                                <div className="hidden md:flex items-center bg-[#ffffff0d] px-4 py-2">
+                                <div className="hidden md:flex items-center bg-[#ffffff0d] px-4 py-2 w-[160px] rounded-lg">
                                     <div className="text-white">
                                         <MonthSelection selectedMonth={setSelectedMonth} />
                                     </div>

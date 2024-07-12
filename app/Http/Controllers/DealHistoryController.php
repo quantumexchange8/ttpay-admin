@@ -11,7 +11,18 @@ class DealHistoryController extends Controller
 {
     public function master_merchants()
     {
-        return Inertia::render('General/DealHistory/Master/MasterMerchants');
+        $transactions = Transaction::where('client_id',null) -> get();
+        return Inertia::render('General/DealHistory/Master/MasterMerchants', [
+            'transaction' => $transactions,
+        ]);
+    }
+
+    public function getMasterDealHistory()
+    {
+        $clients = Transaction::where('client_id', '!=', null)->where('transaction_type', '=', 'deposit')->with(['merchant'])->get();
+        
+        return response()->json($clients);
+    
     }
 
     public function merchants_clients(Transaction $request)
@@ -19,8 +30,7 @@ class DealHistoryController extends Controller
         $transactions = Transaction::where('client_id',null) -> get();
         return Inertia::render('General/DealHistory/Client/MerchantsClients', [
             'transaction' => $transactions,
-        ]
-    );
+        ]);
     }
 
     public function getClientDeposit()

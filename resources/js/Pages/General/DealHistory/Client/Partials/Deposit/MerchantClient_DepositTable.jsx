@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import TanStackTable from '@/Components/TanStackTable';
-import ViewDetails from '@/Pages/General/DealHistory/Client/Partials/View_Details';
+import ViewDetails from '@/Pages/General/DealHistory/Client/Partials/Deposit/ClientDeposit_ViewDetails';
 import axios from 'axios';
+import {Success, Pending, Freezing, Failed, Rejected} from '@/Components/Badge'
 import Tooltip from '@/Components/Tooltip';
 import Input from '@/Components/Input';
 
-export default function MerchantClient_WithdrawalTable ({searchVal, selectedMonth, appliedFilters}) {
+export default function MerchantClient_DepositTable ({searchVal, selectedMonth, appliedFilters}) {
     const [data, setData] = useState([]);
     const [selectedRow, setSelectedRow] = useState(null);
     const [isOpen, setIsOpen] = useState(false)
-    // const [walletFields, setWalletFields] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('/dealHistory/getClientWithdrawal');
+            const response = await axios.get('/dealHistory/getClientDeposit');
             
             setData(response.data);
             
@@ -35,7 +35,7 @@ export default function MerchantClient_WithdrawalTable ({searchVal, selectedMont
         }
     }, [isLoading, data]);
 
-    console.log(data)
+    // console.log(data)
 
     const openModal = (row) => {
         setSelectedRow(row);
@@ -73,11 +73,10 @@ export default function MerchantClient_WithdrawalTable ({searchVal, selectedMont
         return row.transaction_date && row.transaction_date.startsWith(`${year}-${month}`);
       });
 
-        // Calculate totals
+      // Calculate totals
         const totalAmount = filteredData.reduce((sum, row) => sum + parseFloat(row.amount), 0);
         const totalFees = filteredData.reduce((sum, row) => sum + parseFloat(row.fee), 0);
-    
-
+        
     const columns = [
         {
             accessor: 'transaction_number',
@@ -98,7 +97,7 @@ export default function MerchantClient_WithdrawalTable ({searchVal, selectedMont
             sortable: true,
             Cell: ({ row }) => (
                 <div className='text-xs'>
-                    {row.transaction_date}
+                    {`${row.transaction_date ? row.transaction_date : '-' }`}
                 </div>
             ),
         },
@@ -148,25 +147,11 @@ export default function MerchantClient_WithdrawalTable ({searchVal, selectedMont
             sortable: false,
             Cell: ({ row }) => (
                 <div className='rounded-full w-[60px] flex items-center'>
-                    <div
-                        style={{
-                            backgroundColor: row.status === 'Success' || row.status === 'success' ? 'rgba(22, 163, 74, 0.10)' : 
-                                             row.status === 'Processing' || row.status === 'pending' || row.status === 'Pending' ? 'rgba(245, 158, 11, 0.10)' : 
-                                             row.status === 'Rejected' || row.status === 'rejected' ? 'rgba(220, 38, 38, 0.10)' :
-                                             row.status === 'Freezing' || row.status === 'freezing' ? 'rgba(47, 114, 255, 0.10)' : '',
-                            color: row.status === 'Success' || row.status === 'success' ? '#22C55E' : 
-                                   row.status === 'Processing' || row.status === 'pending' || row.status === 'Pending' ? '#F59E0B' : 
-                                   row.status === 'Rejected' || row.status === 'rejected' ? '#EF4444' :
-                                   row.status === 'Freezing' || row.status === 'freezing' ? '#2F72FF' : '',
-                            borderColor: row.status === 'Success' || row.status === 'success' ? '#16A34A' : 
-                                         row.status === 'Processing' || row.status === 'pending' || row.status === 'Pending' ? '#F59E0B' : 
-                                         row.status === 'Rejected' || row.status === 'rejected' ? '#EF4444' :
-                                         row.status === 'Freezing' || row.status === 'freezing' ? '#2F72FF' : '',
-                        }}
-                        className="w-[130px] text-xs font-medium rounded-[50px] py-[2px] px-3 border border-solid"
-                    >
-                        {row.status}
-                    </div>
+                    {row.status.toLowerCase() === 'success' && <Success />}
+                    {row.status.toLowerCase() === 'pending' && <Pending />}
+                    {row.status.toLowerCase() === 'freezing' && <Freezing />}
+                    {row.status.toLowerCase() === 'rejected' && <Rejected />}
+                    {row.status.toLowerCase() === 'failed' && <Failed />}
                 </div>
             ),
         },
@@ -187,7 +172,7 @@ export default function MerchantClient_WithdrawalTable ({searchVal, selectedMont
                 <div className='text-sm font-bold'>Total Fees: ${totalFees.toFixed(2)}</div>
             </div> */}
             <TanStackTable isLoading={isLoading} columns={columns} data={filteredData} searchVal={searchVal}
-            // statuses={[(row) => <SwitchStatus key={row.id} merchant={row} fetchDataCallback={fetchData}  />]}
+                // statuses={[(row) => <SwitchStatus key={row.id} merchant={row} fetchDataCallback={fetchData}  />]}
             />
         </div>
     )

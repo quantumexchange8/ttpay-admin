@@ -36,7 +36,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/pending', [PendingController::class, 'index'])->name('pending');
 
     Route::prefix('dealHistory')->group(function () {
-        // route::get('/master_merchants', [DealHistoryController::class, 'master_merchants'])->name('dealHistory.master_merchants');
+    Route::get('/master_merchants', [DealHistoryController::class, 'master_merchants'])->name('dealHistory.master_merchants');
+    Route::get('/getMasterDealHistory', [DealHistoryController::class, 'getMasterDealHistory'])->name('dealHistory.getMasterDealHistory');
     Route::get('/merchants_clients', [DealHistoryController::class, 'merchants_clients'])->name('dealHistory.merchants_clients');
     Route::get('/getClientDeposit', [DealHistoryController::class, 'getClientDeposit'])->name('dealHistory.getClientDeposit');
     Route::get('/getClientWithdrawal', [DealHistoryController::class, 'getClientWithdrawal'])->name('dealHistory.getClientWithdrawal');

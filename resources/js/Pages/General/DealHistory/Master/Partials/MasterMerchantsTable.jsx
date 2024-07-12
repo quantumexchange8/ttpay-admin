@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TanStackTable from '@/Components/TanStackTable';
-import ViewDetails from '@/Pages/General/DealHistory/Client/Partials/View_Details';
+import ViewDetails from '@/Pages/General/DealHistory/Master/Partials/Master_ViewDetails';
 import axios from 'axios';
-import Tooltip from '@/Components/Tooltip';
-import Input from '@/Components/Input';
 
 export default function MerchantClient_DepositTable ({searchVal, selectedMonth, appliedFilters}) {
     const [data, setData] = useState([]);
@@ -13,7 +11,7 @@ export default function MerchantClient_DepositTable ({searchVal, selectedMonth, 
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('/dealHistory/getClientDeposit');
+            const response = await axios.get('/dealHistory/getMasterDealHistory');
             
             setData(response.data);
             
@@ -96,7 +94,7 @@ export default function MerchantClient_DepositTable ({searchVal, selectedMonth, 
             sortable: true,
             Cell: ({ row }) => (
                 <div className='text-xs'>
-                    {row.transaction_date}
+                    {`${row.transaction_date ? row.transaction_date : '-' }`}
                 </div>
             ),
         },
@@ -107,16 +105,6 @@ export default function MerchantClient_DepositTable ({searchVal, selectedMonth, 
             Cell: ({ row }) => (
                 <div className='text-xs'>
                     {row.merchant_id}
-                </div>
-            ),
-        },
-        {
-            accessor: 'client_id',
-            header: 'CLIENT',
-            sortable: false,
-            Cell: ({ row }) => (
-                <div className='text-xs'>
-                    {row.client_id}
                 </div>
             ),
         },

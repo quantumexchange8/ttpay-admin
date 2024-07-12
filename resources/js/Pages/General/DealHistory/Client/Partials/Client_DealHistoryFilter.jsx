@@ -52,7 +52,7 @@ export default function DealHistory_Filter({ closeFilter, applyFilters, resetFil
     };
 
     return (
-        <div className='absolute left-[100px] bg-neutral-800 text-white p-4 rounded-lg shadow-lg w-[240px]'>
+        <div className='absolute left-[100px] bg-white/5 backdrop-blur-[60px] text-white p-4 rounded-lg shadow-lg w-[240px]'>
             <div className='flex flex-col gap-6'>
                 <div className='flex justify-between items-center'>
                     <div className='text-base font-semibold'>Filters</div>
@@ -69,10 +69,10 @@ export default function DealHistory_Filter({ closeFilter, applyFilters, resetFil
                             <div className="flex items-center gap-3">
                                 <div
                                     onClick={() => handleCheckboxChange('success')}
-                                    className={`group size-6 rounded-md p-1 ring-1 ring-white/15 ring-inset ${filters.success ? 'bg-white' : 'bg-white/10'}`}
+                                    className={`group size-6 rounded-[41px] p-1 ring-1 ring-white/15 ring-inset ${filters.success ? 'bg-primary-700' : 'bg-white/10'}`}
                                 >
                                     {filters.success && (
-                                        <CheckIcon className="size-4 fill-black" />
+                                        <CheckIcon className="size-4 fill-white" />
                                     )}
                                 </div>
                                 <div>Success</div>
@@ -81,10 +81,10 @@ export default function DealHistory_Filter({ closeFilter, applyFilters, resetFil
                             <div className="flex items-center gap-3">
                                 <div
                                     onClick={() => handleCheckboxChange('rejected')}
-                                    className={`group size-6 rounded-md p-1 ring-1 ring-white/15 ring-inset ${filters.rejected ? 'bg-white' : 'bg-white/10'}`}
+                                    className={`group size-6 rounded-[41px] p-1 ring-1 ring-white/15 ring-inset ${filters.rejected ? 'bg-primary-700' : 'bg-white/10'}`}
                                 >
                                     {filters.rejected && (
-                                        <CheckIcon className="size-4 fill-black" />
+                                        <CheckIcon className="size-4 fill-white" />
                                     )}
                                 </div>
                                 <div>Rejected</div>
@@ -102,7 +102,7 @@ export default function DealHistory_Filter({ closeFilter, applyFilters, resetFil
                                     type="text"
                                     name='minAmount'
                                     placeholder='Min.'
-                                    className='flex flex-col text-left p-2 text-white bg-white/5 rounded-md w-[88px]'
+                                    className='flex flex-col text-left p-2 text-white bg-white/5 rounded-md w-[88px] border-none'
                                     value={filters.minAmount}
                                     onChange={handleInputChange}
                                 />
@@ -111,7 +111,7 @@ export default function DealHistory_Filter({ closeFilter, applyFilters, resetFil
                                     type="text"
                                     name='maxAmount'
                                     placeholder='Max.'
-                                    className='flex flex-col text-left p-2 text-white bg-white/5 rounded-md w-[88px]'
+                                    className='flex flex-col text-left p-2 text-white bg-white/5 rounded-md w-[88px] border-none'
                                     value={filters.maxAmount}
                                     onChange={handleInputChange}
                                 />
@@ -127,7 +127,7 @@ export default function DealHistory_Filter({ closeFilter, applyFilters, resetFil
                                     type="text"
                                     name='minFee'
                                     placeholder='Min.'
-                                    className='flex flex-col text-left p-2 text-white bg-white/5 rounded-md w-[88px]'
+                                    className='flex flex-col text-left p-2 text-white bg-white/5 rounded-md w-[88px] border-none'
                                     value={filters.minFee}
                                     onChange={handleInputChange}
                                 />
@@ -136,7 +136,7 @@ export default function DealHistory_Filter({ closeFilter, applyFilters, resetFil
                                     type="text"
                                     name='maxFee'
                                     placeholder='Max.'
-                                    className='flex flex-col text-left p-2 text-white bg-white/5 rounded-md w-[88px]'
+                                    className='flex flex-col text-left p-2 text-white bg-white/5 rounded-md w-[88px] border-none'
                                     value={filters.maxFee}
                                     onChange={handleInputChange}
                                 />
