@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\WalletAddress;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class Trc20AddressRequest extends FormRequest
 {
@@ -22,8 +24,8 @@ class Trc20AddressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
-            'token_address' => ['required'],
+            'name' => ['required', Rule::unique(WalletAddress::class)],
+            'token_address' => ['required', Rule::unique(WalletAddress::class)],
         ];
     }
 
