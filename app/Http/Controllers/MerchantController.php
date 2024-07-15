@@ -139,7 +139,7 @@ class MerchantController extends Controller
         $merchantEmail = MerchantEmail::create([
             'email' => $request->email_receiving,
             'merchant_id' => $merchant->id,
-            'status' => 1,
+            'main' => 1,
         ]);
 
         if ($request->emailOptional != null) {
@@ -147,7 +147,7 @@ class MerchantController extends Controller
                 $merchantEmailOpt = MerchantEmail::create([
                     'email' => $emailOpt,
                     'merchant_id' => $merchant->id,
-                    'status' => 0,
+                    'main' => 0,
                 ]);
             }
         }
@@ -300,10 +300,10 @@ class MerchantController extends Controller
         
         $merchant = Merchant::find($request->id);
         $merchant_email = MerchantEmail::where('merchant_id', $request->id)->get();
-        
-        foreach ($merchant_email as $merchantMail) {
-            dd($merchantMail);
-        }
+        // dd($request->all());
+        // foreach ($merchant_email as $merchantMail) {
+        //     dd($merchantMail);
+        // }
 
         if ($merchant->name != $request->name) {
 
@@ -313,11 +313,12 @@ class MerchantController extends Controller
             ]);
         }
 
+        $merchant->name = $request->name;
         $merchant->manager_name = $request->manager_name;
-        $merchant->email = $request->manager_name;
+        $merchant->email = $request->email;
         $merchant->dial_code = $request->dial_code;
         $merchant->phone = $request->phone;
-        $merchant->rate_profile = $request->rate_profile;
+        $merchant->rate_id = $request->rate_profile;
         $merchant->url = $request->url;
         $merchant->refresh_time = $request->auto_refresh;
         $merchant->deposit_type = $request->approval_mode;
