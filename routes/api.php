@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\MerchantController;
+use App\Http\Controllers\api\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +18,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::group(["middleware" => ["auth:sanctum"]], function() {
     Route::get('merchant', [MerchantController::class, 'merchant']);
+
+    Route::get('transaction', [TransactionController::class, 'transaction']);
 });
 
