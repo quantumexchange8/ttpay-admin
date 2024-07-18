@@ -100,6 +100,9 @@ Route::middleware('auth', 'verified')->group(function () {
         // Payout Configuration
         Route::get('/payout-configuration', [ConfigurationController::class, 'payoutConfig'])->name('configuration.payout-configuration');
         Route::post('/storePayout', [ConfigurationController::class, 'storePayout'])->name('configuration.storePayout');
+        Route::get('/getPayoutConfig', [ConfigurationController::class, 'getPayoutConfig'])->name('configuration.getPayoutConfig');
+        Route::post('/edit_payout', [ConfigurationController::class, 'edit_payout'])->name('configuration.edit_payout');
+        Route::post('/delete_payout', [ConfigurationController::class, 'delete_payout'])->name('configuration.delete_payout');
      });
 
      /**

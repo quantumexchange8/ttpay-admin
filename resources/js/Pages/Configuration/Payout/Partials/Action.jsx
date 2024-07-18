@@ -10,7 +10,7 @@ import InputError from '@/Components/InputError';
 import toast from 'react-hot-toast';
 import { infinity } from 'ldrs';
 
-export default function Action({ trc20Address, fetchDataCallback }) {
+export default function Action({ payout, fetchDataCallback }) {
 
     const [isOpen, setIsOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
@@ -35,31 +35,40 @@ export default function Action({ trc20Address, fetchDataCallback }) {
     const user = usePage().props.auth.user
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        id: trc20Address.id,
-        name: trc20Address.name,
-        token_address: trc20Address.token_address,
+        id: payout.id,
+        name: payout.name,
+        live_paymentUrl: payout.live_paymentUrl,
+        appId: payout.appId,
+        returnUrl: payout.returnUrl,
+        callBackUrl: payout.callBackUrl,
+        // token_address: payout.token_address,
     })
 
     const submit = (e) => {
         e.preventDefault();
         setIsLoading(true);
         if(actionType === 'edit') {
-            post('/configuration/edit_trc20_address', {
+            post('/configuration/edit_payout', {
                 preserveScroll: true,
                 onSuccess: () => {
                     closeModal();
                     setIsLoading(false);
                     reset();
-                    toast.success('New changes updated!', { duration: 3000 });
+                    toast.success('Payout updated', {
+                        title: 'Payout updated',
+                        duration: 3000,
+                        variant: 'variant3',
+                    });
     
                     fetchDataCallback();
                 }, 
                 onError: () => {
                     setIsLoading(false);
                 }
+    
             })
         } else {
-            post('/configuration/delete_trc20_address', {
+            post('/configuration/delete_payout', {
                 preserveScroll: true,
                 onSuccess: () => {
                     closeModal();
@@ -102,14 +111,14 @@ export default function Action({ trc20Address, fetchDataCallback }) {
                 
             </Tooltip>
 
-            <Modal show={isOpen} onClose={closeModal} title={actionType === 'edit' ? 'Edit Rate Profile' : ''} maxWidth='md' showCloseButton={actionType === 'edit'}>
+            <Modal show={isOpen} onClose={closeModal} title={actionType === 'edit' ? 'Edit Payout' : ''} maxWidth='md' showCloseButton={actionType === 'edit'}>
                 {actionType === 'edit' ? (
                     <form onSubmit={submit}>
                         <div className='flex flex-col gap-12'>
                             <div className='flex flex-col gap-5'>
                                 <div className="space-y-1.5">
                                     <div className='flex items-center gap-1'>
-                                        <Label for="name" value="Wallet Name"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                        <Label for="name" value="Payout Name"/> <span className='text-sm text-error-600 font-medium'>*</span>
                                     </div>
                                     <Input 
                                         id="name" 
@@ -124,17 +133,59 @@ export default function Action({ trc20Address, fetchDataCallback }) {
                                 </div>
                                 <div className="space-y-1.5">
                                     <div className='flex items-center gap-1'>
-                                        <Label for="token_address" value="Token Address"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                        <Label for="live_paymentUrl" value="Payment Url"/> <span className='text-sm text-error-600 font-medium'>*</span>
                                     </div>
                                     <Input 
-                                        id="token_address" 
+                                        id="live_paymentUrl" 
                                         type='text'
-                                        value={data.token_address}
-                                        handleChange={(e) => setData('token_address', e.target.value)}
+                                        value={data.live_paymentUrl}
+                                        handleChange={(e) => setData('live_paymentUrl', e.target.value)}
                                         // required
                                         className="w-full"
                                     />
-                                    <InputError message={errors.token_address}/>
+                                    <InputError message={errors.live_paymentUrl}/>
+                                </div>
+                                <div className="space-y-1.5">
+                                    <div className='flex items-center gap-1'>
+                                        <Label for="appId" value="App ID"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                    </div>
+                                    <Input 
+                                        id="appId" 
+                                        type='text'
+                                        value={data.appId}
+                                        handleChange={(e) => setData('appId', e.target.value)}
+                                        // required
+                                        className="w-full"
+                                    />
+                                    <InputError message={errors.appId}/>
+                                </div>
+                                <div className="space-y-1.5">
+                                    <div className='flex items-center gap-1'>
+                                        <Label for="returnUrl" value="Return Url"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                    </div>
+                                    <Input 
+                                        id="returnUrl" 
+                                        type='text'
+                                        value={data.returnUrl}
+                                        handleChange={(e) => setData('returnUrl', e.target.value)}
+                                        // required
+                                        className="w-full"
+                                    />
+                                    <InputError message={errors.returnUrl}/>
+                                </div>
+                                <div className="space-y-1.5">
+                                    <div className='flex items-center gap-1'>
+                                        <Label for="callBackUrl" value="Callback Url"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                    </div>
+                                    <Input 
+                                        id="callBackUrl" 
+                                        type='text'
+                                        value={data.callBackUrl}
+                                        handleChange={(e) => setData('callBackUrl', e.target.value)}
+                                        // required
+                                        className="w-full"
+                                    />
+                                    <InputError message={errors.callBackUrl}/>
                                 </div>
                             </div>
                             <div className='flex justify-center gap-3'>

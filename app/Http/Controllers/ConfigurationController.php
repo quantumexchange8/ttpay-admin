@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditPayoutRequest;
 use Illuminate\Http\Request;
 use App\Models\RateProfile;
 use Inertia\Inertia;
@@ -137,6 +138,39 @@ class ConfigurationController extends Controller
             'callBackUrl' => $request->callbackUrl,
         ]);
 
-        return redirect()->back()->with('toast', 'Trc-20 Address successfully created!');
+        return redirect()->back()->with('toast', 'Payout successfully created!');
+    }
+
+    public function getPayoutConfig()
+    {
+        $payout = PayoutConfig::get();
+
+        return response()->json($payout);
+    }
+
+    public function edit_payout(EditPayoutRequest $request)
+    {
+
+        $payout = PayoutConfig::find($request->id);
+        
+        $payout->update([
+            'name' => $request->name,
+            'live_paymentUrl' => $request->live_paymentUrl,
+            'appId' => $request->appId,
+            'returnUrl' => $request->returnUrl,
+            'callBackUrl' => $request->callBackUrl,
+        ]);
+
+        return redirect()->back()->with('toast', 'Payout successfully updated!');
+    }
+
+    public function delete_payout(Request $request)
+    {
+
+        $payout = PayoutConfig::find($request->id);
+
+        $payout->delete();
+
+        return redirect()->back()->with('toast', 'Payout successfully deleted!');
     }
 }

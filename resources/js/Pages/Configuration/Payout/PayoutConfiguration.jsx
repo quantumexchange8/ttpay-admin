@@ -8,6 +8,7 @@ import Input from '@/Components/Input';
 import { ArrowDown } from '@/Components/Icon/Icon';
 import NewPayoutConfig from '@/Pages/Configuration/Payout/Partials/NewPayoutConfig';
 import { useState } from 'react';
+import PayoutConfigTable from './Partials/PayoutConfigTable';
 
 export default function PayoutConfiguration({ auth, merchants }) {
 
@@ -72,7 +73,7 @@ export default function PayoutConfiguration({ auth, merchants }) {
                 </div>
 
                 <div>
-                    {/* <Trc20Table searchVal={searchVal} key={refreshTable.toString()}/> */}
+                    <PayoutConfigTable searchVal={searchVal} key={refreshTable.toString()}/>
                 </div>
             </div>
         </AuthenticatedLayout>
