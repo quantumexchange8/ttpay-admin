@@ -34,6 +34,8 @@ class Merchant extends Model
         'status',
         'bin',
         'handle_by',
+        'nego_status',
+        'nego_amount',
     ];
 
     protected $hidden = [

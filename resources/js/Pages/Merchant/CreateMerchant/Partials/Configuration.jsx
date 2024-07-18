@@ -19,15 +19,18 @@ export default function Configuration({
     selectedRateProfile,
     setSelectedRateProfile,
     rateProfiles,
-    selectedRefresh,
-    setSelectedRefresh,
-    refreshOptions,
+    // selectedRefresh,
+    // setSelectedRefresh,
+    // refreshOptions,
     trc20Addressess,
     selectedAddresses,
     setSelectedAddresses,
     selectedMode,
     setSelectedMode,
+    selectedNegoMode,
+    setSelectedNegoMode,
     approvalMode,
+    negoMode,
     emailFields,
     setEmailFields,
 }) {
@@ -182,9 +185,71 @@ export default function Configuration({
                 </div>
                 <div className="space-y-1.5">
                     <div className='flex items-center gap-1'>
-                        <Label value='Frequency of auto-refreshing USDT address'/> 
+                        <Label value='Amount range'/> <span className='text-sm text-error-600 font-medium'>*</span>
                     </div>
-                    <Dropdown
+                    <div>
+                        <RadioGroup value={selectedNegoMode} onChange={setSelectedNegoMode}>
+                            <RadioGroup.Label className="sr-only">Approval Mode</RadioGroup.Label>
+                            <div className="space-y-2 flex flex-col gap-3">
+                                {negoMode.map((plan) => (
+                                    <RadioGroup.Option
+                                        key={plan.name}
+                                        value={plan}
+                                        className={({ checked }) =>
+                                            `${checked ? 'text-white' : 'bg-transparent text-white'} relative flex cursor-pointer rounded-lg focus:outline-none`
+                                        }
+                                    >
+                                        
+                                        {({ checked }) => (
+                                            <>
+                                                <div className="flex w-full items-center justify-between">
+                                                    <div className="flex items-center">
+                                                        <div className="text-base flex items-center gap-3">
+                                                            <div>
+                                                                {checked ? (
+                                                                    <div className="shrink-0 text-white">
+                                                                        <RadioButtonActive className="h-5 w-5" />
+                                                                    </div>
+                                                                ) : (
+                                                                    <div className="shrink-0 text-white">
+                                                                        <RadioButton className="h-5 w-5" />
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                            <RadioGroup.Label
+                                                                as="p"
+                                                                className={`font-medium ${checked ? 'text-white' : 'text-white'}`}
+                                                            >
+                                                                {plan.name}
+                                                            </RadioGroup.Label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
+                                    </RadioGroup.Option>
+                                ))}
+
+                                {
+                                    selectedNegoMode.value === '1' ? (
+                                        <div>
+                                            <Input 
+                                                type="number"
+                                                value={data.amount_range}
+                                                handleChange={e => handleInputChange('amount_range', e.target.value)}
+                                                className='w-full' 
+                                                placeholder='amount range'
+                                                min='1'
+                                            />
+                                        </div>
+                                    ) : (
+                                        null
+                                    )
+                                }
+                            </div>
+                        </RadioGroup>
+                    </div>
+                    {/* <Dropdown
                         defaultOptions={selectedRefresh ? selectedRefresh.label : ''}
                         options={refreshOptions.map((option) => (
                             <Menu.Item key={option.value}>
@@ -200,7 +265,7 @@ export default function Configuration({
                                 )}
                             </Menu.Item>
                         ))}
-                    />
+                    /> */}
                     <InputError/>
                 </div>
                 <div className="space-y-1.5">

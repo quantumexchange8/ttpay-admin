@@ -3,8 +3,9 @@ import Sidebar, { SidebarItem, SectionLabel, SidebarCollapsible, SidebarCollapse
 import Navbar from '@/Components/Navbar';
 import { Link, usePage } from '@inertiajs/react';
 import { SubLine, SubLine2 } from '@/Components/Icon/Outline';
-import { Dashboard, Pending, DealHistory, Performance, RateProfile, Tron, } from '@/Components/Icon/Menu';
+import { Dashboard, Pending, DealHistory, Performance, RateProfile, Tron, Merchant, AddMerchant, Bin, } from '@/Components/Icon/Menu';
 import {CustomToaster} from '@/Components/CustomToaster';
+import { useEffect } from 'react';
 
 export default function Authenticated({ children, header }) {
     const { url } = usePage();
@@ -15,10 +16,29 @@ export default function Authenticated({ children, header }) {
       setIsSidebarExpanded(!isSidebarExpanded);
     };
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 1024) { // md breakpoint (768px)
+                setIsSidebarExpanded(true);
+            } else {
+                setIsSidebarExpanded(false);
+            }
+        };
+
+        // Set initial state
+        handleResize();
+
+        // Add event listener for window resize
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup event listener on component unmount
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
         // <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
         <div className="min-h-screen">
-            <Sidebar expanded={isSidebarExpanded}>
+            <Sidebar expanded={isSidebarExpanded} toggleSidebar={toggleSidebar}>
                 <div className='flex flex-col items-center gap-2'>
                     <SectionLabel text="GENERAL"/>
                     <div className='w-full flex flex-col gap-1'>
@@ -54,17 +74,17 @@ export default function Authenticated({ children, header }) {
                         <Link href={route('merchant.merchant-listing')} className={`${
                                 url === '/merchant/merchant-listing' ? 'bg-[#03071299] rounded-lg' : ''
                         }`}>
-                            <SidebarItem text="MERCHANT LISTING"/>
+                            <SidebarItem icon={<Merchant/>} text="MERCHANT LISTING"/>
                         </Link>
                         <Link href={route('merchant.create-merchant')} className={`${
                                 url === '/merchant/create-merchant' ? 'bg-[#03071299] rounded-lg' : ''
                         }`}>
-                            <SidebarItem text="CREATE MERCHANT"/>
+                            <SidebarItem icon={<AddMerchant/>} text="CREATE MERCHANT"/>
                         </Link>
                         <Link href={route('merchant.merchant-bin')} className={`${
                                 url === '/merchant/merchant-bin' ? 'bg-[#03071299] rounded-lg' : ''
                         }`}>
-                            <SidebarItem text="MERCHANT BIN"/>
+                            <SidebarItem icon={<Bin/>} text="MERCHANT BIN"/>
                         </Link>
                     </div>
                 </div>
@@ -91,7 +111,11 @@ export default function Authenticated({ children, header }) {
                         }`}>
                             <SidebarItem icon={<Tron/>} text="TRC-20 ADDRESS"/>
                         </Link>
-                        
+                        <Link href={route('configuration.payout-configuration')} className={`${
+                                url === '/configuration/payout-configuration' ? 'bg-[#03071299] rounded-lg' : ''
+                        }`}>
+                            <SidebarItem icon={<Tron/>} text="Payout Configuration"/>
+                        </Link>
                     </div>
                 </div>
                 <div className='flex flex-col items-center gap-2'>

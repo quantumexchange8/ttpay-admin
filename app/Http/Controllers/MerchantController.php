@@ -124,6 +124,8 @@ class MerchantController extends Controller
             'deposit_type' => $request->approval_mode,
             'role_id' => RunningNumberService::getID('merchant'),
             'status' => 'Active',
+            'nego_status' => $request->nego_mode,
+            'nego_amount' => $request->amount_range ?? null,
         ]);
 
 
@@ -214,7 +216,6 @@ class MerchantController extends Controller
         $merchant = Merchant::find($request->id);
 
         $merchant->status = $request->status;
-
         $merchant->save();
 
         return redirect()->back()->with('success');
@@ -287,10 +288,17 @@ class MerchantController extends Controller
     public function updateWalletAddress(Request $request)
     {
 
-        // dd($request->all());
-        $merchant = Merchant::find($request->id);
-        
+        foreach($request->walletFields as $walletField) {
+            
+            foreach ($walletField['selected'] as $selectVal ) {
 
+                $newWallet = MerchantWalletAdrress::create([
+                    'merchant_id' => $request->id,
+                    'wallet_address_id' => $selectVal,
+                ]);
+            }
+        }        
+        
         return redirect()->back()->with('success');
     }
 

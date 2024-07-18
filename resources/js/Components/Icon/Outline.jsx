@@ -61,7 +61,7 @@ const SubLine2 = () => {
 }
 
 // TOPBAR ICON
-const Menu = ({ color, className, ...rest }) => {
+const MenuIcon = ({ color, className, ...rest }) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} className={className} {...rest}>
             <path d="M3 12H21M3 6H21M3 18H15" strokeWidth="2" strokeLinecap="square" strokeLinejoin="round"/>
@@ -95,10 +95,20 @@ const Logout = ({ color, className, ...rest }) => {
     );
 }
 
-const XIcon = () => {
+const XIcon = ({...rest}) => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none" {...rest}>
             <path d="M15.7998 5L5.7998 15M5.7998 5L15.7998 15" stroke="#9CA3AF" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+    );
+}
+
+const DotVerticalIcon = ({...rest}) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" {...rest}>
+            <path d="M9.99999 10.834C10.4602 10.834 10.8333 10.4609 10.8333 10.0007C10.8333 9.54041 10.4602 9.16732 9.99999 9.16732C9.53975 9.16732 9.16666 9.54041 9.16666 10.0007C9.16666 10.4609 9.53975 10.834 9.99999 10.834Z" stroke="white" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M9.99999 5.00065C10.4602 5.00065 10.8333 4.62755 10.8333 4.16732C10.8333 3.70708 10.4602 3.33398 9.99999 3.33398C9.53975 3.33398 9.16666 3.70708 9.16666 4.16732C9.16666 4.62755 9.53975 5.00065 9.99999 5.00065Z" stroke="white" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M9.99999 16.6673C10.4602 16.6673 10.8333 16.2942 10.8333 15.834C10.8333 15.3737 10.4602 15.0007 9.99999 15.0007C9.53975 15.0007 9.16666 15.3737 9.16666 15.834C9.16666 16.2942 9.53975 16.6673 9.99999 16.6673Z" stroke="white" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
     );
 }
@@ -110,9 +120,10 @@ export {
     ChevronDown, 
     SubLine, 
     SubLine2, 
-    Menu, 
+    MenuIcon, 
     Notification, 
     Lang, 
     Logout,
     XIcon,
+    DotVerticalIcon,
 };

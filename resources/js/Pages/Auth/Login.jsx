@@ -43,7 +43,7 @@ export default function Login({ status, canResetPassword }) {
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <div className='flex flex-col items-center gap-8'>
+            <div className='flex flex-col items-center gap-8 px-4 md:px-0'>
                 <div className='w-full flex flex-col items-center gap-6'>
                     <Link href="/">
                         <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />

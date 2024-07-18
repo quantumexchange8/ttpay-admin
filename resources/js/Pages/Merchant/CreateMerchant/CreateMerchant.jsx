@@ -18,13 +18,16 @@ const approvalMode = [
     },
   ];
 
-// const refreshOptions = [
-//     { label: '20 seconds', value: 20 },
-//     { label: '30 seconds', value: 30 },
-//     { label: '1 minute', value: 60 },
-//     { label: '3 minutes', value: 180 },
-//     { label: '5 minutes', value: 300 },
-// ];
+  const negoMode = [
+    {
+      name: 'Don Allow different amount',
+      value: '0'
+    },
+    {
+      name: 'Allow different amount',
+      value: '1'
+    },
+  ];
 
 export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, phoneCodes, refreshOptions }) {
 
@@ -32,9 +35,10 @@ export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, ph
     const [ isActive, setIsActive ] = useState()
     const [selectedPhoneCode, setSelectedPhoneCode] = useState('+60');
     const [selectedRateProfile, setSelectedRateProfile] = useState(null);
-    const [selectedRefresh, setSelectedRefresh] = useState(refreshOptions[0]);
+    // const [selectedRefresh, setSelectedRefresh] = useState(refreshOptions[0]);
 
-    const [selectedMode, setSelectedMode] = useState(approvalMode[0])
+    const [selectedMode, setSelectedMode] = useState(approvalMode[0]);
+    const [selectedNegoMode, setSelectedNegoMode] = useState(negoMode[0]);
     const [isLoading, setIsLoading] = useState(false);
     const [selectedAddresses, setSelectedAddresses] = useState([]);
     const [emailFields, setEmailFields] = useState([]);
@@ -63,6 +67,8 @@ export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, ph
         auto_refresh: '',
         wallet_address: [], //pass wallet_address id with array
         approval_mode: approvalMode[0].value,
+        nego_mode: negoMode[0].value,
+        amount_range: '',
         email_receiving: '',
         emailOptional: [],
 
@@ -85,15 +91,18 @@ export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, ph
         if (selectedPhoneCode !== null && data.dial_code !== selectedPhoneCode) {
             setData('dial_code', selectedPhoneCode);
         }
-        if (selectedRefresh !== null && data.auto_refresh !== selectedRefresh.value) {
-            setData('auto_refresh', selectedRefresh.value);
-        }
+        // if (selectedRefresh !== null && data.auto_refresh !== selectedRefresh.value) {
+        //     setData('auto_refresh', selectedRefresh.value);
+        // }
         if (selectedAddresses !== null && data.wallet_address !== selectedAddresses) {
             setData('wallet_address', selectedAddresses);
         }
         if (data.approval_mode !== selectedMode.value) {
             setData('approval_mode', selectedMode.value);
-          }
+        }
+        if (data.nego_mode !== selectedNegoMode.value) {
+            setData('nego_mode', selectedNegoMode.value);
+        }
         if (data.client_name !== (enabledClientName ? 1 : 0)) {
             setData('client_name', enabledClientName ? 1 : 0);
         }
@@ -127,15 +136,17 @@ export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, ph
     }, [
         selectedRateProfile, 
         selectedPhoneCode,
-        selectedRefresh,
+        // selectedRefresh,
         selectedAddresses,
         selectedMode,
+        selectedNegoMode,
         enabledClientName,
         data.rate_profile, 
         data.dial_code,
         data.auto_refresh,
         data.wallet_address,
         data.approval_mode,
+        data.nego_mode,
         setData
     ]);
 
@@ -159,8 +170,9 @@ export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, ph
         setStep(1);
         setSelectedPhoneCode('+60');
         setSelectedRateProfile(null);
-        setSelectedRefresh(refreshOptions[0]);
+        // setSelectedRefresh(refreshOptions[0]);
         setSelectedMode(approvalMode[0]);
+        setSelectedNegoMode(negoMode[0]);
         setSelectedAddresses([]);
         setEmailFields([]);
         setEnabledClientName(false);
@@ -210,28 +222,28 @@ export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, ph
             <form onSubmit={submit} className='py-[60px]'>
                 <div className='flex flex-col items-center gap-10'>
                     {/* PROGRESS BAR */}
-                    <div className='max-w-[603px] flex items-center gap-5'>
-                        <div className='flex items-center gap-2'>
+                    <div className='max-w-[603px] flex md:items-center gap-1 md:gap-5'>
+                        <div className='flex flex-col md:flex-row items-center gap-1 md:gap-2'>
                             <div className='w-9 h-9 flex items-center justify-center py-2 px-[10px] bg-primary-700 rounded-full'>
                                 <span className='text-white text-sm font-semibold '>1</span>
                             </div>
-                            <div className='text-base font-semibold text-white'>
+                            <div className='text-base font-semibold text-white text-center leading-tight'>
                                 Merchant Profile
                             </div>
                         </div>
                         <ArrowRight width={24} height={24} color='currentColor' className={step === 2 || step === 3 ? 'text-white' : 'text-gray-400'}/>
-                        <div className='flex items-center gap-2'>
+                        <div className='flex flex-col md:flex-row items-center gap-1 md:gap-2'>
                             <div className={step === 2 || step === 3  ? 'w-9 h-9 flex items-center justify-center py-2 px-[10px] rounded-full bg-primary-700' : 'w-9 h-9 flex items-center justify-center py-2 px-[10px] rounded-full bg-gray-800'}>
                                 <span className='text-white text-sm font-semibold '>2</span>
                             </div>
-                            <div className={step === 2 || step === 3 ? 'text-base font-semibold text-white' : 'text-base font-semibold text-gray-500'}>Configuration</div>
+                            <div className={step === 2 || step === 3 ? 'text-base font-semibold text-white text-center h-10 md:h-auto' : 'text-base font-semibold text-gray-500 text-center h-10 md:h-auto'}>Configuration</div>
                         </div>
                         <ArrowRight width={24} height={24} color='currentColor' className={step === 3 ? 'text-white' : 'text-gray-400'}/>
-                        <div className='flex items-center gap-2'>
+                        <div className='flex flex-col md:flex-row items-center gap-1 md:gap-2'>
                             <div className={step === 3 ? 'w-9 h-9 flex items-center justify-center py-2 px-[10px] rounded-full bg-primary-700' : 'w-9 h-9 flex items-center justify-center py-2 px-[10px] rounded-full bg-gray-800'}>
                                 <span className='text-white text-sm font-semibold '>3</span>
                             </div>
-                            <div className={step === 3 ? 'text-base font-semibold text-white' : 'text-base font-semibold text-gray-500'}>Email Content</div>
+                            <div className={step === 3 ? 'text-base font-semibold text-white text-center leading-tight' : 'text-base font-semibold text-gray-500 text-center leading-tight'}>Email Content</div>
                         </div>
                     </div>
 
@@ -257,15 +269,18 @@ export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, ph
                             selectedRateProfile={selectedRateProfile}
                             setSelectedRateProfile={setSelectedRateProfile}
                             rateProfiles={rateProfiles}
-                            selectedRefresh={selectedRefresh}
-                            setSelectedRefresh={setSelectedRefresh}
-                            refreshOptions={refreshOptions}
+                            // selectedRefresh={selectedRefresh}
+                            // setSelectedRefresh={setSelectedRefresh}
+                            // refreshOptions={refreshOptions}
                             trc20Addressess={trc20Addressess}
                             selectedAddresses={selectedAddresses}
                             setSelectedAddresses={setSelectedAddresses}
                             selectedMode={selectedMode}
                             setSelectedMode={setSelectedMode}
                             approvalMode={approvalMode}
+                            negoMode={negoMode}
+                            selectedNegoMode={selectedNegoMode}
+                            setSelectedNegoMode={setSelectedNegoMode}
                             emailFields={emailFields}
                             setEmailFields={setEmailFields}
                         />

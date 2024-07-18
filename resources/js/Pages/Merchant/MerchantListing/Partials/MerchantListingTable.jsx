@@ -8,9 +8,8 @@ import { CopyIcon, Delete, PlusIcon } from '@/Components/Icon/Icon';
 import axios from 'axios';
 import Tooltip from '@/Components/Tooltip';
 import Input from '@/Components/Input';
-import { Combobox, Transition } from '@headlessui/react'
+import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import { useForm } from '@inertiajs/inertia-react';
 
 export default function MerchantListingTable({ searchVal, phoneCodes, rateProfiles, walletAddress }) {
 
@@ -19,18 +18,8 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
     const [isOpen, setIsOpen] = useState(false)
     const [walletFields, setWalletFields] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [selected, setSelected] = useState(walletAddress[0]);
-    const [query, setQuery] = useState('');
-
-    const filteredPeople =
-        query === ''
-            ? walletAddress
-            : walletAddress.filter((person) =>
-                person.name
-                    .toLowerCase()
-                    .replace(/\s+/g, '')
-                    .includes(query.toLowerCase().replace(/\s+/g, ''))
-            )
+    const [selected, setSelected] = useState();
+    const [showListbox, setShowListbox] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -69,37 +58,25 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
     };
 
     const deleteWalletAddress = (walletID) => {
-        // console.log('wallet id: ', walletID)
+        console.log('wallet id: ', walletID)
     }
 
-    // const { post } = useForm({
-    //     id: selectedRow.id,
-    //     walletFields,
-    // });
-
     const updateWalletAddress = async () => {
-        // post('/merchant/updateWalletAddress', {
-        //     preserveScroll: true,
-        //     onSuccess: () => {
-        //         closeModal();
-        //         setIsLoading(false);
-        //     }
-        // })
         try {
             const response = await axios.post('/merchant/updateWalletAddress', { 
                 id: selectedRow.id, 
                 walletFields,
             });
-            console.log('Update response:', response.data);
+            // console.log('Update response:', response.data);
             fetchData();
         } catch (error) {
             console.error('Error updating wallet address:', error);
         }
-        
+        closeModal();
     };
 
     const addWalletField = () => {
-        setWalletFields([...walletFields, { newWallet: '' }]);
+        setWalletFields([...walletFields, { newWallet: '', selected: null }]);
     };
 
     const removeWalletField = (index) => {
@@ -111,6 +88,24 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
         updatedFields[index].newWallet = value;
         setWalletFields(updatedFields);
     };
+
+    const handleSelectWallet = (index, wallet) => {
+        const updatedFields = [...walletFields];
+        updatedFields[index].newWallet = wallet.token_address;
+        updatedFields[index].selected = wallet;
+        setWalletFields(updatedFields);
+    };
+
+    const getFilteredWallets = (selectedAddresses) => {
+        return walletAddress.filter(wallet => 
+            !selectedAddresses.includes(wallet.token_address)
+        );
+    };
+
+    const selectedAddresses = [
+        ...(selectedRow?.merchant_wallet_address.map(address => address.wallet_address.token_address) || []),
+        ...walletFields.map(field => field.newWallet)
+    ];
 
     const columns = [
         {
@@ -205,7 +200,7 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
             statuses={[(row) => <SwitchStatus key={row.id} merchant={row} fetchDataCallback={fetchData}  />]}
             />
 
-            <Modal show={isOpen} onClose={closeModal} title='View USDT Addresses' maxWidth='md' maxHeightClass='xl'>
+            <Modal show={isOpen} onClose={closeModal} title='View USDT Addresses' maxWidth='md'>
                 {selectedRow && (
                     <div className='flex flex-col gap-12'>
                         <table className='w-full'>
@@ -237,83 +232,64 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
                                     </tr>
                                 ))}
                                 {walletFields.map((field, index) => (
-                                    <tr key={index} className='border-b border-[#ffffff0d] p-3'>
-                                        <td className='pl-3 py-3 text-white text-sm'>
-                                            {/* <Input 
-                                                type='text' 
-                                                className='w-full bg-transparent border border-gray-700 rounded px-2 py-1 text-white'
-                                                isFocused={true}
-                                                value={field.newWallet}
-                                                handleChange={(e) => handleWalletFieldChange(index, e.target.value)}
-                                            /> */}
-                                            <Combobox value={selected} onChange={setSelected}>
-                                                <div className="relative mt-1">
-                                                <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-red-600 text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
-                                                    <Combobox.Input
-                                                        className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
-                                                        displayValue={(person) => person.name}
-                                                        onChange={(event) => setQuery(event.target.value)}
-                                                    />
-                                                    <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                                                    <ChevronUpDownIcon
-                                                        className="h-5 w-5 text-gray-400"
-                                                        aria-hidden="true"
-                                                    />
-                                                    </Combobox.Button>
-                                                </div>
-                                                <Transition
-                                                    as={Fragment}
-                                                    leave="transition ease-in duration-100"
-                                                    leaveFrom="opacity-100"
-                                                    leaveTo="opacity-0"
-                                                    afterLeave={() => setQuery('')}
-                                                >
-                                                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-                                                    {filteredPeople.length === 0 && query !== '' ? (
-                                                        <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
-                                                        Nothing found.
-                                                        </div>
-                                                    ) : (
-                                                        filteredPeople.map((person) => (
-                                                        <Combobox.Option
-                                                            key={person.id}
-                                                            className={({ active }) =>
-                                                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                                                active ? 'bg-teal-600 text-white' : 'text-gray-900'
-                                                            }`
-                                                            }
-                                                            value={person}
+                                    <tr key={index}>
+                                        <td colSpan="2">
+                                            <div className="flex items-center gap-2">
+                                                <Listbox value={field.selected} onChange={(wallet) => handleSelectWallet(index, wallet)}>
+                                                    <div className="relative mt-1 max-w-[340px] w-full">
+                                                        <Listbox.Button className="relative w-full cursor-default rounded-lg bg-transparent py-2 px-3 text-left shadow-md focus:outline-none text-white text-sm">
+                                                            <div className="block truncate">
+                                                                {
+                                                                    field.selected ? (
+                                                                        <div className='flex items-center gap-2'>
+                                                                            {field.selected.token_address}
+                                                                        </div>
+                                                                        
+                                                                    ) : (
+                                                                        <span className='text-error-500'>
+                                                                            Select wallet address
+                                                                        </span>
+                                                                    )
+                                                                }
+                                                            </div>
+                                                            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                                                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                            </span>
+                                                        </Listbox.Button>
+                                                        <Transition
+                                                            as={Fragment}
+                                                            leave="transition ease-in duration-100"
+                                                            leaveFrom="opacity-100"
+                                                            leaveTo="opacity-0"
                                                         >
-                                                            {({ selected, active }) => (
-                                                            <>
-                                                                <span
-                                                                className={`block truncate ${
-                                                                    selected ? 'font-medium' : 'font-normal'
-                                                                }`}
-                                                                >
-                                                                {person.name}
-                                                                </span>
-                                                                {selected ? (
-                                                                <span
-                                                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                                                    active ? 'text-white' : 'text-teal-600'
-                                                                    }`}
-                                                                >
-                                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                                </span>
-                                                                ) : null}
-                                                            </>
-                                                            )}
-                                                        </Combobox.Option>
-                                                        ))
-                                                    )}
-                                                    </Combobox.Options>
-                                                </Transition>
-                                                </div>
-                                            </Combobox>
-                                        </td>
-                                        <td className='pr-3 py-3 w-20'>
-                                            <div className='flex items-center justify-center'>
+                                                            <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-900 backdrop-blur-3xl py-1 text-white text-sm shadow-lg focus:outline-none scrollbar-thin scrollbar-webkit">
+                                                                
+                                                                {getFilteredWallets(selectedAddresses).map((wallet, walletIdx) => (
+                                                                    <Listbox.Option
+                                                                        key={walletIdx}
+                                                                        className={({ active }) =>
+                                                                            `relative cursor-default select-none py-2 px-4 ${active ? 'bg-transparent text-primary-500' : 'text-white'}`
+                                                                        }
+                                                                        value={wallet}
+                                                                    >
+                                                                        {({ selected }) => (
+                                                                            <>
+                                                                                <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
+                                                                                    {wallet.name}: {wallet.token_address}
+                                                                                </span>
+                                                                                {selected ? (
+                                                                                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                                    </span>
+                                                                                ) : null}
+                                                                            </>
+                                                                        )}
+                                                                    </Listbox.Option>
+                                                                ))}
+                                                            </Listbox.Options>
+                                                        </Transition>
+                                                    </div>
+                                                </Listbox>
                                                 <Button variant='secondary' pill className='bg-transparent hover:bg-transparent' type='button' onClick={() => removeWalletField(index)}>
                                                     <Delete width={16} height={16} color='currentColor' className='text-error-600'/>
                                                 </Button>

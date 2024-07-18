@@ -82,7 +82,7 @@ export default function MerchantProfile({ data, phoneCodes, selectedPhoneCode, s
                         Keeping this information accurate helps us provide better support and communication.
                     </div>
                 </div>
-                <div className='w-full px-10 grid grid-cols-2 gap-6'>
+                <div className='w-full px-10 flex md:grid flex-col md:grid-cols-2 gap-6'>
                     <div className="space-y-1.5">
                         <div className='flex items-center gap-1'>
                             <Label value='Merchant Name'/> <span className='text-sm text-error-600 font-medium'>*</span>
@@ -94,6 +94,7 @@ export default function MerchantProfile({ data, phoneCodes, selectedPhoneCode, s
                             handleChange={e => handleInputChange('name', e.target.value)}
                             hasError={!!errors.name}
                             cursorColor="#5200FF"
+                            placeholder='name'
                         />
                         {errors.name && <InputError message={errors.name} />}
                     </div>
@@ -108,6 +109,7 @@ export default function MerchantProfile({ data, phoneCodes, selectedPhoneCode, s
                             handleChange={e => handleInputChange('manager_name', e.target.value)}
                             hasError={!!errors.manager_name}
                             cursorColor="#5200FF"
+                            placeholder='manager name'
                         />
                         {errors.manager_name && <InputError message={errors.manager_name} />}
                     </div>
@@ -122,6 +124,7 @@ export default function MerchantProfile({ data, phoneCodes, selectedPhoneCode, s
                             handleChange={e => handleInputChange('email', e.target.value)}
                             hasError={!!errors.email}
                             cursorColor="#5200FF"
+                            placeholder='you@email.com'
                         />
                         {errors.email && <InputError message={errors.email} />}
                     </div>
@@ -187,6 +190,7 @@ export default function MerchantProfile({ data, phoneCodes, selectedPhoneCode, s
                                 handleChange={e => handleInputChange('phone', e.target.value)}
                                 hasError={!!errors.phone}
                                 cursorColor="#5200FF"
+                                placeholder='phone number'
                             />
                         </div>
                         {errors.phone && <InputError message={errors.phone} />}

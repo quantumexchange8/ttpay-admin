@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\RateProfile;
 use Inertia\Inertia;
 use App\Http\Requests\NewRateProfileRequest;
+use App\Http\Requests\PayoutRequest;
 use App\Http\Requests\Trc20AddressRequest;
+use App\Models\Merchant;
+use App\Models\PayoutConfig;
 use App\Models\WalletAddress;
+use Illuminate\Support\Facades\Log;
 
 class ConfigurationController extends Controller
 {
@@ -110,5 +114,29 @@ class ConfigurationController extends Controller
         $trc20Address->delete();
 
         return redirect()->back()->with('success', 'Rate profile updated successfully!');
+    }
+
+    public function payoutConfig()
+    {
+
+        $merchants = Merchant::where('status', 'Active')->whereNull('bin')->get();
+
+        return Inertia::render('Configuration/Payout/PayoutConfiguration', [
+            'merchants' => $merchants,
+        ]);
+    }
+
+    public function storePayout(PayoutRequest $request)
+    {
+        $payout = PayoutConfig::create([
+            'name' => $request->name,
+            'merchant_id' => $request->merchant_id,
+            'live_paymentUrl' => $request->url,
+            'appId' => $request->appId,
+            'returnUrl' => $request->returnUrl,
+            'callBackUrl' => $request->callbackUrl,
+        ]);
+
+        return redirect()->back()->with('toast', 'Trc-20 Address successfully created!');
     }
 }

@@ -97,6 +97,9 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::post('/edit_trc20_address', [ConfigurationController::class, 'editAddress'])->name('configuration.edit_trc20_address');
         Route::post('/delete_trc20_address', [ConfigurationController::class, 'DeleteAddress'])->name('configuration.delete_trc20_address');
 
+        // Payout Configuration
+        Route::get('/payout-configuration', [ConfigurationController::class, 'payoutConfig'])->name('configuration.payout-configuration');
+        Route::post('/storePayout', [ConfigurationController::class, 'storePayout'])->name('configuration.storePayout');
      });
 
      /**

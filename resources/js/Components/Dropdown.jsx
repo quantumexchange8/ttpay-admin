@@ -7,7 +7,7 @@ export default function Dropdown({ defaultOptions, options, hasError }) {
     const [isOpen, setIsOpen] = useState(false);
     
   return (
-    <div className="">
+    <div className="w-full">
       <Menu as="div" className="w-full relative inline-block text-left">
         <div>
         <Menu.Button
@@ -47,7 +47,7 @@ export default function Dropdown({ defaultOptions, options, hasError }) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute z-10 w-full mt-1 py-2 rounded-md bg-[#ffffff0d] backdrop-blur-[60px]">
+          <Menu.Items className="absolute z-50 w-full mt-1 py-2 rounded-md bg-gray-800 backdrop-blur-[60px]">
             {options}
           </Menu.Items>
         </Transition>

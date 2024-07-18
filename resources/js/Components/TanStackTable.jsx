@@ -142,7 +142,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
   bouncy.register()
 
   return (
-    <div>
+    <div className=' w-full' >
       <table className='w-full text-xs text-left rounded-xl bg-[#ffffff0d]'>
         {/* Table Header */}
         <thead className='text-xs font-bold text-gray-500 uppercase'>

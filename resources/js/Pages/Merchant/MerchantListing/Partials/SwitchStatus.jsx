@@ -51,11 +51,19 @@ export default function SwitchStatus({ merchant, fetchDataCallback }) {
             onSuccess: () => {
                 closeModal();
                 setIsLoading(false);
-                toast.success('Merchant has been deactivated', { 
-                    title: 'Merchant has been deactivated',
-                    variant: 'variant3',
-                    duration: 3000
-                 });
+                if(merchant.status === 'Active') {
+                    toast.success('Merchant has been deactivated', { 
+                        title: 'Merchant has been deactivated',
+                        variant: 'variant3',
+                        duration: 3000
+                    });
+                } else {
+                    toast.success('Merchant has been Activated', { 
+                        title: 'Merchant has been Activated',
+                        variant: 'variant3',
+                        duration: 3000
+                    });
+                }
 
                 fetchDataCallback();
             }, 
