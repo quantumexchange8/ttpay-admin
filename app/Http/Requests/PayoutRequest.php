@@ -28,8 +28,8 @@ class PayoutRequest extends FormRequest
             'merchant_id' => ['required', Rule::unique(PayoutConfig::class)],
             'live_paymentUrl' => ['required', Rule::unique(PayoutConfig::class)],
             'appId' => ['required', Rule::unique(PayoutConfig::class)],
-            'returnUrl' => ['required', Rule::unique(PayoutConfig::class)],
-            'callbackUrl' => ['required', Rule::unique(PayoutConfig::class)],
+            'returnUrl' => ['required'],
+            'callbackUrl' => ['required'],
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EditPayoutRequest;
+use App\Http\Requests\EditTrc20Request;
 use Illuminate\Http\Request;
 use App\Models\RateProfile;
 use Inertia\Inertia;
@@ -94,7 +95,7 @@ class ConfigurationController extends Controller
         return redirect()->back()->with('toast', 'Trc-20 Address successfully created!');
     }
 
-    public function editAddress(Trc20AddressRequest $request)
+    public function editAddress(EditTrc20Request $request)
     {
 
         $trc20Addresses = WalletAddress::find($request->id);

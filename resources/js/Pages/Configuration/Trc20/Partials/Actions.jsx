@@ -50,7 +50,11 @@ export default function Action({ trc20Address, fetchDataCallback }) {
                     closeModal();
                     setIsLoading(false);
                     reset();
-                    toast.success('New changes updated!', { duration: 3000 });
+                    toast.success('New changes updated', {
+                        title: 'New changes updated',
+                        duration: 3000,
+                        variant: 'variant3',
+                    });
     
                     fetchDataCallback();
                 }, 
@@ -64,7 +68,11 @@ export default function Action({ trc20Address, fetchDataCallback }) {
                 onSuccess: () => {
                     closeModal();
                     setIsLoading(false);
-                    toast.success('TRC-20 address has been deleted!', { duration: 3000 });
+                    toast.success('TRC-20 address has been deleted!', {
+                        title: 'TRC-20 address has been deleted!',
+                        duration: 3000,
+                        variant: 'variant3',
+                    });
                     fetchDataCallback();
                 }, 
                 onError: (error) => {

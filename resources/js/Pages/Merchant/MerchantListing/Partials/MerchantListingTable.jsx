@@ -200,10 +200,10 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
             statuses={[(row) => <SwitchStatus key={row.id} merchant={row} fetchDataCallback={fetchData}  />]}
             />
 
-            <Modal show={isOpen} onClose={closeModal} title='View USDT Addresses' maxWidth='md'>
+            <Modal show={isOpen} onClose={closeModal} title='View USDT Addresses' maxWidth='md' maxHeightClass='xl'>
                 {selectedRow && (
                     <div className='flex flex-col gap-12'>
-                        <table className='w-full'>
+                        <table className='w-full overflow-y-scroll'>
                             <thead>
                                 <tr>
                                     <th colSpan="2" className='text-left bg-[#ffffff0d] p-3 text-gray-500 text-xs font-bold'>USDT ADDRESS</th>

@@ -10,11 +10,11 @@ export default function Sidebar({ children, expanded, toggleSidebar }) {
   const { auth } = usePage().props;
 
   return (
-    <aside className={`fixed inset-y-0 z-30 border-r border-transparent md:border-[#1F2937] overflow-auto
+    <aside className={`fixed inset-y-0 z-40 border-r border-transparent md:border-[#1F2937] overflow-auto backdrop-blur-2xl md:bg-[#ffffff0d]
       scrollbar-thin scrollbar-webkit
       ${!expanded ? 'translate-x-0 w-0' : ' w-auto lg:w-[281px]'}`}
     >
-      <nav className="w-full h-full md:h-auto py-5 px-3 md:p-5 flex flex-col gap-5 backdrop-blur-2xl md:bg-[#ffffff0d]">
+      <nav className="w-full h-full md:h-auto py-5 px-3 md:p-5 flex flex-col gap-5 ">
         <div className="py-3 px-4 flex justify-between items-center gap-3 hover:bg-[#03071299] rounded-lg">
             <div className="flex items-center gap-3" >
               <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" alt="" className="rounded-full w-6 md:w-10 h-6 md:h-10"/>

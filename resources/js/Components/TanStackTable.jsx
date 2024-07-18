@@ -142,7 +142,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
   bouncy.register()
 
   return (
-    <div className=' w-full' >
+    <div className=' w-full overflow-x-auto' >
       <table className='w-full text-xs text-left rounded-xl bg-[#ffffff0d]'>
         {/* Table Header */}
         <thead className='text-xs font-bold text-gray-500 uppercase'>
@@ -151,7 +151,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
               <th className='py-3 text-center'></th>
             )}
             {columns.map((column, index) => (
-              <th key={index} className={`sm:px-2 sm:py-3 xl:px-3 lg:px-3 md:px-3 xl:py-3 lg:py-3 md:py-3 ${column.className || ''}`} onClick={() => column.sortable && handleSort(column)}>
+              <th key={index} className={`px-2 py-3 min-w-32 xl:px-3 lg:px-3 md:px-3 xl:py-3 lg:py-3 md:py-3 ${column.className || ''}`} onClick={() => column.sortable && handleSort(column)}>
                 <div className='flex items-center gap-2'>
                   <div>
                     {column.header} 
