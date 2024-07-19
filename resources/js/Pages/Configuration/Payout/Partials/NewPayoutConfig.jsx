@@ -138,10 +138,10 @@ export default function NewPayoutConfig({ merchants, onNewAddressAdded }) {
                             <div className="flex flex-col gap-1">
                                 <div className="flex items-center gap-3">
                                     <div className='flex items-center gap-1'>
-                                        <Label for="url" value="Payment Url" className='w-24' />
+                                        <Label for="live_paymentUrl" value="Payment Url" className='w-24' />
                                     </div>
                                     <Input 
-                                        id="url" 
+                                        id="live_paymentUrl" 
                                         type='text' 
                                         value={data.live_paymentUrl}
                                         handleChange={(e) => setData('live_paymentUrl', e.target.value)}

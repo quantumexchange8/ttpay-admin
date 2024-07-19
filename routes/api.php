@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\MerchantController;
 use App\Http\Controllers\api\TransactionController;
+use App\Http\Controllers\WalletController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,7 @@ Route::group(["middleware" => ["auth:sanctum"]], function() {
     Route::get('merchant', [MerchantController::class, 'merchant']);
 
     Route::get('transaction', [TransactionController::class, 'transaction']);
+    Route::get('merchant_wallet', [WalletController::class, 'merchantWallet']);
+    Route::post('withdrawal', [WalletController::class, 'merchantWithdrawal']);
 });
 

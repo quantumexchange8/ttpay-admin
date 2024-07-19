@@ -18,7 +18,7 @@ export default function Modal({ children, title, show = false, maxWidth = '2xl',
     }[maxWidth];
 
     const maxHeightClass = {
-        xl: 'sm:max-h-[691.2px]',
+        xl: 'sm:max-h-[518.4px]',
     }[maxHeight];
 
     return (
