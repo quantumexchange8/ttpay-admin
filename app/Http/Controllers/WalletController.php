@@ -48,11 +48,12 @@ class WalletController extends Controller
 
         $withdrawalAmount = $request->withdraw_amount; // request amount
         $withdrawalAddress = $request->wallet_address; // request amount
+        $transaction_fee = (($withdrawalAmount * $merchantRateProfile->withdrawal_fee) / 100); //total amount of %
         
         if ($withdrawalAmount >= 100) {
 
             if ($wallet_balance >= $withdrawalAmount) {
-                $total_payout = $withdrawalAmount - (($withdrawalAmount * $merchantRateProfile->withdrawal_fee) / 100);
+                $total_payout = $withdrawalAmount - $transaction_fee;
 
                 $credentials = $request->only('password');
 
@@ -67,7 +68,7 @@ class WalletController extends Controller
                         'transaction_type' => 'withdrawal',
                         'to_wallet' => $withdrawalAddress,
                         'amount' => $withdrawalAmount,
-                        'fee' => $withdrawalAmount,
+                        'fee' => $transaction_fee,
                         'total_amount' => $total_payout,
                         'tt_txn' => RunningNumberService::getID('transaction'),
                         'payment_method' => 'manual',
@@ -76,7 +77,13 @@ class WalletController extends Controller
 
                     return response()->json([
                         'message' => 'successfull submitted request',
-                        'status' => 'success',
+                        'status' => 'pending',
+                        'transaction_id' => $transaction->tt_txn,
+                        'date_time' => $transaction->created_at,
+                        'amount' => $transaction->amount,
+                        'fee' => $transaction->fee,
+                        'net_amount' => $transaction->total_amount,
+                        'usdt_address' => $transaction->to_wallet,
                     ], 200);
                 }
             } else {

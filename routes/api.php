@@ -19,9 +19,12 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::group(["middleware" => ["auth:sanctum"]], function() {
     Route::get('merchant', [MerchantController::class, 'merchant']);
+    Route::get('merchant_rate', [MerchantController::class, 'merchantRate']);
 
     Route::get('transaction', [TransactionController::class, 'transaction']);
     Route::get('merchant_wallet', [WalletController::class, 'merchantWallet']);
     Route::post('withdrawal', [WalletController::class, 'merchantWithdrawal']);
+    
+    Route::post('onesignal', [TransactionController::class, 'onesignal']);
 });
 

@@ -23,4 +23,16 @@ class TransactionController extends Controller
 
         return response()->json($data, 200);
     }
+
+    public function onesignal(Request $request)
+    {
+
+        $datas = $request->all();
+
+        $data = [
+            'datas' => $datas,
+        ];
+
+        return response()->json($datas, 200);
+    }
 }

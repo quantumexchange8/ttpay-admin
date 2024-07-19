@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Merchant;
+use App\Models\RateProfile;
 use Illuminate\Http\Request;
 
 class MerchantController extends Controller
@@ -15,8 +16,21 @@ class MerchantController extends Controller
         $merchant = auth()->user();
 
         $data = [
-            'status' => 200,
             'merchant' => $merchant
+        ];
+
+        return response()->json($data, 200);
+    }
+
+    public function merchantRate()
+    {
+
+        $merchant = auth()->user();
+
+        $rate_profile = RateProfile::find($merchant->rate_id);
+
+        $data = [
+            'rate_profile' => $rate_profile
         ];
 
         return response()->json($data, 200);
