@@ -16,10 +16,30 @@ class MerchantController extends Controller
         $merchant = auth()->user();
 
         $data = [
-            'merchant' => $merchant
+            'merchant' => $merchant,
+            'profile_photo' => $merchant->getFirstMediaUrl('profile_photo'),
         ];
 
         return response()->json($data, 200);
+    }
+
+    public function profile(Request $request)
+    {
+
+        $merchant = auth()->user();
+
+        if ($request->hasFile('profile_photo')) {
+            $merchant->addMedia($request->profile_photo)->toMediaCollection('profile_photo');
+            $merchant->save();
+
+            return response()->json([
+                'message' => 'successfull uploaded',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'no image uploaded',
+            ], 200);
+        }
     }
 
     public function merchantRate()

@@ -19,6 +19,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::group(["middleware" => ["auth:sanctum"]], function() {
     Route::get('merchant', [MerchantController::class, 'merchant']);
+    Route::post('profile', [MerchantController::class, 'profile']);
     Route::get('merchant_rate', [MerchantController::class, 'merchantRate']);
 
     Route::get('transaction', [TransactionController::class, 'transaction']);
