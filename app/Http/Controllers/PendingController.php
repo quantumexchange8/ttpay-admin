@@ -36,6 +36,7 @@ class PendingController extends Controller
     {
 
         $transaction = Transaction::find($request->id);
+        $merchantWallet = MerchantWallet::where('merchant_id', $request->merchant_id)->first();
 
         $amount = $transaction->total_amount;
 
@@ -46,6 +47,10 @@ class PendingController extends Controller
             'transaction_date' => now(),
             'status' => 'success',
             'handle_by' => Auth::user()->id,
+        ]);
+        
+        $merchantWallet->update([
+            'total_withdrawal' => $merchantWallet->total_withdrawal += $transaction->total_amount,
         ]);
 
         return redirect()->back()->with('success', 'successfull approved');

@@ -34,6 +34,7 @@ class WalletController extends Controller
             'total_deposit_number' => $transaction,
             'total_freezing_amount' => $merchantWallet->freezing_amount,
             'total_deposit' => $merchantWallet->total_deposit,
+            'total_withdrawal' => $merchantWallet->total_withdrawal,
         ];
 
         return response()->json($data, 200);

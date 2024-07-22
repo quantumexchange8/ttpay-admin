@@ -113,6 +113,22 @@ const DotVerticalIcon = ({...rest}) => {
     );
 }
 
+const EmptyFilter = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M1.875 2.21484H18.125V6.18216L12.5 11.9209V16.1226L7.5 18.0768V11.9209L1.875 6.18216V2.21484ZM3.125 3.46484V5.6717L8.75 11.4104V16.2462L11.25 15.2691V11.4104L16.875 5.6717V3.46484H3.125Z" fill="white"/>
+        </svg>
+    )
+}
+
+const FilledFilter = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M1.66675 2.5V6.17333L7.29175 11.9125V17.8483L11.8751 16.0567V11.9125L17.5001 6.17333V2.5H1.66675Z" fill="white"/>
+        </svg>
+    )
+}
+
 export { 
     LineLeft, 
     LineRight, 
@@ -126,4 +142,6 @@ export {
     Logout,
     XIcon,
     DotVerticalIcon,
+    EmptyFilter,
+    FilledFilter,
 };

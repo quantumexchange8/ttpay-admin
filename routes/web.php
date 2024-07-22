@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PendingController;
 use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\DealHistoryController;
 use App\Http\Controllers\MerchantController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +21,7 @@ Route::get('/components/buttons', function () {
 
 Route::middleware('auth', 'verified')->group(function () {
 
+    Route::get('/getPendingCount', [DashboardController::class, 'getPendingCount'])->name('getPendingCount');
     /**
      * ==============================
      *           General
@@ -27,7 +30,7 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
@@ -37,6 +40,10 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/rejectPendingTransaction', [PendingController::class, 'rejectPendingTransaction'])->name('rejectPendingTransaction');
     Route::post('/freezePendingTransaction', [PendingController::class, 'freezePendingTransaction'])->name('freezePendingTransaction');
 
+    // DEAL HISTORY
+    Route::prefix('deal-history')->group(function () {
+        Route::get('/client', [DealHistoryController::class, 'client'])->name('deal-history.client');
+    });
 
     /**
      * ==============================
@@ -92,7 +99,9 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::post('/delete_rate_profile', [ConfigurationController::class, 'DeleteRateProfile'])->name('configuration.delete_rate_profile');
 
         // FREEZING LISTING
-
+        Route::get('/freeze_listing', [ConfigurationController::class, 'freezeListing'])->name('configuration.freeze_listing');
+        Route::get('/getFreezeTransaction', [ConfigurationController::class, 'getFreezeTransaction'])->name('configuration.getFreezeTransaction');
+        Route::post('/unfreezeTransaction', [ConfigurationController::class, 'unfreezeTransaction'])->name('configuration.unfreezeTransaction');
 
         // TRC 20 ADDRESS
         Route::get('/trc20-address', [ConfigurationController::class, 'trc20address'])->name('configuration.trc20-address');
@@ -114,8 +123,9 @@ Route::middleware('auth', 'verified')->group(function () {
      *           OTHERS
      * ==============================
      */
-
-
+    // Company Earning
+    Route::get('/company-earnings', [CompanyController::class, 'companyEarning'])->name('company-earnings');
+    Route::get('/getCompanyEarning', [CompanyController::class, 'getCompanyEarning'])->name('getCompanyEarning');
 });
 
 require __DIR__.'/auth.php';

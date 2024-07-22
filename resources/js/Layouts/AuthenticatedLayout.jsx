@@ -3,14 +3,15 @@ import Sidebar, { SidebarItem, SectionLabel, SidebarCollapsible, SidebarCollapse
 import Navbar from '@/Components/Navbar';
 import { Link, usePage } from '@inertiajs/react';
 import { SubLine, SubLine2 } from '@/Components/Icon/Outline';
-import { Dashboard, Pending, DealHistory, Performance, RateProfile, Tron, Merchant, AddMerchant, Bin, } from '@/Components/Icon/Menu';
+import { Dashboard, Pending, DealHistory, Performance, RateProfile, Tron, Merchant, AddMerchant, Bin, Freeze, PayoutConfigIcon, Company, } from '@/Components/Icon/Menu';
 import {CustomToaster} from '@/Components/CustomToaster';
 import { useEffect } from 'react';
 
 export default function Authenticated({ children, header }) {
     const { url } = usePage();
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
-
+    const [isLoading, setIsLoading] = useState(true);
+    
     // Function to toggle sidebar expansion
     const toggleSidebar = () => {
       setIsSidebarExpanded(!isSidebarExpanded);
@@ -35,6 +36,24 @@ export default function Authenticated({ children, header }) {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    const [data, setData] = useState([]);
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('/getPendingCount');
+            
+            setData(response.data);
+            
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchData(); 
+    }, []);
+
     return (
         // <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
         <div className="min-h-screen">
@@ -50,7 +69,7 @@ export default function Authenticated({ children, header }) {
                         <Link href={route('pending')} className={`${
                                 url === '/pending' ? 'bg-[#03071299] rounded-lg' : ''
                         }`}>
-                            <SidebarItem icon={<Pending/>} text="PENDING" />
+                            <SidebarItem icon={<Pending/>} text="PENDING" pending={data}/>
                         </Link>
                         
                         <SidebarCollapsible icon={<DealHistory/>} text="DEAL HISTORY" >
@@ -105,7 +124,11 @@ export default function Authenticated({ children, header }) {
                         }`}>
                             <SidebarItem icon={<RateProfile/>} text="RATE PROFILE" />
                         </Link>
-                        {/* <SidebarItem text="FREEZING LISTING"/> */}
+                        <Link href={route('configuration.freeze_listing')} className={`${
+                                url === '/configuration/freeze_listing' ? 'bg-[#03071299] rounded-lg' : ''
+                        }`}>
+                            <SidebarItem icon={<Freeze/>} text="FREEZING LISTING"/>
+                        </Link>
                         <Link href={route('configuration.trc20-address')} className={`${
                                 url === '/configuration/trc20-address' ? 'bg-[#03071299] rounded-lg' : ''
                         }`}>
@@ -114,14 +137,18 @@ export default function Authenticated({ children, header }) {
                         <Link href={route('configuration.payout-configuration')} className={`${
                                 url === '/configuration/payout-configuration' ? 'bg-[#03071299] rounded-lg' : ''
                         }`}>
-                            <SidebarItem icon={<Tron/>} text="Payout Configuration"/>
+                            <SidebarItem icon={<PayoutConfigIcon/>} text="Payout Configuration"/>
                         </Link>
                     </div>
                 </div>
                 <div className='flex flex-col items-center gap-2'>
                     <SectionLabel text="OTHERS"/>
                     <div className='w-full flex flex-col gap-1'>
-                        {/* <SidebarItem text="COMPANY EARNINGS"/> */}
+                        <Link href={route('company-earnings')} className={`${
+                                url === '/company-earnings' ? 'bg-[#03071299] rounded-lg' : ''
+                        }`}>
+                            <SidebarItem icon={<Company/>} text="COMPANY EARNINGS"/>
+                        </Link>
 
                         <Link href={route('logout')} method="post" as="button">
                             <SidebarItem text="LOG OUT"/>

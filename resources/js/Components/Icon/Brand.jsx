@@ -134,4 +134,14 @@ const FreezeIcon = () => {
     );
 }
 
-export { WhatsApp, FooterWhatsApp, Gmail, FooterGmail, QR, Calendar, Setting, ApproveIcon, RejectIcon, FreezeIcon};
+const UnfreezeIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+            <path d="M4.72559 5.65642V4.52978V4.51811C4.732 3.05161 5.9255 1.86861 7.39142 1.87503C8.15492 1.87503 8.84325 2.19752 9.32761 2.71369" stroke="#D1D5DB" strokeWidth="0.875" strokeLinecap="square" strokeLinejoin="round"/>
+            <path d="M7.30632 8.55469V9.85027" stroke="#D1D5DB" strokeWidth="0.875" strokeLinecap="square" strokeLinejoin="round"/>
+            <path fillRule="evenodd" clipRule="evenodd" d="M11.8266 12.668L11.8266 5.74174L2.94531 5.74174L2.94531 12.668L11.8266 12.668Z" stroke="#D1D5DB" strokeWidth="0.875" strokeLinecap="round"/>
+        </svg>
+    );
+}
+
+export { WhatsApp, FooterWhatsApp, Gmail, FooterGmail, QR, Calendar, Setting, ApproveIcon, RejectIcon, FreezeIcon, UnfreezeIcon};

@@ -8,6 +8,7 @@ const SidebarContext = createContext()
 export default function Sidebar({ children, expanded, toggleSidebar }) {
   
   const { auth } = usePage().props;
+  const { url } = usePage();
 
   return (
     <aside className={`fixed inset-y-0 z-40 border-r border-transparent md:border-[#1F2937] overflow-auto backdrop-blur-2xl md:bg-[#ffffff0d]
@@ -15,25 +16,29 @@ export default function Sidebar({ children, expanded, toggleSidebar }) {
       ${!expanded ? 'translate-x-0 w-0' : ' w-auto lg:w-[281px]'}`}
     >
       <nav className="w-full h-full md:h-auto py-5 px-3 md:p-5 flex flex-col gap-5 ">
-        <div className="py-3 px-4 flex justify-between items-center gap-3 hover:bg-[#03071299] rounded-lg">
-            <div className="flex items-center gap-3" >
-              <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" alt="" className="rounded-full w-6 md:w-10 h-6 md:h-10"/>
-              <div className="flex flex-col ">
-                <div className="text-white text-sm">
-                    {auth.user.name}
-                </div>
-                <div className="flex gap-3 text-white text-xs">
-                    <div>ID: {auth.user.role_id}</div>
-                    {
-                      auth.user.role === 'admin' ? <Admin/> : <Merchant/>
-                    }
+        <Link href={route('profile')} className={`${
+              url === '/profile' ? 'bg-[#03071299] rounded-lg' : ''
+        }`}>
+          <div className="py-3 px-4 flex justify-between items-center gap-3 hover:bg-[#03071299] rounded-lg">
+              <div className="flex items-center gap-3" >
+                <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" alt="" className="rounded-full w-6 md:w-10 h-6 md:h-10"/>
+                <div className="flex flex-col ">
+                  <div className="text-white text-sm">
+                      {auth.user.name}
+                  </div>
+                  <div className="flex gap-3 text-white text-xs">
+                      <div>ID: {auth.user.role_id}</div>
+                      {
+                        auth.user.role === 'admin' ? <Admin/> : <Merchant/>
+                      }
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className='block md:hidden cursor-pointer'>
-              <XIcon onClick={toggleSidebar}/>
-            </div>
-        </div>
+              <div className='block md:hidden cursor-pointer'>
+                <XIcon onClick={toggleSidebar}/>
+              </div>
+          </div>
+        </Link>
         <SidebarContext.Provider value={{ expanded }}>
           <ul className="flex flex-col gap-5">{children}</ul>
         </SidebarContext.Provider>
@@ -43,7 +48,7 @@ export default function Sidebar({ children, expanded, toggleSidebar }) {
   )
 }
 
-export function SidebarItem({ icon, text, active }) {
+export function SidebarItem({ icon, text, active, pending }) {
   const { expanded } = useContext(SidebarContext)
   
   return (
@@ -62,11 +67,11 @@ export function SidebarItem({ icon, text, active }) {
     >
       {icon}
       <span
-        className={`overflow-hidden transition-all text-sm font-medium ${
+        className={`overflow-hidden transition-all text-sm font-medium flex justify-between ${
           expanded ? "w-44" : "w-0"
         }`}
       >
-        {text}
+        {text} {pending >= 1 ? <div className="w-5 h-5 flex items-center justify-center rounded-full bg-error-700 text-xss text-white">{pending}</div> : null}
       </span>
     </li>
   )

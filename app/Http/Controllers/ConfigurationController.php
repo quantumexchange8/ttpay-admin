@@ -12,8 +12,11 @@ use App\Http\Requests\NewRateProfileRequest;
 use App\Http\Requests\PayoutRequest;
 use App\Http\Requests\Trc20AddressRequest;
 use App\Models\Merchant;
+use App\Models\MerchantWallet;
 use App\Models\PayoutConfig;
+use App\Models\Transaction;
 use App\Models\WalletAddress;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ConfigurationController extends Controller
@@ -174,5 +177,44 @@ class ConfigurationController extends Controller
         $payout->delete();
 
         return redirect()->back()->with('toast', 'Payout successfully deleted!');
+    }
+
+    public function freezeListing()
+    {
+
+        $total_freezing = Transaction::where('status', 'freeze')->count();
+        $total_freezing_amount = Transaction::where('status', 'freeze')->sum('total_amount');
+
+        return Inertia::render('Configuration/Freeze/FreezeListing', [
+            'total_freezing' => $total_freezing,
+            'total_freezing_amount' => $total_freezing_amount,
+        ]);
+    }
+
+    public function getFreezeTransaction()
+    {
+
+        $freeze = Transaction::where('status', 'freeze')->with(['merchant:id,name,role_id'])->get();
+
+        return response()->json($freeze);
+    }
+
+    public function unfreezeTransaction(Request $request)
+    {
+        
+        $freeze = Transaction::find($request->id);
+        $merchant = MerchantWallet::where('merchant_id', $request->merchant_id)->first();
+
+        $freeze->update([
+            'status' => 'pending',
+            'transaction_date' => now(),
+            'handle_by' => Auth::user()->id,
+        ]);
+
+        $merchant->update([
+            'freezing_amount' => $merchant->freezing_amount -= $freeze->total_amount
+        ]);
+
+        return redirect()->back()->with('toast', 'successful unfroze!');
     }
 }
