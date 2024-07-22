@@ -108,4 +108,30 @@ const Setting = () => {
     );
 }
 
-export { WhatsApp, FooterWhatsApp, Gmail, FooterGmail, QR, Calendar, Setting};
+const ApproveIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M11.6666 3.5L5.24992 9.91667L2.33325 7" stroke="#22C55E" strokeWidth="1.2" strokeLinecap="square"/>
+        </svg>
+    );
+}
+
+const RejectIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" stroke="#DC2626" strokeWidth="1.2" strokeLinecap="square"/>
+        </svg>
+    );
+}
+
+const FreezeIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M9.70047 5.30486V4.17821C9.70047 2.7123 8.51163 1.52346 7.04572 1.52346C5.5798 1.51705 4.3863 2.70005 4.37988 4.16655V4.17821V5.30486" stroke="#D1D5DB" strokeWidth="1.2" strokeLinecap="square" strokeLinejoin="round"/>
+            <path d="M6.95988 8.20312V9.49871" stroke="#D1D5DB" strokeWidth="1.2" strokeLinecap="square" strokeLinejoin="round"/>
+            <path fillRule="evenodd" clipRule="evenodd" d="M11.4804 12.3164L11.4804 5.39018L2.59912 5.39018L2.59912 12.3164L11.4804 12.3164Z" stroke="#D1D5DB" strokeWidth="1.2" strokeLinecap="round"/>
+        </svg>
+    );
+}
+
+export { WhatsApp, FooterWhatsApp, Gmail, FooterGmail, QR, Calendar, Setting, ApproveIcon, RejectIcon, FreezeIcon};

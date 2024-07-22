@@ -33,4 +33,9 @@ class Transaction extends Model
         'txn_amount',
     ];
 
+    public function merchant(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Merchant::class, 'merchant_id', 'id');
+    }
+
 }

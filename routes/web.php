@@ -32,6 +32,10 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/pending', [PendingController::class, 'index'])->name('pending');
+    Route::get('/getPendingTransaction', [PendingController::class, 'getPendingTransaction'])->name('getPendingTransaction');
+    Route::post('/approvePendingTransaction', [PendingController::class, 'approvePendingTransaction'])->name('approvePendingTransaction');
+    Route::post('/rejectPendingTransaction', [PendingController::class, 'rejectPendingTransaction'])->name('rejectPendingTransaction');
+    Route::post('/freezePendingTransaction', [PendingController::class, 'freezePendingTransaction'])->name('freezePendingTransaction');
 
 
     /**

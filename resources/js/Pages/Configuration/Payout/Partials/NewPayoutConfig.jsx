@@ -63,13 +63,13 @@ export default function NewPayoutConfig({ merchants, onNewAddressAdded }) {
                 }
 
                 reset();
-                toast.success('You have successfully created a new TRC-20 address!', { duration: Infinity });
+                // toast.success('You have successfully created a new TRC-20 address!', { duration: Infinity });
                 
-                // toast.success('New merchant created', {
-                //     title: 'New merchant created',
-                //     duration: 3000,
-                //     variant: 'variant3',
-                // });
+                toast.success('New merchant created', {
+                    title: 'New merchant created',
+                    duration: 3000,
+                    variant: 'variant3',
+                });
             }, 
             onError: () => {
                 setIsLoading(false);

@@ -26,6 +26,7 @@ Route::group(["middleware" => ["auth:sanctum"]], function() {
     Route::get('merchant_wallet', [WalletController::class, 'merchantWallet']);
     Route::post('withdrawal', [WalletController::class, 'merchantWithdrawal']);
     
-    Route::post('onesignal', [TransactionController::class, 'onesignal']);
 });
+
+Route::post('onesignal', [TransactionController::class, 'onesignal']);
 

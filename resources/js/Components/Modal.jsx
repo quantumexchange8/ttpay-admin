@@ -12,7 +12,7 @@ export default function Modal({ children, title, show = false, maxWidth = '2xl',
     const maxWidthClass = {
         sm: 'sm:max-w-sm',
         md: 'sm:max-w-[460px]',
-        lg: 'sm:max-w-lg',
+        lg: 'sm:max-w-[614.4px]',
         xl: 'max-w-[320px] md:max-w-[921.6px]',
         '2xl': 'sm:max-w-2xl',
     }[maxWidth];

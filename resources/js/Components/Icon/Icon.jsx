@@ -260,6 +260,13 @@ const SuccessIcon = () => (
     </svg>
     
   );
+  
+  const InfoIcon = ({ className }) => (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20C4.48 20 0 15.52 0 10C0 4.48 4.48 0 10 0C15.52 0 20 4.48 20 10C20 15.52 15.52 20 10 20ZM11 5H9V7H11V5ZM11 9H9V15H11V9Z" fill="#569BFF"/>
+    </svg>
+
+  );
 
   const CopyIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none">
@@ -302,4 +309,5 @@ export {
     WarningIcon,
     CopyIcon,
     RecoverIcon,
+    InfoIcon,
 };

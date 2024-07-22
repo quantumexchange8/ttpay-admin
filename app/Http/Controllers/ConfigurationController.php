@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditNewRequest;
 use App\Http\Requests\EditPayoutRequest;
 use App\Http\Requests\EditTrc20Request;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class ConfigurationController extends Controller
         return redirect()->back()->with('toast', 'Rate profile created successfully!');
     }
 
-    public function EditRateProfile(NewRateProfileRequest $request)
+    public function EditRateProfile(EditNewRequest $request)
     {
 
         $rateprofile = RateProfile::find($request->id);

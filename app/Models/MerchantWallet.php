@@ -12,5 +12,12 @@ class MerchantWallet extends Model
     protected $fillable = [
         'merchant_id',
         'merchant_wallet',
+        'net_deposit',
+        'deposit_fee',
+        'withdrawal_fee',
+        'freezing_amount',
+        'total_deposit',
+        'total_withdrawal',
+        'total_fee',
     ];
 }

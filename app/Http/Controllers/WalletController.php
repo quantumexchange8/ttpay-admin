@@ -26,13 +26,14 @@ class WalletController extends Controller
             'merchant_id' => $merchant->id,
             'merchant_wallet' => $merchantWallet->merchant_wallet,
             'gross_deposit' => $merchantWallet->gross_deposit,
-            'gross_withdrawal' => $merchantWallet->gross_withdrawal,
+            // 'gross_withdrawal' => $merchantWallet->gross_withdrawal,
             'net_deposit' => $merchantWallet->net_deposit,
-            'net_withdrawal' => $merchantWallet->net_withdrawal,
-            'total_deposit_fee' => $merchantWallet->deposit_fee,
-            'total_withdrawal_fee' => $merchantWallet->withdrawal_fee,
+            // 'net_withdrawal' => $merchantWallet->net_withdrawal,
+            'total_deposit_fee' => $merchantWallet->total_fee,
+            // 'total_withdrawal_fee' => $merchantWallet->withdrawal_fee,
             'total_deposit_number' => $transaction,
             'total_freezing_amount' => $merchantWallet->freezing_amount,
+            'total_deposit' => $merchantWallet->total_deposit,
         ];
 
         return response()->json($data, 200);
@@ -70,6 +71,12 @@ class WalletController extends Controller
                         'tt_txn' => RunningNumberService::getID('transaction'),
                         'payment_method' => 'manual',
                         'status' => 'pending',
+                    ]);
+
+                    $balance = $merchantWallet->net_deposit - $total_payout;
+
+                    $merchantWallet->update([
+                        'net_deposit' => $balance,
                     ]);
 
                     return response()->json([

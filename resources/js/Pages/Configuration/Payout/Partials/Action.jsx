@@ -73,7 +73,11 @@ export default function Action({ payout, fetchDataCallback }) {
                 onSuccess: () => {
                     closeModal();
                     setIsLoading(false);
-                    toast.success('TRC-20 address has been deleted!', { duration: 3000 });
+                    toast.success('Successfully deleted payout', {
+                        title: 'Successfully deleted payout',
+                        duration: 3000,
+                        variant: 'variant3',
+                    });
                     fetchDataCallback();
                 }, 
                 onError: (error) => {
