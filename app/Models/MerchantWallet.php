@@ -20,4 +20,9 @@ class MerchantWallet extends Model
         'total_withdrawal',
         'total_fee',
     ];
+
+    public function merchant(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Merchant::class, 'merchant_id', 'id');
+    }
 }

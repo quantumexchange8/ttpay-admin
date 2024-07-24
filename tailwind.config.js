@@ -123,6 +123,7 @@ export default {
             }],
         },
         screens: {
+            'xxl': '1440px',
             'xl': '1280px',
             'lg': '1024px',
             'md': '768px',

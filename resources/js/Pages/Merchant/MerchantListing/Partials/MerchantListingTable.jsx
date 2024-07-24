@@ -20,6 +20,9 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
     const [isLoading, setIsLoading] = useState(true);
     const [selected, setSelected] = useState();
     const [showListbox, setShowListbox] = useState(false);
+    const [walletAddresses, setWalletAddresses] = useState([]);
+    const [deletedIds, setDeletedIds] = useState([]);
+    const [tooltipText, setTooltipText] = useState('copy');
 
     const fetchData = async () => {
         try {
@@ -55,10 +58,25 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
     const closeModal = () => {
         setIsOpen(false);
         setSelectedRow(null);
+        setDeletedIds([]);
     };
 
     const deleteWalletAddress = (walletID) => {
         console.log('wallet id: ', walletID)
+        setDeletedIds(prev => [...prev, walletID]);
+        // try {
+        //     const response = await axios.post('/merchant/deleteWalletAddress', { 
+        //         id: selectedRow.id, 
+        //         delete_id: walletID,
+
+        //     });
+        //     // console.log('Update response:', response.data);
+        //     fetchData();
+        //     closeModal();
+        // } catch (error) {
+        //     console.error('Error deleting wallet address:', error);
+        // }
+
     }
 
     const updateWalletAddress = async () => {
@@ -66,6 +84,7 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
             const response = await axios.post('/merchant/updateWalletAddress', { 
                 id: selectedRow.id, 
                 walletFields,
+                deleted_id: deletedIds
             });
             // console.log('Update response:', response.data);
             fetchData();
@@ -184,10 +203,15 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
     ];
 
     const handleCopy = (tokenAddress) => {
-        // console.log(tokenAddress)
         const textToCopy = tokenAddress;
         navigator.clipboard.writeText(textToCopy).then(() => {
+            setTooltipText('Copied!');
             console.log('Copied to clipboard:', textToCopy);
+
+            // Revert tooltip text back to 'copy' after 2 seconds
+            setTimeout(() => {
+                setTooltipText('copy');
+            }, 2000);
         }).catch(err => {
             console.error('Failed to copy:', err);
         });
@@ -211,12 +235,12 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
                             </thead>
                             <tbody>
                                 {selectedRow.merchant_wallet_address.map((address) => (
-                                    <tr key={address.id} className='border-b border-[#ffffff0d] p-3'>
+                                    <tr key={address.id} className={`border-b border-[#ffffff0d] p-3 ${deletedIds.includes(address.id) ? 'line-through decoration-white' : ''}`}>
                                         <td className='pl-3 py-3 text-white text-sm'>
                                             <div className='flex items-center gap-2'>
                                                 <div>{address.wallet_address.token_address}</div>
                                                 <div onClick={() => handleCopy(address.wallet_address.token_address)} className='cursor-pointer'>
-                                                    <Tooltip text='copy'>
+                                                    <Tooltip text={tooltipText}>
                                                         <CopyIcon />
                                                     </Tooltip>
                                                 </div>

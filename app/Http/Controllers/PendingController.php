@@ -25,7 +25,7 @@ class PendingController extends Controller
         $pendingTransaction = Transaction::whereNull('client_id')
                             ->where('transaction_type', 'withdrawal')
                             ->with(['merchant:id,role_id,name'])
-                            ->where('status', 'pending')
+                            ->where('status', 'processing')
                             ->latest()
                             ->get();
 

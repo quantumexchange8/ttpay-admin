@@ -1,20 +1,19 @@
-import TanStackTable from "@/Components/TanStackTable";
 import React from "react";
-import { useEffect } from "react";
+import TanStackTable from '@/Components/TanStackTable';
+import axios from 'axios';
 import { useState } from "react";
-import Action from '@/Pages/General/Pending/Partials/Action';
-import Tooltip from "@/Components/Tooltip";
-import { CopyIcon } from "@/Components/Icon/Icon";
+import { useEffect } from "react";
+import { Rejected, Success, Freeze, Processing } from "@/Components/Badge"
+import Action from '@/Pages/General/DealHistory/Merchant/Partials/Action';
 
-export default function PendingTable({ searchVal }) {
+export default function MerchantTransactionTable({ searchVal }) {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [tooltipText, setTooltipText] = useState('copy');
-    
+
     const fetchData = async () => {
         try {
-            const response = await axios.get('getPendingTransaction');
+            const response = await axios.get('/deal-history/getMasterMerchant');
             
             setData(response.data);
             
@@ -35,21 +34,6 @@ export default function PendingTable({ searchVal }) {
         }
     }, [isLoading, data]);
 
-    const handleCopy = (tokenAddress) => {
-        const textToCopy = tokenAddress;
-        navigator.clipboard.writeText(textToCopy).then(() => {
-            setTooltipText('Copied!');
-            console.log('Copied to clipboard:', textToCopy);
-
-            // Revert tooltip text back to 'copy' after 2 seconds
-            setTimeout(() => {
-                setTooltipText('copy');
-            }, 2000);
-        }).catch(err => {
-            console.error('Failed to copy:', err);
-        });
-    };
-
     const columns = [
         {
             accessor: 'tt_txn',
@@ -57,8 +41,8 @@ export default function PendingTable({ searchVal }) {
             sortable: false,
         },
         {
-            accessor: 'created_at',
-            header: 'DateTime',
+            accessor: 'transaction_date',
+            header: 'Approval Date',
             sortable: true,
         },
         {
@@ -78,37 +62,48 @@ export default function PendingTable({ searchVal }) {
             ),
         },
         {
-            accessor: 'to_wallet',
-            header: 'USDT address',
-            sortable: false,
+            accessor: 'total_amount',
+            header: 'Amount',
+            sortable: true,
             Cell: ({ row }) => (
-                <div className="flex items-center gap-2">
-                    
-                    <div>{row.to_wallet}</div>
-                    
-                    <div onClick={() => handleCopy(row.to_wallet)} className="flex flex-col text-xs">
-                        <Tooltip text={tooltipText}>
-                            <CopyIcon />
-                        </Tooltip>
-                    </div>
+                <div className='text-xs'>
+                    $ {row.total_amount}
                 </div>
             ),
         },
         {
-            accessor: 'amount',
-            header: 'Amount',
+            accessor: 'fee',
+            header: 'Fee',
             sortable: true,
+            Cell: ({ row }) => (
+                <div className='text-xs'>
+                    $ {row.fee}
+                </div>
+            ),
+        },
+        {
+            accessor: 'status',
+            header: 'Status',
+            sortable: true,
+            Cell: ({ row }) => (
+                <div>
+                    {row.status === 'success' ? <Success /> : row.status === 'rejected' ? <Rejected /> : row.status === 'freeze' ? <Freeze /> : <Processing />}
+                </div>
+            ),
         },
     ];
 
     return (
         <div>
+
             <TanStackTable 
                 isLoading={isLoading} 
+                searchVal={searchVal} 
                 columns={columns} 
-                data={data}
-                searchVal={searchVal}
-                actions={[(row) => <Action key={row.id} transaction={row} fetchDataCallback={fetchData}/>]}
+                data={data} 
+                actions={[
+                    (row) => <Action key={row.id} transaction={row} />
+                ]}   
             />
         </div>
     )

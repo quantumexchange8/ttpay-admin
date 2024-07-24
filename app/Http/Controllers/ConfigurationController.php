@@ -206,7 +206,7 @@ class ConfigurationController extends Controller
         $merchant = MerchantWallet::where('merchant_id', $request->merchant_id)->first();
 
         $freeze->update([
-            'status' => 'pending',
+            'status' => 'processing',
             'transaction_date' => now(),
             'handle_by' => Auth::user()->id,
         ]);

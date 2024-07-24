@@ -57,10 +57,10 @@ export default function MerchantBin({ }) {
                             />
                         </InputIconWrapper>
                         <div className="w-60">
-                            {/* <CustomDatepicker 
+                            <CustomDatepicker 
                                 selectedDate={selectedDate} 
                                 onChange={handleValueChange} 
-                            /> */}
+                            />
                         </div>
                     </div>
 

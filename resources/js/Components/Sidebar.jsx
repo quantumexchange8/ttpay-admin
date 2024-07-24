@@ -107,44 +107,44 @@ const { expanded } = useContext(SidebarContext)
 
 return (
     <li
-    className={`
-        flex items-center
-        font-medium rounded-md cursor-pointer pt-[9px] pr-4
-        transition-colors
-        ${
-        active
-            ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-            : "hover:bg-[#03071299] text-gray-300"
-        }
-    `}
+      className={`
+          flex items-center
+          font-medium rounded-md cursor-pointer pt-[9px] pr-4
+          transition-colors
+          ${
+          active
+              ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
+              : "hover:bg-[#03071299] text-gray-300"
+          }
+      `}
     >
-    {icon}
-    <span
-        className={`overflow-hidden transition-all ${
-        expanded ? "w-44" : "w-0"
-        }`}
-    >
-        {text}
-    </span>
-    {alert && (
-        <div
-        className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
-            expanded ? "" : "top-2"
-        }`}
-        />
-    )}
+      {icon}
+      <span
+          className={`overflow-hidden transition-all ${
+          expanded ? "w-44" : "w-0"
+          }`}
+      >
+          {text}
+      </span>
+      {alert && (
+          <div
+          className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
+              expanded ? "" : "top-2"
+          }`}
+          />
+      )}
 
-    {!expanded && (
-        <div
-        className={`
-        absolute left-full rounded-md px-2 py-1 text-xs
-        invisible opacity-20 -translate-x-3 transition-all
-        group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-    `}
-        >
-        {text}
-        </div>
-    )}
+      {!expanded && (
+          <div
+          className={`
+          absolute left-full rounded-md px-2 py-1 text-xs
+          invisible opacity-20 -translate-x-3 transition-all
+          group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
+      `}
+          >
+          {text}
+          </div>
+      )}
     </li>
 )
 }

@@ -6,7 +6,7 @@ import { Head } from '@inertiajs/react';
 const Profile = ({ userProfile }) => {
 
     const handleUploadClick = () => {
-        console.log('Upload button clicked');
+        // console.log('Upload button clicked');
         toast.success('Profile photo uploaded!', {
             title: 'Profile photo uploaded!',
             duration: 3000,

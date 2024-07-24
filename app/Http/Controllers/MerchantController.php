@@ -223,9 +223,9 @@ class MerchantController extends Controller
 
     public function deleteWalletAddress(Request $request)
     {
-        // dd($request->all());
-        // $merchantWalletAddress = MerchantWalletAdrress::find($request->id);
-        // $merchantWalletAddress->delete();
+
+        $merchantWalletAddress = MerchantWalletAdrress::find($request->delete_id);
+        $merchantWalletAddress->delete();
 
         return redirect()->back()->with('success');
     }
@@ -287,17 +287,19 @@ class MerchantController extends Controller
 
     public function updateWalletAddress(Request $request)
     {
+        foreach($request->deleted_id as $deletedId) {
+            $merchantWalletAddress = MerchantWalletAdrress::find($deletedId);
 
+            $merchantWalletAddress->delete();
+        }
+        
         foreach($request->walletFields as $walletField) {
-            
-            foreach ($walletField['selected'] as $selectVal ) {
 
-                $newWallet = MerchantWalletAdrress::create([
-                    'merchant_id' => $request->id,
-                    'wallet_address_id' => $selectVal,
-                ]);
-            }
-        }        
+            $newWallet = MerchantWalletAdrress::create([
+                'merchant_id' => $request->id,
+                'wallet_address_id' => $walletField['selected']['id'],
+            ]);
+        }     
         
         return redirect()->back()->with('success');
     }

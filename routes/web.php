@@ -29,6 +29,8 @@ Route::middleware('auth', 'verified')->group(function () {
      */
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/getMonthlyMerchantDeposit', [DashboardController::class, 'getMonthlyMerchantDeposit'])->name('getMonthlyMerchantDeposit');
+    Route::get('/getMonthlyMerchantWithdrawal', [DashboardController::class, 'getMonthlyMerchantWithdrawal'])->name('getMonthlyMerchantWithdrawal');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -42,7 +44,11 @@ Route::middleware('auth', 'verified')->group(function () {
 
     // DEAL HISTORY
     Route::prefix('deal-history')->group(function () {
+        Route::get('/merchant', [DealHistoryController::class, 'merchant'])->name('deal-history.merchant');
+        Route::get('/getMasterMerchant', [DealHistoryController::class, 'getMasterMerchant'])->name('deal-history.getMasterMerchant');
+
         Route::get('/client', [DealHistoryController::class, 'client'])->name('deal-history.client');
+        Route::get('/getMerchantClient', [DealHistoryController::class, 'getMerchantClient'])->name('deal-history.getMerchantClient');
     });
 
     /**

@@ -154,7 +154,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
               <th className='py-3 text-center'></th>
             )}
             {columns.map((column, index) => (
-              <th key={index} className={`px-2 py-3 min-w-32 md:p-3 ${column.className || ''}`} onClick={() => column.sortable && handleSort(column)}>
+              <th key={index} className={`px-2 py-3 min-w-36 md:p-3 ${column.className || ''}`} onClick={() => column.sortable && handleSort(column)}>
                 <div className='flex items-center gap-2'>
                   <div>
                     {column.header} 
@@ -171,7 +171,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
               </th>
             ))}
             {actions && actions.length > 0 && (
-              <th className='py-3 text-center'>Actions</th>
+              <th className='py-3 pr-3 text-center'>Actions</th>
             )}
           </tr>
         </thead>
@@ -215,7 +215,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
                         </td>
                       )}
                       {columns.map((column, colIndex) => (
-                        <td key={`${rowIndex}-${colIndex}`} className="text-sm text-white p-3">
+                        <td key={`${rowIndex}-${colIndex}`} className={`text-sm text-white p-3 ${column.className}`}>
                           {column.Cell
                           ? column.Cell({ row })
                           : column.accessor === 'created_at'

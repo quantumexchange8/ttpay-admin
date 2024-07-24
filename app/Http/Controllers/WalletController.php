@@ -71,7 +71,7 @@ class WalletController extends Controller
                         'total_amount' => $total_payout,
                         'tt_txn' => RunningNumberService::getID('transaction'),
                         'payment_method' => 'manual',
-                        'status' => 'pending',
+                        'status' => 'processing',
                     ]);
 
                     $balance = $merchantWallet->net_deposit - $total_payout;
