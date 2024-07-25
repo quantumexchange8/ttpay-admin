@@ -62,7 +62,7 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
     };
 
     const deleteWalletAddress = (walletID) => {
-        console.log('wallet id: ', walletID)
+        
         setDeletedIds(prev => [...prev, walletID]);
         // try {
         //     const response = await axios.post('/merchant/deleteWalletAddress', { 

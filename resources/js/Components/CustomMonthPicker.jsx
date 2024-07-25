@@ -2,23 +2,21 @@ import React, {useState} from "react";
 import Datepicker from "react-tailwindcss-datepicker"; 
 import './CustomDatepicker.css';
 import { useEffect } from "react";
+import { format, startOfMonth, endOfMonth } from "date-fns";
 
-const CustomDatepicker = ({ selectedDate, onChange, placeholder, asSingle }) => { 
+const CustomMonthpicker = ({ selectedMonth, onChange, placeholder, asSingle }) => { 
     
-    const [value, setValue] = useState({ 
-        startDate: selectedDate.startDate,
-        endDate: selectedDate.endDate
-    });
+    const [value, setValue] = useState(selectedMonth);
 
-    useEffect(() => {
-        // Update value state when selectedDate prop changes
-        setValue(selectedDate);
-    }, [selectedDate]);
-
-    const handleValueChange = (newValue) => { 
-        setValue(newValue); // Update internal state
-        onChange(newValue); // Notify parent component
-    }
+    const handleValueChange = (newValue) => {
+        setValue(newValue);
+        // Convert newValue to start and end of the month
+        if (newValue && newValue.startDate) {
+            const startDate = startOfMonth(newValue.startDate);
+            const endDate = endOfMonth(newValue.startDate);
+            onChange({ startDate, endDate });
+        }
+    };
 
     return (
         <Datepicker 
@@ -28,12 +26,12 @@ const CustomDatepicker = ({ selectedDate, onChange, placeholder, asSingle }) => 
             useRange={false}
             value={value} 
             onChange={handleValueChange}
-            displayFormat={"DD/MM/YYYY"}
+            displayFormat={"YYYY/MM"}
             asSingle={asSingle}
             inputClassName="w-full border-none rounded-md focus:ring-2 focus:ring-primary-800 font-sm text-white bg-[#ffffff0d] dark:placeholder:text-gray-500"
             className="custom-input"
             calendarClassName="custom-calendar"
-            showShortcuts={true}
+            showShortcuts={false}
             configs={{
                 shortcuts: {
                     yesterday: "Yesterday",
@@ -46,4 +44,4 @@ const CustomDatepicker = ({ selectedDate, onChange, placeholder, asSingle }) => 
     );
 }; 
 
-export default CustomDatepicker;
+export default CustomMonthpicker;

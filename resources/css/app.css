@@ -16,4 +16,9 @@
         --primary-900: #3A03AF;
         --primary-950: #210077;
     }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 }

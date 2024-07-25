@@ -3,6 +3,7 @@ import Button from '@/Components/Button';
 import { CopyIcon, ViewDetailsIcon } from '@/Components/Icon/Icon';
 import Modal from '@/Components/Modal';
 import Tooltip from '@/Components/Tooltip';
+import { formatDateTime } from '@/Composables';
 import React from 'react'
 import { useState } from 'react';
 
@@ -64,7 +65,7 @@ function Action({ transaction }) {
                     <div className='flex gap-3'>
                         <div className='w-[140px] text-gray-500 text-sm font-bold uppercase'>Requested date</div>
                         <div className='text-white text-base'>
-                            {transaction.created_at}
+                            {formatDateTime(transaction.created_at)}
                         </div>
                     </div>
                     <div className='flex gap-3'>

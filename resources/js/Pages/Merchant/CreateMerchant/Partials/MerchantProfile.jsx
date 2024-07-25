@@ -185,7 +185,7 @@ export default function MerchantProfile({ data, phoneCodes, selectedPhoneCode, s
                             </div>
                             <Input 
                                 className='w-full'
-                                type='text'
+                                type='number'
                                 value={data.phone}
                                 handleChange={e => handleInputChange('phone', e.target.value)}
                                 hasError={!!errors.phone}

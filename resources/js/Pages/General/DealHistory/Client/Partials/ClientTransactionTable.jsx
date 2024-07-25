@@ -7,15 +7,24 @@ import { Expired, Success, Pending } from "@/Components/Badge"
 import Action from '@/Pages/General/DealHistory/Client/Partials/Action';
 import { formatAmount } from "@/Composables";
 
-export default function ClientTransactionTable({ searchVal, transactionType }) {
+export default function ClientTransactionTable({ searchVal, transactionType, filters, selectedMonthStart, selectedMonthEnd }) {
     
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const fetchData = async () => {
+    const fetchData = async (filters, selectedMonthStart, selectedMonthEnd) => {
         try {
-            const response = await axios.get('/deal-history/getMerchantClient');
+
+            const params = {
+                ...filters, 
+                startDate: selectedMonthStart, 
+                endDate: selectedMonthEnd 
+            };
+
+            const response = await axios.get('/deal-history/getMerchantClient', {
+                params
+            });
             
             setData(response.data);
             
@@ -27,8 +36,8 @@ export default function ClientTransactionTable({ searchVal, transactionType }) {
     };
 
     useEffect(() => {
-        fetchData(); 
-    }, []);
+        fetchData(filters, selectedMonthStart, selectedMonthEnd); 
+    }, [filters, selectedMonthStart, selectedMonthEnd]);
 
     useEffect(() => {
         if (!isLoading) {

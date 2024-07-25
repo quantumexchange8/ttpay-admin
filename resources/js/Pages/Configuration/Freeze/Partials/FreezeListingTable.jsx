@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Action from '@/Pages/Configuration/Freeze/Partials/Action'
 
-export default function FreezeListingTable({ searchVal }) {
+export default function FreezeListingTable({ searchVal, selectedDate }) {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -74,6 +74,7 @@ export default function FreezeListingTable({ searchVal }) {
                 columns={columns} 
                 data={data}
                 searchVal={searchVal}
+                selectedDate={selectedDate}
                 actions={[(row) => <Action key={row.id} transaction={row} fetchDataCallback={fetchData}/>]}
             />
         </div>

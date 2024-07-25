@@ -88,7 +88,7 @@ const Calendar = () => {
 
 const Filter = () => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path fillRule="evenodd" clipRule="evenodd" d="M2.25 2.65625H21.75V7.41703L15 14.3035V19.3456L9 21.6906V14.3035L2.25 7.41703V2.65625ZM3.75 4.15625V6.80448L10.5 13.691V19.4938L13.5 18.3213V13.691L20.25 6.80448V4.15625H3.75Z" fill="white"/>
         </svg>
     );

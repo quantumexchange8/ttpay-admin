@@ -6,14 +6,24 @@ import { useEffect } from "react";
 import { Rejected, Success, Freeze, Processing } from "@/Components/Badge"
 import Action from '@/Pages/General/DealHistory/Merchant/Partials/Action';
 
-export default function MerchantTransactionTable({ searchVal }) {
+export default function MerchantTransactionTable({ searchVal, filters, selectedMonthStart, selectedMonthEnd }) {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const fetchData = async () => {
+    const fetchData = async (filters, selectedMonthStart, selectedMonthEnd) => {
+        setIsLoading(true);
         try {
-            const response = await axios.get('/deal-history/getMasterMerchant');
+
+            const params = {
+                ...filters, 
+                startDate: selectedMonthStart, 
+                endDate: selectedMonthEnd 
+            };
+
+            const response = await axios.get('/deal-history/getMasterMerchant', {
+                params
+            });
             
             setData(response.data);
             
@@ -25,8 +35,8 @@ export default function MerchantTransactionTable({ searchVal }) {
     };
 
     useEffect(() => {
-        fetchData(); 
-    }, []);
+        fetchData(filters, selectedMonthStart, selectedMonthEnd); 
+    }, [filters, selectedMonthStart, selectedMonthEnd]);
 
     useEffect(() => {
         if (!isLoading) {

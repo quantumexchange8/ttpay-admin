@@ -97,6 +97,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
   };
 
   const hasBinAccessor = columns.some(column => column.accessor === 'bin');
+  const hasCreatedAt = columns.some(column => column.accessor === 'created_at');
 
   const filteredData = data.filter((item) => {
         let isWithinDateRange = true;
@@ -107,6 +108,21 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
           const endDate = endOfDay(new Date(selectedDate.endDate)); // Include the entire end date
 
           isWithinDateRange = binDate >= startDate && binDate <= endDate;
+        }
+
+        if (hasCreatedAt) {
+          if (selectedDate) {
+            if (selectedDate.startDate && selectedDate.endDate) {
+              const createdDate = new Date(item.created_at);
+              const startDate = new Date(selectedDate.startDate);
+              const endDate = endOfDay(new Date(selectedDate.endDate));
+      
+              isWithinDateRange = createdDate >= startDate && createdDate <= endDate;
+            } 
+          } else {
+              // If either startDate or endDate is null, show all items
+              isWithinDateRange = true;
+          }
       }
 
       const matchesSearchVal = columns.some((column) => {
@@ -258,7 +274,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
         </tbody>
         {/* Table Footer */}
         <tfoot>
-          {data.length > 0 ? (
+          {sortedData.length > 0 ? (
             <tr>
               <td className='py-5 xl:px-4 lg:px-4 md:px-4 px-3' colSpan={columns.length + (actions && actions.length > 0 ? 1 : 0) + (statuses && statuses.length > 0 ? 1 : 0)}>
                 <div className='flex flex-col gap-3'>

@@ -60,6 +60,8 @@ export default function MerchantBin({ }) {
                             <CustomDatepicker 
                                 selectedDate={selectedDate} 
                                 onChange={handleValueChange} 
+                                placeholder='dd/mm/yy - dd/mm/yy'
+                                asSingle={false}
                             />
                         </div>
                     </div>

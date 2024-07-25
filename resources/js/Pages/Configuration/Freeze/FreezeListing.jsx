@@ -7,6 +7,8 @@ import { Head, useForm } from "@inertiajs/react";
 import React from "react";
 import toast from 'react-hot-toast';
 import FreezeListingTable from "@/Pages/Configuration/Freeze/Partials/FreezeListingTable";
+import { useState } from "react";
+import CustomDatepicker from "@/Components/DatePicker";
 // import CustomDatepicker from "@/Components/DatePicker";
 
 export default function FreezeListing({ auth, total_freezing, total_freezing_amount }) {
@@ -22,6 +24,23 @@ export default function FreezeListing({ auth, total_freezing, total_freezing_amo
     const { data, setData, post, processing, errors, reset } = useForm({
         search: '',
     });
+
+    const getTodayDate = () => {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+        const year = today.getFullYear();
+        return `${year}-${month}-${day}`; // Assuming your placeholder is 'dd/mm/yy'
+    };
+
+    const [selectedDate, setSelectedDate] = useState({ 
+        startDate: getTodayDate(), 
+        endDate: getTodayDate() 
+    });
+
+    const handleValueChange = (newValue) => {
+        setSelectedDate(newValue);
+    }
 
     const searchVal = data.search;
 
@@ -82,11 +101,13 @@ export default function FreezeListing({ auth, total_freezing, total_freezing_amo
                             />
                         </InputIconWrapper>
                         </div>
-                        <div>
-                            {/* <CustomDatepicker 
+                        <div className="w-40">
+                            <CustomDatepicker 
                                 selectedDate={selectedDate} 
+                                asSingle={true}
                                 onChange={handleValueChange} 
-                            /> */}
+                                placeholder='dd/mm/yy'
+                            />
                         </div>
                     </div>
                     <div>
@@ -102,7 +123,7 @@ export default function FreezeListing({ auth, total_freezing, total_freezing_amo
                     </div>
                 </div>
                 <div>
-                    <FreezeListingTable searchVal={searchVal}/>
+                    <FreezeListingTable searchVal={searchVal} selectedDate={selectedDate}/>
                 </div>
             </div>
 

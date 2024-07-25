@@ -66,8 +66,6 @@ export default function MonthlyMerchantDeposit() {
         }
     };
 
-    console.log(data)
-
     useEffect(() => {
         fetchData();
       }, [selectedYear, selectedMonth]);

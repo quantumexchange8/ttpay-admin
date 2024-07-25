@@ -6,7 +6,7 @@ import Action from '@/Pages/General/Pending/Partials/Action';
 import Tooltip from "@/Components/Tooltip";
 import { CopyIcon } from "@/Components/Icon/Icon";
 
-export default function PendingTable({ searchVal }) {
+export default function PendingTable({ searchVal, selectedDate }) {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -108,6 +108,7 @@ export default function PendingTable({ searchVal }) {
                 columns={columns} 
                 data={data}
                 searchVal={searchVal}
+                selectedDate={selectedDate}
                 actions={[(row) => <Action key={row.id} transaction={row} fetchDataCallback={fetchData}/>]}
             />
         </div>

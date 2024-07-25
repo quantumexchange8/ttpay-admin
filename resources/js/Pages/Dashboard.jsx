@@ -106,8 +106,8 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                         {topMerchants.map((topMerchant, index) =>(
                             <div className='flex flex-col gap-2 p-3 bg-[#03071266] rounded' key={index}>
                                 <div className='flex items-center gap-3 w-full pb-3'>
-                                    <div>
-                                        <img className='object-cover w-9 h-9 rounded-full' src='https://img.freepik.com/free-icon/user_318-159711.jpg' alt="merchant_pic" />
+                                    <div className='flex items-center w-9 h-9'>
+                                        <img className='object-cover rounded-full' src='https://img.freepik.com/free-icon/user_318-159711.jpg' alt="merchant_pic" />
                                     </div>
                                     <div className='flex flex-col w-full'>
                                         <div className='text-white text-xs font-bold'>{topMerchant.merchant.name}</div>
