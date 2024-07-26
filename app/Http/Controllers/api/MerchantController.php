@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Merchant;
 use App\Models\RateProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class MerchantController extends Controller
 {
@@ -33,7 +34,6 @@ class MerchantController extends Controller
 
         if ($request->hasFile('profile_photo')) {
             $merchant->addMedia($request->profile_photo)->toMediaCollection('profile_photo');
-            $merchant->save();
 
             return response()->json([
                 'message' => 'successfull uploaded',
