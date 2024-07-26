@@ -49,7 +49,7 @@ class WalletController extends Controller
 
         $withdrawalAmount = $request->withdraw_amount; // request amount
         $withdrawalAddress = $request->wallet_address; // request amount
-        
+
         if ($withdrawalAmount >= 100) {
 
             if ($wallet_balance >= $withdrawalAmount) {
@@ -67,14 +67,14 @@ class WalletController extends Controller
                         'merchant_id' => $merchant->id,
                         'transaction_type' => 'withdrawal',
                         'to_wallet' => $withdrawalAddress,
-                        'amount' => $total_payout,
-                        'total_amount' => $total_payout,
+                        'amount' => $withdrawalAmount,
+                        'total_amount' => $withdrawalAmount,
                         'tt_txn' => RunningNumberService::getID('transaction'),
                         'payment_method' => 'manual',
                         'status' => 'processing',
                     ]);
 
-                    $balance = $merchantWallet->net_deposit - $total_payout;
+                    $balance = $merchantWallet->net_deposit - $withdrawalAmount;
 
                     $merchantWallet->update([
                         'net_deposit' => $balance,
@@ -98,7 +98,7 @@ class WalletController extends Controller
         } else {
 
             return response()->json([
-                'message' => 'minimum withdrawwal amount $100 usdt',
+                'message' => 'minimum withdrawal amount $100 usdt',
                 'status' => 'failed',
             ], 200);
 

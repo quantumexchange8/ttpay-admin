@@ -305,6 +305,18 @@ const SuccessIcon = () => (
     </svg>
   );
 
+  const CsvDownloadIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+    </svg>
+  );
+
+  const PolygonIcon = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} width="28" height="32" viewBox="0 0 28 32" fill="none">
+        <path d="M14 0L27.8564 8V24L14 32L0.143594 24V8L14 0Z" fill="white" fillOpacity="0.05"/>
+    </svg>
+  );
+
 export { 
     ArrowUp,
     ArrowRight,
@@ -338,4 +350,6 @@ export {
     CreditCardIcon,
     FeeChargesIcon,
     NetBalanceIcon,
+    CsvDownloadIcon,
+    PolygonIcon,
 };

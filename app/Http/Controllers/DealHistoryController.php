@@ -61,6 +61,7 @@ class DealHistoryController extends Controller
                     ->whereIn('status', ['success', 'rejected'])
                     ->whereNull('client_id')
                     ->with(['merchant:id,name,role_id'])
+                    ->latest()
                     ->get();
 
 
@@ -107,6 +108,7 @@ class DealHistoryController extends Controller
                     })
                     ->with(['merchant:id,name,role_id'])
                     ->whereNotNull('client_id')
+                    ->latest()
                     ->get();
 
         return response()->json($transaction);

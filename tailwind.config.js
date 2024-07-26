@@ -15,6 +15,9 @@ export default {
 
     theme: {
         extend: {
+            backgroundImage: {
+                'bg-image': "url('/assets/tt-bg.png')"
+            },
             fontFamily: {
                 sans: ['Manrope', ...defaultTheme.fontFamily.sans],
             },

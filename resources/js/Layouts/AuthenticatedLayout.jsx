@@ -56,7 +56,7 @@ export default function Authenticated({ children, header }) {
 
     return (
         // <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-        <div className="min-h-screen">
+        <div className="min-h-screen bg-bg-image bg-cover bg-center bg-no-repeat">
             <Sidebar expanded={isSidebarExpanded} toggleSidebar={toggleSidebar}>
                 <div className='flex flex-col items-center gap-2'>
                     <SectionLabel text="GENERAL"/>
@@ -175,9 +175,7 @@ export default function Authenticated({ children, header }) {
 
                     <CustomToaster/>
                 </main>
-            </div>
-
-            
+            </div>            
         </div>
     );
 }

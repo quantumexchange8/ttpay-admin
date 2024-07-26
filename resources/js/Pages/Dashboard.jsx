@@ -2,13 +2,16 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import Input from '@/Components/Input'
 import { FreezingDashboard, PendingWithdrawal, TotalMerchant } from '@/Components/Icon/Brand';
-import { ArrowRight } from '@/Components/Icon/Icon';
+import { ArrowRight, PolygonIcon } from '@/Components/Icon/Icon';
 import { formatAmount } from '@/Composables';
 import MonthlyMerchantDeposit from '@/Pages/DashboardPartials/MonthlyMerchantDeposit';
 import MonthlyMerchantWithdrawal from '@/Pages/DashboardPartials/MonthlyMerchantWithdrawal';
+import CountUp from 'react-countup';
+import { useTranslation } from 'react-i18next';
 
 export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, total_freezing, total_freezing_amount, topMerchants }) {
 
+    const { t } = useTranslation();
     const { url } = usePage();
 
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -36,14 +39,14 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
 
             <div className='flex flex-col flex-wrap gap-5 xl:flex-row'>
                 <div className='flex flex-col gap-5 w-full lg:w-auto xl:w-full xxl:max-w-[868px]'>
-                    <div className='flex w-full gap-5'>
+                    <div className='flex flex-col md:flex-row w-full gap-5'>
                         <div className='p-5 flex flex-col h-40 justify-between bg-[#ffffff0d] rounded-xl w-full'>
                             <PendingWithdrawal />
                             <div className='flex justify-between'>
                                 <div className='flex flex-col gap-2'>
-                                    <div className='text-gray-500 text-sm'>Pending Withdrawal</div>
+                                    <div className='text-gray-500 text-sm'>{t('pending_withdrawal')}</div>
                                     <div className='text-white text-lg font-bold'>
-                                        $ {formatAmount(pendingWithdrawal)}
+                                        $ <CountUp end={formatAmount(pendingWithdrawal)} duration={1.5} decimals={2}/> 
                                     </div>
                                 </div>
                                 <div className='flex justify-center items-center'>
@@ -61,7 +64,7 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                                 <div className='flex flex-col gap-2'>
                                     <div className='text-gray-500 text-sm'>Total Merchants</div>
                                     <div className='text-white text-lg font-bold'>
-                                        {totalMerchant}
+                                        <CountUp end={totalMerchant} duration={1.5} />
                                     </div>
                                 </div>
                                 <div className='flex justify-center items-center'>
@@ -74,9 +77,9 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                             </div>
                         </div>
                     </div>
-                    <div className='p-5 h-[180px] flex flex-col justify-between bg-[#ffffff0d] rounded-xl w-full'>
+                    <div className='p-5 md:h-[180px] flex flex-col gap-3 md:justify-between bg-[#ffffff0d] rounded-xl w-full'>
                         <FreezingDashboard />
-                        <div className='flex gap-5'>
+                        <div className='flex flex-col md:flex-row gap-2 md:gap-5'>
                             <div className='flex flex-col gap-2 py-3 px-5 w-full bg-[#03071266] rounded'>
                                 <div className='text-gray-500 text-sm'>Freezing Number</div>
                                 <div className='text-white text-lg font-bold'>
@@ -86,7 +89,7 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                             <div className='flex flex-col gap-2 py-3 px-5 w-full bg-[#03071266] rounded'>
                                 <div className='text-gray-500 text-sm'>Freezing Amount</div>
                                 <div className='text-white text-lg font-bold'>
-                                    $ {formatAmount(total_freezing_amount)}
+                                    $ <CountUp end={formatAmount(total_freezing_amount)} duration={1.5} decimals={2}/>
                                 </div>
                             </div>
                         </div>
@@ -113,8 +116,9 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                                         <div className='text-white text-xs font-bold'>{topMerchant.merchant.name}</div>
                                         <div className='text-gray-500 text-xs'>{topMerchant.merchant.role_id}</div>
                                     </div>
-                                    <div className=' w-8 h-8 text-white'>
-                                        1
+                                    <div className=' w-8 h-8 text-white text-base relative'>
+                                        <PolygonIcon />
+                                        <span className='absolute inset-0 flex items-center justify-center'>{index + 1}</span>
                                     </div>
                                 </div>
                                 <div className='flex items-center gap-3'>

@@ -16,29 +16,32 @@ export default function Sidebar({ children, expanded, toggleSidebar }) {
       ${!expanded ? 'translate-x-0 w-0' : ' w-auto lg:w-[281px]'}`}
     >
       <nav className="w-full h-full md:h-auto py-5 px-3 md:p-5 flex flex-col gap-5 ">
-        <Link href={route('profile')} className={`${
-              url === '/profile' ? 'bg-[#03071299] rounded-lg' : ''
-        }`}>
-          <div className="py-3 px-4 flex justify-between items-center gap-3 hover:bg-[#03071299] rounded-lg">
-              <div className="flex items-center gap-3" >
-                <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" alt="" className="rounded-full w-6 md:w-10 h-6 md:h-10"/>
-                <div className="flex flex-col ">
-                  <div className="text-white text-sm">
-                      {auth.user.name}
-                  </div>
-                  <div className="flex gap-3 text-white text-xs">
-                      <div>ID: {auth.user.role_id}</div>
-                      {
-                        auth.user.role === 'admin' ? <Admin/> : <Merchant/>
-                      }
+        <div className="flex items-center gap-3">
+          <Link href={route('profile')} className={`${
+                url === '/profile' ? 'bg-[#03071299] rounded-lg w-full' : ''
+          }`}>
+            <div className="w-60 md:w-full py-3 px-4 flex justify-between items-center gap-3 hover:bg-[#03071299] rounded-lg">
+                <div className="flex items-center gap-3" >
+                  <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" alt="" className="rounded-full w-6 md:w-10 h-6 md:h-10"/>
+                  <div className="flex flex-col ">
+                    <div className="text-white text-sm">
+                        {auth.user.name}
+                    </div>
+                    <div className="flex gap-3 text-white text-xs">
+                        <div>ID: {auth.user.role_id}</div>
+                        {
+                          auth.user.role === 'admin' ? <Admin/> : <Merchant/>
+                        }
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className='block md:hidden cursor-pointer'>
-                <XIcon onClick={toggleSidebar}/>
-              </div>
+            </div>
+          </Link>
+          <div className='block md:hidden cursor-pointer'>
+            <XIcon onClick={toggleSidebar}/>
           </div>
-        </Link>
+        </div>
+        
         <SidebarContext.Provider value={{ expanded }}>
           <ul className="flex flex-col gap-5">{children}</ul>
         </SidebarContext.Provider>

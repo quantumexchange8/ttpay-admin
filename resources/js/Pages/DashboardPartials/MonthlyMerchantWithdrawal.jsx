@@ -8,6 +8,7 @@ import { Menu, Switch, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { formatAmount } from "@/Composables";
 import colors from "tailwindcss/colors";
+import CountUp from 'react-countup';
 
 const months = [
     { label: 'January', value: 1 },
@@ -166,7 +167,7 @@ export default function MonthlyMerchantWithdrawal() {
                     <div className="flex flex-col gap-1">
                         <div className="text-sm text-gray-500">Total Withdrawal</div>
                         <div className="text-white text-base font-semibold">
-                            $ {formatAmount(grossDeposit)}
+                            $ <CountUp end={formatAmount(grossDeposit)} duration={1.5} decimals={2}/>
                         </div>
                     </div>
                 </div>
@@ -175,7 +176,7 @@ export default function MonthlyMerchantWithdrawal() {
                     <div className="flex flex-col gap-1">
                         <div className="text-sm text-gray-500">Fee Charges</div>
                         <div className="text-white text-base font-semibold">
-                            $ {formatAmount(fee)}
+                            $ <CountUp end={formatAmount(fee)} duration={1.5} decimals={2}/>
                         </div>
                     </div>
                 </div>
@@ -184,7 +185,7 @@ export default function MonthlyMerchantWithdrawal() {
                     <div className="flex flex-col gap-1">
                         <div className="text-sm text-gray-500">Net Balance</div>
                         <div className="text-white text-base font-semibold">
-                            $ {formatAmount(netBalance)}
+                            $ <CountUp end={formatAmount(netBalance)} duration={1.5} decimals={2}/>
                         </div>
                     </div>
                 </div>

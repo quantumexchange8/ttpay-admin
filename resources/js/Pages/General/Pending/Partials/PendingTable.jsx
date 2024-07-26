@@ -5,8 +5,9 @@ import { useState } from "react";
 import Action from '@/Pages/General/Pending/Partials/Action';
 import Tooltip from "@/Components/Tooltip";
 import { CopyIcon } from "@/Components/Icon/Icon";
+import { mkConfig, generateCsv, download } from "export-to-csv";
 
-export default function PendingTable({ searchVal, selectedDate }) {
+export default function PendingTable({ searchVal, selectedDate, exportCsv, setExportCsv }) {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -24,6 +25,27 @@ export default function PendingTable({ searchVal, selectedDate }) {
             setIsLoading(false);
         }
     };
+
+    const exportCSV = () => {
+        const config = mkConfig({
+            filename: 'pending_transactions',
+            useKeysAsHeaders: true, // Use object keys as headers
+        });
+
+        console.log('Export config:', config); // Debug: Check config
+        console.log('Data to export:', data); // Debug: Check data
+
+        generateCsv(data, config); // Generate CSV with the data and config
+        download(config); // Trigger the download
+        
+    };
+
+    useEffect(() => {
+        if (exportCsv) {
+            exportCSV();
+            setExportCsv(false); // Reset the exportCsv state
+        }
+    }, [exportCsv, setExportCsv, data]);
 
     useEffect(() => {
         fetchData(); 
@@ -95,7 +117,7 @@ export default function PendingTable({ searchVal, selectedDate }) {
             ),
         },
         {
-            accessor: 'amount',
+            accessor: 'total_amount',
             header: 'Amount',
             sortable: true,
         },

@@ -70,7 +70,7 @@ function Action({ transaction }) {
                     <div className='flex gap-3 items-center'>
                         <div className='w-[140px] text-gray-500 text-sm font-bold uppercase'>Approval date</div>
                         <div className='text-white text-base'>
-                            {transaction.transaction_date}
+                            {formatDateTime(transaction.transaction_date)}
                         </div>
                     </div>
                     <div className='flex gap-3 items-center'>

@@ -2,13 +2,15 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
 import InputIconWrapper from '@/Components/InputIconWrapper';
 import React, { useState } from 'react';
-import { Search, AddIcon, ArrowDown } from '@/Components/Icon/Icon';
+import { Search, AddIcon, ArrowDown, CsvDownloadIcon } from '@/Components/Icon/Icon';
 import Input from '@/Components/Input';
 import Button from '@/Components/Button';
 import PendingTable from '@/Pages/General/Pending/Partials/PendingTable';
 import CustomDatepicker from "@/Components/DatePicker";
 
 export default function Pending({ auth }) {
+
+    const [exportCsv, setExportCsv] = useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         search: '',
@@ -29,6 +31,10 @@ export default function Pending({ auth }) {
 
     const handleValueChange = (newValue) => {
         setSelectedDate(newValue);
+    }
+
+    const clickCsv = () => {
+        setExportCsv(true);
     }
 
     const searchVal = data.search;
@@ -78,14 +84,15 @@ export default function Pending({ auth }) {
                         size='lg'
                         iconOnly
                         className='flex items-center gap-2'
+                        onClick={clickCsv}
                     >
                         <span>Export</span>
-                        <ArrowDown aria-hidden="true"/>
+                        <CsvDownloadIcon aria-hidden="true"/>
                     </Button>
                 </div>
 
                 <div>
-                    <PendingTable searchVal={searchVal} selectedDate={selectedDate}/>
+                    <PendingTable searchVal={searchVal} selectedDate={selectedDate} exportCsv={exportCsv} setExportCsv={setExportCsv}/>
                 </div>
             </div>
 
