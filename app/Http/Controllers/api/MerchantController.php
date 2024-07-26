@@ -13,7 +13,8 @@ class MerchantController extends Controller
     public function merchant()
     {
 
-        $merchant = auth()->user();
+        $user = auth()->user();
+        $merchant = Merchant::find($user->id);
 
         $data = [
             'merchant' => $merchant,
@@ -26,7 +27,9 @@ class MerchantController extends Controller
     public function profile(Request $request)
     {
 
-        $merchant = auth()->user();
+        $user = auth()->user();
+
+        $merchant = Merchant::find($user->id);
 
         if ($request->hasFile('profile_photo')) {
             $merchant->addMedia($request->profile_photo)->toMediaCollection('profile_photo');
