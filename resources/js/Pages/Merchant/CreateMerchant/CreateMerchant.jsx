@@ -219,7 +219,7 @@ export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, ph
 
             <Head title="Create Merchant" />
 
-            <form onSubmit={submit} className='py-[60px]'>
+            <form onSubmit={submit} className='py-10 md:py-[60px]'>
                 <div className='flex flex-col items-center gap-10'>
                     {/* PROGRESS BAR */}
                     <div className='max-w-[603px] flex md:items-center gap-1 md:gap-5'>
@@ -227,7 +227,7 @@ export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, ph
                             <div className='w-9 h-9 flex items-center justify-center py-2 px-[10px] bg-primary-700 rounded-full'>
                                 <span className='text-white text-sm font-semibold '>1</span>
                             </div>
-                            <div className='text-base font-semibold text-white text-center leading-tight'>
+                            <div className='text-xs md:text-base font-semibold text-white text-center leading-tight'>
                                 Merchant Profile
                             </div>
                         </div>
@@ -236,14 +236,14 @@ export default function CreateMerchant({ auth, rateProfiles, trc20Addressess, ph
                             <div className={step === 2 || step === 3  ? 'w-9 h-9 flex items-center justify-center py-2 px-[10px] rounded-full bg-primary-700' : 'w-9 h-9 flex items-center justify-center py-2 px-[10px] rounded-full bg-gray-800'}>
                                 <span className='text-white text-sm font-semibold '>2</span>
                             </div>
-                            <div className={step === 2 || step === 3 ? 'text-base font-semibold text-white text-center h-10 md:h-auto' : 'text-base font-semibold text-gray-500 text-center h-10 md:h-auto'}>Configuration</div>
+                            <div className={step === 2 || step === 3 ? 'text-xs md:text-base font-semibold text-white text-center h-10 md:h-auto' : 'text-xs md:text-base font-semibold text-gray-500 text-center h-10 md:h-auto'}>Configuration</div>
                         </div>
                         <ArrowRight width={24} height={24} color='currentColor' className={step === 3 ? 'text-white' : 'text-gray-400'}/>
                         <div className='flex flex-col md:flex-row items-center gap-1 md:gap-2'>
                             <div className={step === 3 ? 'w-9 h-9 flex items-center justify-center py-2 px-[10px] rounded-full bg-primary-700' : 'w-9 h-9 flex items-center justify-center py-2 px-[10px] rounded-full bg-gray-800'}>
                                 <span className='text-white text-sm font-semibold '>3</span>
                             </div>
-                            <div className={step === 3 ? 'text-base font-semibold text-white text-center leading-tight' : 'text-base font-semibold text-gray-500 text-center leading-tight'}>Email Content</div>
+                            <div className={step === 3 ? 'text-xs md:text-base font-semibold text-white text-center leading-tight' : 'text-xs md:text-base font-semibold text-gray-500 text-center leading-tight'}>Email Content</div>
                         </div>
                     </div>
 

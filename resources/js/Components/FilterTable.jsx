@@ -64,7 +64,7 @@ export default function FilterTable({ onApply, statuses }) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute left-0 mt-2 w-60 origin-top-right rounded-lg bg-[#ffffff0d] backdrop-blur-3xl shadow-lg ring-1 ring-black/5 focus:outline-none">
+          <Menu.Items className="absolute z-10 right-0 md:left-0 mt-2 w-60 origin-top-right rounded-lg bg-[#ffffff0d] backdrop-blur-3xl shadow-lg ring-1 ring-black/5 focus:outline-none">
             
             <div className="py-4 flex flex-col gap-6">
               <div className="flex justify-between items-center px-4">

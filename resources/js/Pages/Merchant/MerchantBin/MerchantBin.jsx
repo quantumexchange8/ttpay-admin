@@ -32,9 +32,9 @@ export default function MerchantBin({ }) {
 
             <Head title="Merchant Bin" />
 
-            <div className='flex gap-5 flex-col'>
+            <div className='flex gap-5 flex-col py-5 md:p-0'>
                 <div className='w-full flex justify-between items-center select-none'>
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-col md:flex-row w-full items-center gap-3">
                         <InputIconWrapper 
                             icon={
                                 <Search
@@ -56,7 +56,7 @@ export default function MerchantBin({ }) {
                                 withIcon
                             />
                         </InputIconWrapper>
-                        <div className="w-60">
+                        <div className=" w-full md:w-60">
                             <CustomDatepicker 
                                 selectedDate={selectedDate} 
                                 onChange={handleValueChange} 

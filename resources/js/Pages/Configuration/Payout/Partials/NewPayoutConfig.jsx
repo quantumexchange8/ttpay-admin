@@ -79,11 +79,11 @@ export default function NewPayoutConfig({ merchants, onNewAddressAdded }) {
     }
 
     return (
-        <div>
+        <div className="w-full md:w-auto">
             <Button
                 size='lg'
                 iconOnly
-                className='gap-2 justify-center items-center'
+                className='gap-2 justify-center items-center w-full md:w-auto'
                 onClick={openModal}
             >
                 <AddIcon aria-hidden="true"/>

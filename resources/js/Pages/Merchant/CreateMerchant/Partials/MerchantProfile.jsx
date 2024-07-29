@@ -68,21 +68,23 @@ export default function MerchantProfile({ data, phoneCodes, selectedPhoneCode, s
     return (
         <div className='w-full flex flex-col gap-10'>
             <div className='p-5 flex items-center gap-3 bg-[#ffffff0d] rounded-xl'>
-                <Alert/>
-                <span className='text-gray-300 text-base font-medium'>
+                <div>
+                    <Alert/>
+                </div>
+                <span className='text-gray-300 text-sm md:text-base font-medium'>
                     Please make sure the email provided is accurate. Login details will be sent via email upon addition of merchant.
                 </span>
             </div>
             <div className='flex flex-col items-center gap-10 bg-[#ffffff0d] rounded-xl'>
-                <div className='w-full py-5 px-10 flex flex-col gap-1 border-b border-gray-800'>
+                <div className='w-full py-5 px-3 md:py-5 md:px-10 flex flex-col gap-1 border-b border-gray-800'>
                     <div className='text-lg text-white font-bold'>
                         Merchant Profile
                     </div>
-                    <div className='text-sm text-gray-300'>
+                    <div className='text-xs md:text-sm text-gray-300'>
                         Keeping this information accurate helps us provide better support and communication.
                     </div>
                 </div>
-                <div className='w-full px-10 flex md:grid flex-col md:grid-cols-2 gap-6'>
+                <div className='w-full px-3 md:px-10 flex md:grid flex-col md:grid-cols-2 gap-6'>
                     <div className="space-y-1.5">
                         <div className='flex items-center gap-1'>
                             <Label value='Merchant Name'/> <span className='text-sm text-error-600 font-medium'>*</span>
@@ -197,7 +199,7 @@ export default function MerchantProfile({ data, phoneCodes, selectedPhoneCode, s
                         {/* <InputError/> */}
                     </div>
                 </div>
-                <div className='w-full p-10 flex justify-end border-t border-gray-800'>
+                <div className='w-full py-10 px-3 md:p-10 flex justify-end border-t border-gray-800'>
                 {/* <Button variant='secondary' size='lg' onClick={handleSubmit} className="button" type="button">
                     Cancel
                 </Button> */}

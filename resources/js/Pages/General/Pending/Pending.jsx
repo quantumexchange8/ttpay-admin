@@ -46,9 +46,9 @@ export default function Pending({ auth }) {
         >
             <Head title="Pending" />
 
-            <div className='flex gap-5 flex-col'>
+            <div className='flex gap-5 flex-col py-5 md:py-0'>
                 <div className='w-full flex justify-between items-center select-none'>
-                    <div className='flex gap-3'>
+                    <div className='flex flex-col md:flex-row gap-3 w-full'>
                         <InputIconWrapper 
                             icon={
                                 <Search

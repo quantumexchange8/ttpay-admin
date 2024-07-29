@@ -160,11 +160,11 @@ export default function MonthlyMerchantWithdrawal() {
     const chartData = processChartData(data);
 
     return (
-        <div className='flex flex-col gap-8 py-8 px-5 bg-[#ffffff0d]'>
-            <div className='flex gap-3 w-full'>
+        <div className='flex flex-col gap-8 p-4 md:py-8 md:px-5 bg-[#ffffff0d]'>
+            <div className='flex flex-col md:flex-row gap-3 w-full'>
                 <div className="flex gap-3 w-full">
                     <div className=" rounded-xl bg-[#ffffff0d] p-3"><CreditCardIcon /></div>
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-1 w-full">
                         <div className="text-sm text-gray-500">Total Withdrawal</div>
                         <div className="text-white text-base font-semibold">
                             $ <CountUp end={formatAmount(grossDeposit)} duration={1.5} decimals={2}/>
@@ -173,7 +173,7 @@ export default function MonthlyMerchantWithdrawal() {
                 </div>
                 <div className="flex gap-3 w-full">
                     <div className=" rounded-xl bg-[#ffffff0d] p-3"><FeeChargesIcon /></div>
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-1 w-full">
                         <div className="text-sm text-gray-500">Fee Charges</div>
                         <div className="text-white text-base font-semibold">
                             $ <CountUp end={formatAmount(fee)} duration={1.5} decimals={2}/>
@@ -182,7 +182,7 @@ export default function MonthlyMerchantWithdrawal() {
                 </div>
                 <div className="flex gap-3 w-full">
                     <div className=" rounded-xl bg-[#ffffff0d] p-3"><NetBalanceIcon /></div>
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-1 w-full">
                         <div className="text-sm text-gray-500">Net Balance</div>
                         <div className="text-white text-base font-semibold">
                             $ <CountUp end={formatAmount(netBalance)} duration={1.5} decimals={2}/>
@@ -191,7 +191,7 @@ export default function MonthlyMerchantWithdrawal() {
                 </div>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex flex-col gap-3 md:flex-row md:justify-between">
                 <div className="text-white text-lg font-bold">
                     Monthly Merchant's Withdrawal
                 </div>
@@ -219,7 +219,7 @@ export default function MonthlyMerchantWithdrawal() {
                                 leaveFrom="transform opacity-100 scale-100"
                                 leaveTo="transform opacity-0 scale-95"
                                 >
-                                    <Menu.Items className="absolute right-[-20px] mt-2 w-[124px] origin-top-right rounded-md bg-[#03071266] shadow-lg focus:outline-none backdrop-blur-3xl">
+                                    <Menu.Items className="absolute z-10 right-[-20px] mt-2 w-[124px] origin-top-right rounded-md bg-[#03071266] shadow-lg focus:outline-none backdrop-blur-3xl">
                                         <div className="px-1 py-1 ">
                                             {
                                                 months.map((month, index) => (

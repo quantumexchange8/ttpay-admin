@@ -330,7 +330,6 @@ class MerchantController extends Controller
         $merchant->phone = $request->phone;
         $merchant->rate_id = $request->rate_profile;
         $merchant->url = $request->url;
-        $merchant->refresh_time = $request->auto_refresh;
         $merchant->deposit_type = $request->approval_mode;
         $merchant->save();
 

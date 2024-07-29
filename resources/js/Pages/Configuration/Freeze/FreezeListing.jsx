@@ -75,33 +75,33 @@ export default function FreezeListing({ auth, total_freezing, total_freezing_amo
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-between">
-                    <div className="flex items-center gap-3">
-                        <div>
-                        <InputIconWrapper 
-                            icon={
-                                <Search
-                                    aria-hidden="true"
-                                    className="w-5 h-5"
+                <div className="flex flex-col md:flex-row gap-3 justify-between">
+                    <div className="flex flex-col md:flex-row items-center gap-3">
+                        <div className="w-full md:w-auto">
+                            <InputIconWrapper 
+                                icon={
+                                    <Search
+                                        aria-hidden="true"
+                                        className="w-5 h-5"
+                                    />
+                                }
+                            >
+                                <Input
+                                    type="text"
+                                    name="search"
+                                    placeholder="Search"
+                                    value={data.search}
+                                    className="block w-full caret-primary-700"
+                                    autoComplete="search"
+                                    isFocused={false}
+                                    handleChange={(e) => setData('search', e.target.value)}
+                                    required
+                                    // cursorColor="#5200FF"
+                                    withIcon
                                 />
-                            }
-                        >
-                            <Input
-                                type="text"
-                                name="search"
-                                placeholder="Search"
-                                value={data.search}
-                                className="block w-full caret-primary-700"
-                                autoComplete="search"
-                                isFocused={false}
-                                handleChange={(e) => setData('search', e.target.value)}
-                                required
-                                // cursorColor="#5200FF"
-                                withIcon
-                            />
-                        </InputIconWrapper>
+                            </InputIconWrapper>
                         </div>
-                        <div className="w-40">
+                        <div className="w-full md:w-40">
                             <CustomDatepicker 
                                 selectedDate={selectedDate} 
                                 asSingle={true}
@@ -110,7 +110,7 @@ export default function FreezeListing({ auth, total_freezing, total_freezing_amo
                             />
                         </div>
                     </div>
-                    <div>
+                    <div className="w-full md:w-auto flex justify-end">
                         <Button
                             variant='primary'
                             size='lg'

@@ -90,13 +90,13 @@ export default function Client({ auth }) {
 
             <Head title="Deal History" />
             
-            <div className='flex gap-5 flex-col'>
+            <div className='flex gap-5 flex-col py-5 md:py-0'>
                 <div className="text-gray-50 text-lg font-bold">
                     Merchants - Clients
                 </div>
-                <div className='w-full flex justify-between items-center select-none'>
-                    <div className="flex items-center gap-3">
-                        <div className="flex items-center">
+                <div className='w-full flex flex-col gap-3 md:flex-row justify-between items-center select-none'>
+                    <div className="flex flex-col md:flex-row items-center gap-3 w-full">
+                        <div className="flex items-center w-full md:w-auto">
                             <InputIconWrapper 
                                 icon={
                                     <Search
@@ -110,7 +110,7 @@ export default function Client({ auth }) {
                                     name="search"
                                     placeholder="Search"
                                     value={data.search}
-                                    className="block w-full caret-primary-700"
+                                    className="block w-full caret-primary-700 rounded-r-none"
                                     autoComplete="search"
                                     isFocused={false}
                                     handleChange={(e) => setData('search', e.target.value)}
@@ -143,16 +143,17 @@ export default function Client({ auth }) {
                             />
                         </div>
                     </div>
-
-                    <Button
-                        size='lg'
-                        iconOnly
-                        className='flex items-center gap-2'
-                        onClick={handleExportCsv}
-                    >
-                        <span>Export</span>
-                        <ArrowDown aria-hidden="true"/>
-                    </Button>
+                    <div className="flex justify-end w-full">
+                        <Button
+                            size='lg'
+                            iconOnly
+                            className='flex items-center gap-2'
+                            onClick={handleExportCsv}
+                        >
+                            <span>Export</span>
+                            <ArrowDown aria-hidden="true"/>
+                        </Button>
+                    </div>
                 </div>
                 <div className="flex flex-col">
                     <div className="w-full">

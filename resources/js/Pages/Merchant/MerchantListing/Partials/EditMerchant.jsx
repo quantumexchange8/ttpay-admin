@@ -254,33 +254,33 @@ export default function EditMerchant({ closeModal, phoneCodes, rateProfiles, mer
 
     return (
         <form onSubmit={submit}>
-            <div className="flex flex-col items-center gap-10">
-                <div className='max-w-[603px] flex items-center gap-5'>
-                    <div className='flex items-center gap-2 hover:cursor-pointer' onClick={() => setStep(1)}>
+            <div className="flex flex-col items-center gap-5 md:gap-10">
+                <div className='w-auto md:max-w-[603px] flex md:items-center md:gap-5'>
+                    <div className='flex flex-col md:flex-row items-center gap-1 md:gap-2 hover:cursor-pointer' onClick={() => setStep(1)}>
                         <div className='w-9 h-9 flex items-center justify-center py-2 px-[10px] bg-primary-700 rounded-full'>
                             <span className='text-white text-sm font-semibold '>1</span>
                         </div>
-                        <div className='text-base font-semibold text-white'>
+                        <div className='text-xs md:text-base font-semibold text-white text-center'>
                             Merchant Profile
                         </div>
                     </div>
 
                     <ArrowRight width={24} height={24} color='currentColor' className={step === 2 || step === 3 ? 'text-white' : 'text-gray-400'}/>
 
-                    <div className='flex items-center gap-2 hover:cursor-pointer' onClick={() => setStep(2)}>
+                    <div className='flex flex-col md:flex-row items-center gap-1 md:gap-2 hover:cursor-pointer' onClick={() => setStep(2)}>
                         <div className={step === 2 || step === 3  ? 'w-9 h-9 flex items-center justify-center py-2 px-[10px] rounded-full bg-primary-700' : 'w-9 h-9 flex items-center justify-center py-2 px-[10px] rounded-full bg-gray-800'}>
                             <span className='text-white text-sm font-semibold '>2</span>
                         </div>
-                        <div className={step === 2 || step === 3 ? 'text-base font-semibold text-white' : 'text-base font-semibold text-gray-500'}>Configuration</div>
+                        <div className={step === 2 || step === 3 ? 'text-xs md:text-base font-semibold text-white text-center' : 'text-xs text-center md:text-base font-semibold text-gray-500'}>Configuration</div>
                     </div>
 
                     <ArrowRight width={24} height={24} color='currentColor' className={step === 3 ? 'text-white' : 'text-gray-400'}/>
                     
-                    <div className='flex items-center gap-2 hover:cursor-pointer' onClick={() => setStep(3)}>
+                    <div className='flex flex-col md:flex-row items-center gap-1 md:gap-2 hover:cursor-pointer' onClick={() => setStep(3)}>
                         <div className={step === 3 ? 'w-9 h-9 flex items-center justify-center py-2 px-[10px] rounded-full bg-primary-700' : 'w-9 h-9 flex items-center justify-center py-2 px-[10px] rounded-full bg-gray-800'}>
                             <span className='text-white text-sm font-semibold '>3</span>
                         </div>
-                        <div className={step === 3 ? 'text-base font-semibold text-white' : 'text-base font-semibold text-gray-500'}>Email Content</div>
+                        <div className={step === 3 ? 'text-xs md:text-base font-semibold text-white text-center' : 'text-xs text-center md:text-base font-semibold text-gray-500'}>Email Content</div>
                     </div>
                 </div>
 
@@ -288,7 +288,7 @@ export default function EditMerchant({ closeModal, phoneCodes, rateProfiles, mer
 
                     {
                         step === 1 && (
-                            <div className="w-full grid grid-cols-2 gap-6">
+                            <div className="w-full flex flex-col md:grid md:grid-cols-2 gap-6">
                                 <div className="space-y-1.5">
                                     <div className='flex items-center gap-1'>
                                         <Label value='Merchant Name'/> <span className='text-sm text-error-600 font-medium'>*</span>
@@ -405,7 +405,7 @@ export default function EditMerchant({ closeModal, phoneCodes, rateProfiles, mer
                     {
                         step === 2 && (
                             <div className="flex flex-col gap-10">
-                                <div className='w-full px-10 grid grid-cols-2 gap-6'>
+                                <div className='w-full px-3 md:px-10 flex flex-col md:grid md:grid-cols-2 gap-6'>
                                     <div className="space-y-1.5">
                                         <div className='flex items-center gap-1'>
                                             <Label value='Rate Profile'/> <span className='text-sm text-error-600 font-medium'>*</span>
@@ -445,7 +445,7 @@ export default function EditMerchant({ closeModal, phoneCodes, rateProfiles, mer
                                         />
                                         {errors.url && <InputError message={errors.url} />}
                                     </div>
-                                    <div className="space-y-1.5 col-span-2">
+                                    {/* <div className="space-y-1.5 col-span-2">
                                         <div className='flex items-center gap-1'>
                                             <Label value='Frequency of auto-refreshing USDT address'/> 
                                         </div>
@@ -474,12 +474,12 @@ export default function EditMerchant({ closeModal, phoneCodes, rateProfiles, mer
                                             Selected USDT addresses will be auto-refreshed randomly within this selected timeframe. 
                                         </span>
                                         <InputError/>
-                                    </div>
+                                    </div> */}
 
 
                                 </div>
                                 
-                                <div className='flex flex-col gap-6 px-10'>
+                                <div className='flex flex-col gap-6 px-3 md:px-10'>
                                     <div className='flex flex-col gap-1'>
                                         <div className='text-white text-base font-bold'>
                                             Deposit Approval Settings
@@ -493,7 +493,7 @@ export default function EditMerchant({ closeModal, phoneCodes, rateProfiles, mer
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='flex gap-6'>
+                                    <div className='flex flex-col md:flex-row gap-3 md:gap-6'>
                                         <div className='w-full flex flex-col gap-2'>
                                             <div className="w-full flex flex-col gap-2">
                                                 <div className="text-white text-sm font-medium">
@@ -600,7 +600,7 @@ export default function EditMerchant({ closeModal, phoneCodes, rateProfiles, mer
 
                     {
                         step === 3 && (
-                            <div className='w-full px-10 flex flex-col gap-5'>
+                            <div className='w-full px-3 md:px-10 flex flex-col gap-5'>
                                 <div className='flex items-center gap-3'>
                                     <Switch
                                         checked={enabledClientName}

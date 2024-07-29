@@ -85,13 +85,13 @@ export default function Merchant({ auth }) {
 
             <Head title="Deal History" />
             
-            <div className='flex gap-5 flex-col'>
+            <div className='flex gap-5 flex-col py-5 md:py-0'>
                 <div className="text-gray-50 text-lg font-bold">
                     Master - Merchants
                 </div>
-                <div className='w-full flex justify-between items-center select-none'>
-                    <div className="flex items-center gap-3">
-                        <div className="flex items-center">
+                <div className='w-full flex flex-col gap-3 md:flex-row justify-between items-center select-none'>
+                    <div className="flex flex-col md:flex-row items-center gap-3 w-full">
+                        <div className="flex items-center w-full md:w-auto">
                             <InputIconWrapper 
                                 icon={
                                     <Search
@@ -147,16 +147,17 @@ export default function Merchant({ auth }) {
                             />
                         </div>
                     </div>
-
-                    <Button
-                        size='lg'
-                        iconOnly
-                        className='flex items-center gap-2'
-                        onClick={handleExportCsv}
-                    >
-                        <span>Export</span>
-                        <ArrowDown aria-hidden="true"/>
-                    </Button>
+                    <div className=" w-full flex justify-end">
+                        <Button
+                            size='lg'
+                            iconOnly
+                            className='flex items-center gap-2'
+                            onClick={handleExportCsv}
+                        >
+                            <span>Export</span>
+                            <ArrowDown aria-hidden="true"/>
+                        </Button>
+                    </div>
                     
                 </div>
                 <div>

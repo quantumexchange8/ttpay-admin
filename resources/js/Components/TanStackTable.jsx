@@ -140,11 +140,15 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
   if (sorting.column) {
     sortedData.sort((a, b) => {
       const aValue = parseFloat((a[sorting.column] || '').replace('%', ''));
-    const bValue = parseFloat((b[sorting.column] || '').replace('%', '')); 
+      const bValue = parseFloat((b[sorting.column] || '').replace('%', '')); 
+
+      const aDateValue = new Date(a[sorting.column]);
+      const bDateValue = new Date(b[sorting.column]);
+      
       if (!isNaN(aValue) && !isNaN(bValue)) {
         
-        if (aValue < bValue) return sorting.direction === 'asc' ? -1 : 1;
-        if (aValue > bValue) return sorting.direction === 'asc' ? 1 : -1;
+        if (aValue < bValue || aDateValue < bDateValue) return sorting.direction === 'asc' ? -1 : 1;
+        if (aValue > bValue || aDateValue > bDateValue) return sorting.direction === 'asc' ? 1 : -1;
         return 0;
       } else {
         
@@ -170,7 +174,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
               <th className='py-3 text-center'></th>
             )}
             {columns.map((column, index) => (
-              <th key={index} className={`px-2 py-3 min-w-36 md:p-3 ${column.className || ''}`} onClick={() => column.sortable && handleSort(column)}>
+              <th key={index} className={`px-2 py-3 min-w-28 xl:min-w-36 md:p-3 ${column.className || ''}`} onClick={() => column.sortable && handleSort(column)}>
                 <div className='flex items-center gap-2'>
                   <div>
                     {column.header} 
@@ -260,7 +264,7 @@ const TanStackTable = ({ columns, data, actions, statuses, isLoading, searchVal,
                 <tr>
                   <td
                     colSpan={columns.length + (actions && actions.length > 0 ? 1 : 0)}
-                    className="text-center py-20 text-gray-500 text-sm font-medium"
+                    className="text-center py-10 md:py-20 text-gray-500 text-sm font-medium"
                   >
                     <div className="flex flex-col items-center gap-3">
                       <NoData />

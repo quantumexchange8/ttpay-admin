@@ -66,7 +66,7 @@ export default function NewRateProfile({ onNewRateProfileAdded }) {
     }
 
     return (
-        <div>
+        <div className='flex justify-end w-full'>
             <Button 
                 size='lg'
                 iconOnly

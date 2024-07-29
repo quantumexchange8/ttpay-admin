@@ -23,7 +23,7 @@ export default ({
         }
     }, [])
 
-    const baseClasses = `py-2.5 md:w-full hover:bg-[#ffffff1a] rounded-lg bg-[#ffffff0d] text-white`
+    const baseClasses = `py-2.5 w-full md:w-full hover:bg-[#ffffff1a] rounded-lg bg-[#ffffff0d] text-white`
 
     const inputStyle = {
         caretColor: cursorColor

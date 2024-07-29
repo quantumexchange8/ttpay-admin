@@ -6,6 +6,7 @@ import Action from '@/Pages/General/Pending/Partials/Action';
 import Tooltip from "@/Components/Tooltip";
 import { CopyIcon } from "@/Components/Icon/Icon";
 import { mkConfig, generateCsv, download } from "export-to-csv";
+import Modal from "@/Components/Modal";
 
 export default function PendingTable({ searchVal, selectedDate, exportCsv, setExportCsv }) {
 
@@ -77,6 +78,7 @@ export default function PendingTable({ searchVal, selectedDate, exportCsv, setEx
             accessor: 'tt_txn',
             header: 'ID',
             sortable: false,
+            className: 'hidden xl:block',
         },
         {
             accessor: 'created_at',
@@ -133,6 +135,7 @@ export default function PendingTable({ searchVal, selectedDate, exportCsv, setEx
                 selectedDate={selectedDate}
                 actions={[(row) => <Action key={row.id} transaction={row} fetchDataCallback={fetchData}/>]}
             />
+
         </div>
     )
 }

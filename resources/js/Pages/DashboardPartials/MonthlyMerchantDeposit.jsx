@@ -160,7 +160,7 @@ export default function MonthlyMerchantDeposit() {
     const chartData = processChartData(data);
 
     return (
-        <div className='flex flex-col gap-8 py-8 px-5 bg-[#ffffff0d]'>
+        <div className='flex flex-col gap-8 p-4 md:py-8 md:px-5 bg-[#ffffff0d]'>
             <div className='flex flex-col md:flex-row gap-3 w-full'>
                 <div className="flex gap-3 w-full">
                     <div className=" rounded-xl bg-[#ffffff0d] p-3"><CreditCardIcon /></div>
@@ -197,57 +197,6 @@ export default function MonthlyMerchantDeposit() {
                 </div>
                 <div className="flex gap-3">
                     <div className="bg-[#03071266] py-2 px-3 text-white text-xs font-medium rounded-lg">
-                        {/* <div className="">
-                            <Menu as="div" className="relative inline-block text-left">
-                                <div>
-                                    <Menu.Button 
-                                        type='button'
-                                        className="inline-flex w-full justify-center items-center rounded-md text-xs font-medium text-white focus:outline-none"
-                                    >
-                                        <span className='w-12 text-left'>
-                                            {selectedMonth}
-                                        </span>
-                                        <ChevronDownIcon
-                                        className="h-4 w-4 text-violet-200 "
-                                        aria-hidden="true"
-                                        />
-                                    </Menu.Button>
-                                </div>
-                                <Transition
-                                    as={Fragment}
-                                    enter="transition ease-out duration-100"
-                                    enterFrom="transform opacity-0 scale-95"
-                                    enterTo="transform opacity-100 scale-100"
-                                    leave="transition ease-in duration-75"
-                                    leaveFrom="transform opacity-100 scale-100"
-                                    leaveTo="transform opacity-0 scale-95"
-                                >
-                                    <Menu.Items className="absolute mt-2.5 py-2 rounded-md bg-[#03071266] shadow-lg focus:outline-none backdrop-blur-[60px]">
-                                        {months.map((month, index) => (
-                                            <div key={index}>
-                                                <Menu.Item>
-                                                    {({ active }) => (
-                                                        <button
-                                                        className={`${
-                                                            active ? ' text-white' : 'text-white'
-                                                            } group flex items-center rounded-md px-4 py-2 text-sm hover:bg-[#ffffff1a]`}
-                                                            onClick={() => {
-                                                                onSelectMonth(month.value);
-                                                            }}
-                                                            type="button"
-                                                        >
-                                                            {month.label}
-                                                        </button>
-                                                    )}
-                                                </Menu.Item>
-                                            </div>
-                                        ))}
-                                        
-                                    </Menu.Items>
-                                </Transition>
-                            </Menu>
-
-                        </div> */}
                         <div className="w-[100px] text-center">
                             <Menu as="div" className="relative inline-block">
                                 <div>

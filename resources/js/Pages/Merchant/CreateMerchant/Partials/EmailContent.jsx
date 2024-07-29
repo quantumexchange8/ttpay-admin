@@ -29,7 +29,7 @@ export default function EmailContent({
 
     return (
         <div className='w-full flex flex-col items-center gap-10 bg-[#ffffff0d] rounded-xl'>
-            <div className='w-full py-5 px-10 flex flex-col gap-1 border-b border-gray-800'>
+            <div className='w-full py-5 px-3 md:px-10 flex flex-col gap-1 border-b border-gray-800'>
                 <div className='text-lg text-white font-bold'>
                     Email Content
                 </div>
@@ -38,7 +38,7 @@ export default function EmailContent({
                 </div>
             </div>
 
-            <div className='w-full px-10 flex flex-col gap-5'>
+            <div className='w-full px-3 md:px-10 flex flex-col gap-5'>
                 <div className='flex items-center gap-3'>
                     <Switch
                         checked={enabledClientName}
@@ -176,13 +176,13 @@ export default function EmailContent({
                 </div>
             </div>
 
-            <div className="w-full p-10 flex justify-between border-t border-gray-800">
-                <Button variant='secondary' size='lg' onClick={prevPage} className="button" type="button">
+            <div className="w-full p-4 md:p-10 flex justify-between gap-3 border-t border-gray-800">
+                <Button variant='secondary' size='lg' onClick={prevPage} className="button w-full md:w-auto flex justify-center" type="button">
                     Go Back
                 </Button>
                 <Button 
                     size='lg'
-                    className="button" 
+                    className="button w-full md:w-auto flex justify-center" 
                     type="submit"
                     disabled={isLoading}
                 >

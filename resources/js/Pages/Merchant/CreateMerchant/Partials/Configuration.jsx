@@ -134,7 +134,7 @@ export default function Configuration({
 
     return (
         <div className='w-full flex flex-col items-center gap-10 bg-[#ffffff0d] rounded-xl'>
-            <div className='w-full py-5 px-10 flex flex-col gap-1 border-b border-gray-800'>
+            <div className='w-full py-5 px-3 md:px-10 flex flex-col gap-1 border-b border-gray-800'>
                 <div className='text-lg text-white font-bold'>
                     Configuration
                 </div>
@@ -143,7 +143,7 @@ export default function Configuration({
                 </div>
             </div>
 
-            <div className='w-full px-10 grid grid-cols-2 gap-6'>
+            <div className='w-full px-3 md:px-10 flex flex-col md:grid md:grid-cols-2 gap-6'>
                 <div className="space-y-1.5">
                     <div className='flex items-center gap-1'>
                         <Label value='Rate Profile'/> <span className='text-sm text-error-600 font-medium'>*</span>
@@ -303,7 +303,7 @@ export default function Configuration({
 
             <div className='h-[1px] w-full bg-gray-800'></div>
 
-            <div className='flex flex-col gap-6 px-10'>
+            <div className='flex flex-col gap-6 px-3 md:px-10'>
                 <div className='flex flex-col gap-1'>
                     <div className='text-white text-base font-bold'>
                         Deposit Approval Settings
@@ -317,7 +317,7 @@ export default function Configuration({
                         </div>
                     </div>
                 </div>
-                <div className='flex gap-6'>
+                <div className='flex flex-col md:flex-row gap-3 md:gap-6'>
                     <div className='w-full flex flex-col gap-2'>
                         <div className="w-full flex flex-col gap-2">
                             <div className="text-white text-sm font-medium">
@@ -419,11 +419,11 @@ export default function Configuration({
                 </div>
             </div>
             
-            <div className="w-full p-10 flex justify-between border-t border-gray-800">
-                <Button variant='secondary' size='lg' onClick={prevPage} className="button" type="button">
+            <div className="w-full p-4 md:p-10 flex justify-between gap-3 border-t border-gray-800">
+                <Button variant='secondary' size='lg' onClick={prevPage} className="button w-full md:w-auto flex justify-center" type="button">
                     Go Back
                 </Button>
-                <Button size='lg' onClick={handleSubmit} className="button" type="button">
+                <Button size='lg' onClick={handleSubmit} className="button w-full md:w-auto flex justify-center" type="button">
                     Continue
                 </Button>
             </div>

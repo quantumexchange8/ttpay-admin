@@ -24,8 +24,8 @@ export default function MerchantListing({ auth, phoneCodes, rateProfiles, wallet
 
             <Head title="Merchant Listing" />
 
-            <div className='flex gap-5 flex-col'>
-                <div className='w-full flex justify-between items-center select-none'>
+            <div className='flex gap-5 flex-col py-5 md:py-0'>
+                <div className='w-full flex flex-col md:flex-row gap-3 justify-between items-center select-none'>
                     <InputIconWrapper 
                         icon={
                             <Search
@@ -48,7 +48,7 @@ export default function MerchantListing({ auth, phoneCodes, rateProfiles, wallet
                         />
                     </InputIconWrapper>
 
-                    <div className='flex items-center gap-3'>
+                    <div className='flex justify-end items-center gap-3 w-full'>
                         <Button
                             variant='primary'
                             size='lg'

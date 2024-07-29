@@ -37,7 +37,7 @@ export default function Sidebar({ children, expanded, toggleSidebar }) {
                 </div>
             </div>
           </Link>
-          <div className='block md:hidden cursor-pointer'>
+          <div className='block lg:hidden cursor-pointer'>
             <XIcon onClick={toggleSidebar}/>
           </div>
         </div>

@@ -11,8 +11,8 @@ export default function Modal({ children, title, show = false, maxWidth = '2xl',
 
     const maxWidthClass = {
         sm: 'sm:max-w-sm',
-        md: 'sm:max-w-[460px]',
-        lg: 'sm:max-w-[614.4px]',
+        md: 'max-w-[320px] sm:max-w-[460px]',
+        lg: 'md::max-w-[614.4px]',
         xl: 'max-w-[320px] md:max-w-[921.6px]',
         '2xl': 'sm:max-w-2xl',
     }[maxWidth];
@@ -26,7 +26,7 @@ export default function Modal({ children, title, show = false, maxWidth = '2xl',
             <Dialog
                 as="div"
                 id="modal"
-                className="fixed inset-0 flex overflow-y-auto px-4 py-6 sm:px-0 items-center z-40 transform transition-all"
+                className="fixed inset-0 flex overflow-y-auto py-5 px-3 md:px-4 md:py-6 items-center z-40 transform transition-all"
                 onClose={close}
             >
                 <Transition.Child
@@ -51,7 +51,7 @@ export default function Modal({ children, title, show = false, maxWidth = '2xl',
                     leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
                     <Dialog.Panel
-                        className={`p-8 flex flex-col gap-8 bg-white dark:bg-[#ffffff0d] backdrop-blur-[60px] rounded-lg overflow-y-auto shadow-[0_24px_40px_0px_rgba(0,0,0,0.25)] transform transition-all sm:w-full sm:mx-auto ${maxWidthClass} ${maxHeightClass} scrollbar-thin scrollbar-webkit`}
+                        className={`py-5 px-3 md:p-8 flex flex-col gap-8 bg-white dark:bg-[#ffffff0d] backdrop-blur-[60px] rounded-lg overflow-y-auto shadow-[0_24px_40px_0px_rgba(0,0,0,0.25)] transform transition-all sm:w-full sm:mx-auto ${maxWidthClass} ${maxHeightClass} scrollbar-thin scrollbar-webkit`}
                     >
                         {showCloseButton && (
                             <div className='flex justify-between'>

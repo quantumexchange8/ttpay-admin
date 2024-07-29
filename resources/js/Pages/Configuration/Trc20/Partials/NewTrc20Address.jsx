@@ -64,11 +64,11 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
     }
 
     return (
-        <div>
+        <div className='w-full md:w-auto'>
             <Button 
                 size='lg'
                 iconOnly
-                className='gap-2 justify-center items-center'
+                className='gap-2 w-full md:w-auto justify-center items-center'
                 onClick={openModal}
             >
                 <AddIcon aria-hidden="true"/>

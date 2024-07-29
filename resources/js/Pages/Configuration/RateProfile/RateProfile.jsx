@@ -30,8 +30,8 @@ export default function RateProfile({ auth }) {
         >
             <Head title="Rate Profile" />
 
-            <div className='flex gap-5 flex-col'>
-                <div className='w-full flex justify-between items-center select-none'>
+            <div className='flex gap-5 flex-col py-5 md:py-0'>
+                <div className='w-full flex flex-col md:flex-row gap-3 justify-between items-center select-none'>
                     <InputIconWrapper 
                         icon={
                             <Search

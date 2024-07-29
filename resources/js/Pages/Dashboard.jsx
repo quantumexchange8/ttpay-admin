@@ -40,41 +40,45 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
             <div className='flex flex-col flex-wrap gap-5 xl:flex-row'>
                 <div className='flex flex-col gap-5 w-full lg:w-auto xl:w-full xxl:max-w-[868px]'>
                     <div className='flex flex-col md:flex-row w-full gap-5'>
-                        <div className='p-5 flex flex-col h-40 justify-between bg-[#ffffff0d] rounded-xl w-full'>
-                            <PendingWithdrawal />
-                            <div className='flex justify-between'>
-                                <div className='flex flex-col gap-2'>
-                                    <div className='text-gray-500 text-sm'>{t('pending_withdrawal')}</div>
-                                    <div className='text-white text-lg font-bold'>
-                                        $ <CountUp end={formatAmount(pendingWithdrawal)} duration={1.5} decimals={2}/> 
+                        <div className='w-full'>
+                            <Link href={route('pending')}>
+                                <div className='p-5 flex flex-col h-40 justify-between bg-[#ffffff0d] hover:bg-[#ffffff1a] rounded-xl w-full'>
+                                    <PendingWithdrawal />
+                                    <div className='flex justify-between'>
+                                        <div className='flex flex-col gap-2'>
+                                            <div className='text-gray-500 text-sm'>{t('pending_withdrawal')}</div>
+                                            <div className='text-white text-lg font-bold'>
+                                                $ <CountUp end={formatAmount(pendingWithdrawal)} duration={1.5} decimals={2}/> 
+                                            </div>
+                                        </div>
+                                        <div className='flex justify-center items-center'>
+                                            <div className='w-6 h-6 rounded-full bg-gray-950 p-1'>
+                                                <ArrowRight color='currentColor' className='text-white'/>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className='flex justify-center items-center'>
-                                    <Link href={route('pending')}>
-                                        <div className='w-6 h-6 rounded-full bg-gray-950 p-1'>
-                                            <ArrowRight color='currentColor' className='text-white'/>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
+                            </Link>
                         </div>
-                        <div className='p-5 flex flex-col h-40 justify-between bg-[#ffffff0d] rounded-xl w-full'>
-                            <TotalMerchant />
-                            <div className='flex justify-between'>
-                                <div className='flex flex-col gap-2'>
-                                    <div className='text-gray-500 text-sm'>Total Merchants</div>
-                                    <div className='text-white text-lg font-bold'>
-                                        <CountUp end={totalMerchant} duration={1.5} />
+                        <div className='w-full'>
+                            <Link href={route('merchant.merchant-listing')}>
+                                <div className='p-5 flex flex-col h-40 justify-between bg-[#ffffff0d] hover:bg-[#ffffff1a] rounded-xl w-full'>
+                                    <TotalMerchant />
+                                    <div className='flex justify-between'>
+                                        <div className='flex flex-col gap-2'>
+                                            <div className='text-gray-500 text-sm'>Total Merchants</div>
+                                            <div className='text-white text-lg font-bold'>
+                                                <CountUp end={totalMerchant} duration={1.5} />
+                                            </div>
+                                        </div>
+                                        <div className='flex justify-center items-center'>
+                                            <div className='w-6 h-6 rounded-full bg-gray-950 p-1'>
+                                                <ArrowRight color='currentColor' className='text-white'/>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className='flex justify-center items-center'>
-                                    <Link href={route('merchant.merchant-listing')}>
-                                        <div className='w-6 h-6 rounded-full bg-gray-950 p-1'>
-                                            <ArrowRight color='currentColor' className='text-white'/>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                     <div className='p-5 md:h-[180px] flex flex-col gap-3 md:justify-between bg-[#ffffff0d] rounded-xl w-full'>
@@ -100,7 +104,7 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                     <MonthlyMerchantWithdrawal /> 
                 </div>
 
-                <div className='p-5 h-full flex flex-col gap-5 w-full lg:w-auto xxl:max-w-[512px] bg-[#ffffff0d] backdrop-blur-3xl'>
+                <div className='p-4 md:p-5 h-full flex flex-col gap-5 w-full lg:w-auto xxl:max-w-[512px] bg-[#ffffff0d] backdrop-blur-3xl'>
                     <div className='flex flex-col gap-1'>
                         <div className='text-white text-lg font-bold'>Weekly Top 10 Deposit</div>
                         <div className='text-gray-500 font-xs'>Data updated from </div>

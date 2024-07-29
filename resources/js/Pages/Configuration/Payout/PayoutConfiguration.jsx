@@ -33,8 +33,8 @@ export default function PayoutConfiguration({ auth, merchants }) {
             <Head title="Payout Configuration" />
 
 
-            <div className='flex gap-5 flex-col'>
-                <div className='w-full flex justify-between items-center select-none'>
+            <div className='flex gap-5 flex-col py-5 md:py-0'>
+                <div className='w-full flex flex-col gap-3 md:flex-row justify-between items-center select-none'>
                     <InputIconWrapper 
                         icon={
                             <Search
@@ -58,17 +58,19 @@ export default function PayoutConfiguration({ auth, merchants }) {
                         />
                     </InputIconWrapper>
                     
-                    <div className='flex items-center gap-3'>
+                    <div className='flex flex-col md:flex-row w-full md:w-auto items-center gap-3'>
                         <NewPayoutConfig merchants={merchants} onNewAddressAdded={handleNewAddressAdded}/>
-                        <Button
-                            variant='secondary'
-                            size='lg'
-                            iconOnly
-                            className='flex items-center gap-2'
-                        >
-                            <span>Export</span>
-                            <ArrowDown aria-hidden="true"/>
-                        </Button>
+                        {/* <div className='flex justify-end w-full md:w-auto'>
+                            <Button
+                                variant='secondary'
+                                size='lg'
+                                iconOnly
+                                className='flex items-center gap-2'
+                            >
+                                <span>Export</span>
+                                <ArrowDown aria-hidden="true"/>
+                            </Button>
+                        </div> */}
                     </div>
                 </div>
 

@@ -36,8 +36,8 @@ export default function RateProfile({ auth }) {
         >
             <Head title="Trc-20 Address" />
 
-            <div className='flex gap-5 flex-col'>
-                <div className='w-full flex justify-between items-center select-none'>
+            <div className='flex gap-5 flex-col py-5 md:py-0'>
+                <div className='w-full flex flex-col md:flex-row justify-between items-center select-none'>
                     <InputIconWrapper 
                         icon={
                             <Search
@@ -61,18 +61,20 @@ export default function RateProfile({ auth }) {
                         />
                     </InputIconWrapper>
                     
-                    <div className='flex items-center gap-3'>
+                    <div className='flex w-full md:w-auto flex-col md:flex-row items-center gap-3'>
                         <NewTrc20Address onNewAddressAdded={handleNewAddressAdded}/>
-                        <Button
-                            variant='secondary'
-                            size='lg'
-                            iconOnly
-                            className='flex items-center gap-2'
-                            onClick={handleExportCsv}
-                        >
-                            <span>Export</span>
-                            <ArrowDown aria-hidden="true"/>
-                        </Button>
+                        <div className='flex justify-end w-full md:w-auto'>
+                            <Button
+                                variant='secondary'
+                                size='lg'
+                                iconOnly
+                                className='flex items-center gap-2'
+                                onClick={handleExportCsv}
+                            >
+                                <span>Export</span>
+                                <ArrowDown aria-hidden="true"/>
+                            </Button>
+                        </div>
                     </div>
                 </div>
 
