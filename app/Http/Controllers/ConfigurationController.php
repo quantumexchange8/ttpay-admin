@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\Trc20AddressExport;
 use App\Http\Requests\EditNewRequest;
 use App\Http\Requests\EditPayoutRequest;
 use App\Http\Requests\EditTrc20Request;
@@ -16,8 +17,10 @@ use App\Models\MerchantWallet;
 use App\Models\PayoutConfig;
 use App\Models\Transaction;
 use App\Models\WalletAddress;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ConfigurationController extends Controller
 {
@@ -82,11 +85,17 @@ class ConfigurationController extends Controller
         return Inertia::render('Configuration/Trc20/Trc20');
     }
 
-    public function getTrc20Address()
+    public function getTrc20Address(Request $request)
     {
-        $trc20Addresses = WalletAddress::get();
+        $trc20Addresses = WalletAddress::query();
 
-        return response()->json($trc20Addresses);
+        if ($request->exportCsv == "true") {
+            return Excel::download(new Trc20AddressExport($trc20Addresses), Carbon::now() . '-Trc20-Address.xlsx');
+        }
+
+        $datas = $trc20Addresses->latest()->get();
+
+        return response()->json($datas);
     }
 
     public function storeTrc20Address(Trc20AddressRequest $request)

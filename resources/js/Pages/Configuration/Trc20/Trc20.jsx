@@ -16,11 +16,16 @@ export default function RateProfile({ auth }) {
     })
 
     const [refreshTable, setRefreshTable] = useState(false);
+    const [exportCsv, setExportCsv] = useState(false);
 
     const handleNewAddressAdded = () => {
         // Set state to trigger table data refresh
         setRefreshTable(prevState => !prevState);
     };
+
+    const handleExportCsv = () => {
+        setExportCsv(true)
+    }
 
     const searchVal = data.search;
 
@@ -63,6 +68,7 @@ export default function RateProfile({ auth }) {
                             size='lg'
                             iconOnly
                             className='flex items-center gap-2'
+                            onClick={handleExportCsv}
                         >
                             <span>Export</span>
                             <ArrowDown aria-hidden="true"/>
@@ -71,7 +77,12 @@ export default function RateProfile({ auth }) {
                 </div>
 
                 <div>
-                    <Trc20Table searchVal={searchVal} key={refreshTable.toString()}/>
+                    <Trc20Table 
+                        searchVal={searchVal} 
+                        key={refreshTable.toString()} 
+                        exportCsv={exportCsv}
+                        setExportCsv={setExportCsv}
+                    />
                 </div>
             </div>
         </AuthenticatedLayout>

@@ -67,7 +67,7 @@ export default function MerchantBin({ }) {
                     </div>
 
                     <div className='flex items-center gap-3'>
-                        <Button
+                        {/* <Button
                             variant='primary'
                             size='lg'
                             iconOnly
@@ -75,7 +75,7 @@ export default function MerchantBin({ }) {
                         >
                             <span>Export</span>
                             <ArrowDown aria-hidden="true"/>
-                        </Button>
+                        </Button> */}
                     </div>
                 </div>
 

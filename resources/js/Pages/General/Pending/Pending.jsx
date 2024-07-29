@@ -80,7 +80,7 @@ export default function Pending({ auth }) {
                             />
                         </div>
                     </div>
-                    <Button
+                    {/* <Button
                         size='lg'
                         iconOnly
                         className='flex items-center gap-2'
@@ -88,7 +88,7 @@ export default function Pending({ auth }) {
                     >
                         <span>Export</span>
                         <CsvDownloadIcon aria-hidden="true"/>
-                    </Button>
+                    </Button> */}
                 </div>
 
                 <div>

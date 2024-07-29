@@ -6,12 +6,13 @@ import { useEffect } from "react";
 import { Rejected, Success, Freeze, Processing } from "@/Components/Badge"
 import Action from '@/Pages/General/DealHistory/Merchant/Partials/Action';
 
-export default function MerchantTransactionTable({ searchVal, filters, selectedMonthStart, selectedMonthEnd }) {
+export default function MerchantTransactionTable({ searchVal, filters, selectedMonthStart, selectedMonthEnd, exportCsv, setExportCsv }) {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [csvData, setCsvData] = useState([]);
 
-    const fetchData = async (filters, selectedMonthStart, selectedMonthEnd) => {
+    const fetchData = async (filters, selectedMonthStart, selectedMonthEnd, exportCsv) => {
         setIsLoading(true);
         try {
 
@@ -34,9 +35,46 @@ export default function MerchantTransactionTable({ searchVal, filters, selectedM
         }
     };
 
+    const exportDataToCsv = async (filters, selectedMonthStart, selectedMonthEnd) => {
+        setIsLoading(true);
+        try {
+            const params = {
+                ...filters,
+                startDate: selectedMonthStart,
+                endDate: selectedMonthEnd,
+                exportCsv: 'true'
+            };
+
+            const response = await axios.get('/deal-history/getMasterMerchant', {
+                params,
+                responseType: 'blob' // Important for file downloads
+            });
+
+            // Create a link to download the file
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Merchant-deal-history.xlsx');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+        } catch (error) {
+            console.error('Error exporting data:', error);
+        } finally {
+            setIsLoading(false);
+            setExportCsv(false); // Reset the exportCsv flag
+        }
+    };
+
+
     useEffect(() => {
-        fetchData(filters, selectedMonthStart, selectedMonthEnd); 
-    }, [filters, selectedMonthStart, selectedMonthEnd]);
+        if (exportCsv) {
+            exportDataToCsv(filters, selectedMonthStart, selectedMonthEnd);
+        } else {
+            fetchData(filters, selectedMonthStart, selectedMonthEnd);
+        }
+    }, [filters, selectedMonthStart, selectedMonthEnd, exportCsv]);
 
     useEffect(() => {
         if (!isLoading) {

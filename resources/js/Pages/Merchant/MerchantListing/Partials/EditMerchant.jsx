@@ -361,7 +361,7 @@ export default function EditMerchant({ closeModal, phoneCodes, rateProfiles, mer
                                                     leaveFrom="transform opacity-100 scale-100"
                                                     leaveTo="transform opacity-0 scale-95"
                                                 >
-                                                    <Menu.Items className="absolute z-50 w-full mt-1 py-2 rounded-md bg-[#11282799] shadow-lg ring-1 ring-black/5 focus:outline-none backdrop-blur-[100px]">
+                                                    <Menu.Items className="absolute z-50 w-full mt-1 py-2 rounded-md bg-[#202020a9] shadow-lg ring-1 ring-black/5 focus:outline-none backdrop-blur-[60px]">
                                                         {options.map((phoneCode, index) => (
                                                             <div key={index}>
                                                                 <Menu.Item>

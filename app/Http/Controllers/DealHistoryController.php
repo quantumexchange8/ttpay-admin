@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ClientDealHistoryExport;
+use App\Exports\MerchantDealHistoryExport;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DealHistoryController extends Controller
 {
@@ -60,12 +64,16 @@ class DealHistoryController extends Controller
                     })
                     ->whereIn('status', ['success', 'rejected'])
                     ->whereNull('client_id')
-                    ->with(['merchant:id,name,role_id'])
-                    ->latest()
-                    ->get();
+                    ->with(['merchant:id,name,role_id']);
+                    
+                    if ($request->exportCsv == "true") {
+                        return Excel::download(new MerchantDealHistoryExport($transaction), Carbon::now() . '-Merchant-deal-history.xlsx');
+                    }
+
+                    $datas = $transaction->latest()->get();
 
 
-        return response()->json($transaction);
+        return response()->json($datas);
     }
 
     public function getMerchantClient(Request $request)
@@ -107,10 +115,15 @@ class DealHistoryController extends Controller
                         $query->whereBetween('transaction_date', [$startDate, $endDate]);
                     })
                     ->with(['merchant:id,name,role_id'])
-                    ->whereNotNull('client_id')
-                    ->latest()
-                    ->get();
+                    ->whereNotNull('client_id');
 
-        return response()->json($transaction);
+
+                    if ($request->exportCsv == "true") {
+                        return Excel::download(new ClientDealHistoryExport($transaction), Carbon::now() . '-Merchant-deal-history.xlsx');
+                    }
+
+                    $datas = $transaction->latest()->get();
+
+        return response()->json($datas);
     }
 }

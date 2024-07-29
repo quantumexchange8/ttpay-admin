@@ -19,6 +19,7 @@ export default function Merchant({ auth }) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [filters, setFilters] = useState();
+    const [exportCsv, setExportCsv] = useState(false);
     
     const { data, setData, post, processing, errors, reset } = useForm({
         search: '',
@@ -71,6 +72,10 @@ export default function Merchant({ auth }) {
     const handleApplyFilters = (filters) => {
         setFilters(filters)
     };
+
+    const handleExportCsv = () => {
+        setExportCsv(true)
+    }
 
     return (
         <AuthenticatedLayout
@@ -147,6 +152,7 @@ export default function Merchant({ auth }) {
                         size='lg'
                         iconOnly
                         className='flex items-center gap-2'
+                        onClick={handleExportCsv}
                     >
                         <span>Export</span>
                         <ArrowDown aria-hidden="true"/>
@@ -154,7 +160,14 @@ export default function Merchant({ auth }) {
                     
                 </div>
                 <div>
-                    <MerchantTransactionTable searchVal={searchVal} filters={filters} selectedMonthStart={formatDate(selectedMonth.startDate)} selectedMonthEnd={formatDate(selectedMonth.endDate)} />
+                    <MerchantTransactionTable 
+                        searchVal={searchVal} 
+                        filters={filters} 
+                        selectedMonthStart={formatDate(selectedMonth.startDate)} 
+                        selectedMonthEnd={formatDate(selectedMonth.endDate)} 
+                        exportCsv={exportCsv}
+                        setExportCsv={setExportCsv}
+                    />
                 </div>
             </div>
         </AuthenticatedLayout>

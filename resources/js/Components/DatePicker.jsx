@@ -30,7 +30,7 @@ const CustomDatepicker = ({ selectedDate, onChange, placeholder, asSingle }) => 
             onChange={handleValueChange}
             displayFormat={"DD/MM/YYYY"}
             asSingle={asSingle}
-            inputClassName="w-full border-none rounded-md focus:ring-2 focus:ring-primary-800 font-sm text-white bg-[#ffffff0d] dark:placeholder:text-gray-500"
+            inputClassName="w-full border-none rounded-md py-2.5 px-4 focus:ring-2 focus:ring-primary-800 font-sm text-white bg-[#ffffff0d] dark:placeholder:text-gray-500"
             className="custom-input"
             calendarClassName="custom-calendar"
             showShortcuts={true}

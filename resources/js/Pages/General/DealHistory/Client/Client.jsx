@@ -23,6 +23,7 @@ export default function Client({ auth }) {
     const [selectedTab, setSelectedTab] = useState('deposit');
     const [isOpen, setIsOpen] = useState(false);
     const [filters, setFilters] = useState();
+    const [exportCsv, setExportCsv] = useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         search: '',
@@ -73,6 +74,11 @@ export default function Client({ auth }) {
     const handleApplyFilters = (filters) => {
         setFilters(filters)
     };
+
+    const handleExportCsv = () => {
+        setExportCsv(true)
+    }
+
 
     const searchVal = data.search;
 
@@ -142,6 +148,7 @@ export default function Client({ auth }) {
                         size='lg'
                         iconOnly
                         className='flex items-center gap-2'
+                        onClick={handleExportCsv}
                     >
                         <span>Export</span>
                         <ArrowDown aria-hidden="true"/>
@@ -189,14 +196,30 @@ export default function Client({ auth }) {
                                         'focus:outline-none'
                                     )}
                                 >
-                                    <ClientTransactionTable searchVal={searchVal} transactionType={selectedTab} filters={filters} selectedMonthStart={formatDate(selectedMonth.startDate)} selectedMonthEnd={formatDate(selectedMonth.endDate)} />
+                                    <ClientTransactionTable 
+                                        searchVal={searchVal} 
+                                        transactionType={selectedTab} 
+                                        filters={filters} 
+                                        selectedMonthStart={formatDate(selectedMonth.startDate)} 
+                                        selectedMonthEnd={formatDate(selectedMonth.endDate)} 
+                                        exportCsv={exportCsv}
+                                        setExportCsv={setExportCsv}
+                                    />
                                 </Tab.Panel>
                                 <Tab.Panel
                                     className={classNames(
                                         'focus:outline-none'
                                     )}
                                 >
-                                    <ClientTransactionTable searchVal={searchVal} transactionType={selectedTab} filters={filters} selectedMonthStart={formatDate(selectedMonth.startDate)} selectedMonthEnd={formatDate(selectedMonth.endDate)} />
+                                    <ClientTransactionTable 
+                                        searchVal={searchVal} 
+                                        transactionType={selectedTab} 
+                                        filters={filters} 
+                                        selectedMonthStart={formatDate(selectedMonth.startDate)} 
+                                        selectedMonthEnd={formatDate(selectedMonth.endDate)} 
+                                        exportCsv={exportCsv}
+                                        setExportCsv={setExportCsv}
+                                    />
                                 </Tab.Panel>
                             </Tab.Panels>
                         </Tab.Group>

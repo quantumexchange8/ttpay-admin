@@ -4,7 +4,7 @@ import axios from 'axios';
 import Action from '@/Pages/Configuration/Trc20/Partials/Actions';
 import {formatDateTime} from '@/Composables/index';
 
-export default function Trc20Table({ searchVal }) {
+export default function Trc20Table({ searchVal, exportCsv, setExportCsv }) {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -22,9 +22,42 @@ export default function Trc20Table({ searchVal }) {
         }
     };
 
+    const exportDataToCsv = async () => {
+        setIsLoading(true);
+        try {
+            const params = {
+                exportCsv: 'true'
+            };
+
+            const response = await axios.get('/configuration/getTrc20Address', {
+                params,
+                responseType: 'blob' // Important for file downloads
+            });
+
+            // Create a link to download the file
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Trc20-Address.xlsx');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+        } catch (error) {
+            console.error('Error exporting data:', error);
+        } finally {
+            setIsLoading(false);
+            setExportCsv(false); // Reset the exportCsv flag
+        }
+    };
+
     useEffect(() => {
-        fetchData(); 
-    }, []);
+        if (exportCsv) {
+            exportDataToCsv();
+        } else {
+            fetchData();
+        }
+    }, [exportCsv]);
 
     useEffect(() => {
         if (!isLoading) {
