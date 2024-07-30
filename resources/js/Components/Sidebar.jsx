@@ -80,7 +80,7 @@ export function SidebarItem({ icon, text, active, pending }) {
   )
 }
 
-export function SidebarCollapsible({ text, children, icon }) {
+export function SidebarCollapsible({ text, children, icon, active }) {
     const [expanded, setExpanded] = useState(false);
   
     const toggleExpanded = () => {
@@ -89,7 +89,7 @@ export function SidebarCollapsible({ text, children, icon }) {
   
     return (
       <li>
-        <button className="py-[10px] px-4 text-white flex gap-3 items-center w-full" onClick={toggleExpanded}>
+        <button className={`py-[10px] px-4 text-white hover:bg-[#03071299] rounded-md flex gap-3 items-center w-full`} onClick={toggleExpanded}>
             {icon}
             <span className="w-36 text-left text-sm font-medium">{text}</span>
             
@@ -116,7 +116,7 @@ return (
           transition-colors
           ${
           active
-              ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
+              ? "text-white"
               : "hover:bg-[#03071299] text-gray-300"
           }
       `}
