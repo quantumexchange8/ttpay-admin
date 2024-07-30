@@ -25,11 +25,19 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function getCompanyEarning()
+    public function getCompanyEarning(Request $request)
     {
 
-        $merchant = Merchant::with(['merchantWallet'])->get();
+        $merchant = Merchant::query()
+                ->with(['merchantWallet']);
+                // ->when($request->startDate && $request->endDate, function ($query) use ($request) {
+                //     $startDate = $request->input('startDate');
+                //     $endDate = $request->input('endDate');
+                //     $query->whereBetween('transaction_date', [$startDate, $endDate]);
+                // });
 
-        return response()->json($merchant);
+        $datas = $merchant->get();
+
+        return response()->json($datas);
     }
 }

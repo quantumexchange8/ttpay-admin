@@ -11,8 +11,12 @@ import { Menu } from '@headlessui/react'
 import { useState } from "react";
 import { useEffect } from "react";
 import { startOfMonth, endOfMonth, addMonths, format } from 'date-fns';
+import CountUp from 'react-countup';
+import { formatAmount } from '@/Composables';
 
 export default function CompanyEarning({ auth, totalMerchant, totalDeposit, totalWithdrawal, totalFee }) {
+
+    const [exportCsv, setExportCsv] = useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         search: '',
@@ -58,6 +62,10 @@ export default function CompanyEarning({ auth, totalMerchant, totalDeposit, tota
 
     const searchVal = data.search;
 
+    const handleExportCsv = () => {
+        setExportCsv(true)
+    }
+    
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -73,25 +81,25 @@ export default function CompanyEarning({ auth, totalMerchant, totalDeposit, tota
                         <div className="py-3 px-5 bg-[#03071266] flex flex-col gap-2 w-full rounded">
                             <div className="text-gray-500 text-sm">Total Merchant</div>
                             <div className="text-white text-lg font-bold">
-                                {totalMerchant}
+                                <CountUp end={totalMerchant} duration={1.5} />
                             </div>
                         </div>
                         <div className="py-3 px-5 bg-[#03071266] flex flex-col gap-2 w-full rounded">
                             <div className="text-gray-500 text-sm">Total Deposit</div>
                             <div className="text-white text-lg font-bold">
-                                $ {totalDeposit}
+                                $ <CountUp end={totalDeposit} duration={1.5} decimals={2}/>
                             </div>
                         </div>
                         <div className="py-3 px-5 bg-[#03071266] flex flex-col gap-2 w-full rounded">
                             <div className="text-gray-500 text-sm">Total Withdrawal</div>
                             <div className="text-white text-lg font-bold">
-                                $ {totalWithdrawal}
+                                $ <CountUp end={totalWithdrawal} duration={1.5} decimals={2}/> 
                             </div>
                         </div>
                         <div className="py-3 px-5 bg-[#03071266] flex flex-col gap-2 w-full rounded">
                             <div className="text-gray-500 text-sm">Total Fee Earnings</div>
                             <div className="text-white text-lg font-bold">
-                                $ {totalFee}
+                                $ <CountUp end={totalFee} duration={1.5} decimals={2}/> 
                             </div>
                         </div>
                     </div>
@@ -156,7 +164,13 @@ export default function CompanyEarning({ auth, totalMerchant, totalDeposit, tota
                     </div>
                 </div>
                 <div>
-                    <CompanyEarningTable searchVal={searchVal} />
+                    <CompanyEarningTable 
+                        searchVal={searchVal} 
+                        selectedMonthStart={formatDate(selectedMonth.startDate)} 
+                        selectedMonthEnd={formatDate(selectedMonth.endDate)} 
+                        exportCsv={exportCsv}
+                        setExportCsv={setExportCsv}
+                    />
                 </div>
             </div>
         </AuthenticatedLayout>

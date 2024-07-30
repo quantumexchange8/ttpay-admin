@@ -134,7 +134,7 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
             Cell: ({ row }) => (
                 <div className="flex items-center gap-2">
                     
-                    <img className='object-cover w-6 h-6 rounded-full' src='https://img.freepik.com/free-icon/user_318-159711.jpg' alt="merchant_pic" />
+                    <img className='object-cover w-6 h-6 rounded-full' src={row.profile_photo ? row.profile_photo : 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt="merchant_pic" />
                     
                     <div className="flex flex-col text-xs">
                         <div className='text-white'>{row.name}</div>

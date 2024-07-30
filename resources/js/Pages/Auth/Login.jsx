@@ -7,8 +7,8 @@ import Input from '@/Components/Input';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Switch } from '@headlessui/react'
 import { EyeOff, EyeOn } from '@/Components/Icon/Icon';
-import InputIconWrapper from '@/Components/InputIconWrapper';
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import InputIconWrapPw from '@/Components/InputIconWrapPw';
 
 export default function Login({ status, canResetPassword }) {
 
@@ -80,7 +80,7 @@ export default function Login({ status, canResetPassword }) {
                             <div className='flex flex-col space-y-1.5'>
                                 <Label htmlFor="password" value="Password" />
 
-                                <InputIconWrapper>
+                                <InputIconWrapPw>
                                     <Input
                                         id="password"
                                         type={showPassword ? 'text' : 'password'}
@@ -94,7 +94,7 @@ export default function Login({ status, canResetPassword }) {
                                     <div className='absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
                                         {showPassword ? <EyeOn /> : <EyeOff />}
                                     </div>
-                                </InputIconWrapper>
+                                </InputIconWrapPw>
                                 
                                 <InputError message={errors.password} className="mt-2" />
                             </div>

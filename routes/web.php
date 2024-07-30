@@ -35,6 +35,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('upload-photo');
 
     Route::get('/pending', [PendingController::class, 'index'])->name('pending');
     Route::get('/getPendingTransaction', [PendingController::class, 'getPendingTransaction'])->name('getPendingTransaction');

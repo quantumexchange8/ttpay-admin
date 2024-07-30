@@ -21,7 +21,8 @@ class ProfileController extends Controller
         $userProfile = Auth::user();
 
         return Inertia::render('Profile/Edit', [
-            'userProfile' => $userProfile
+            'userProfile' => $userProfile,
+            'profile_photo' => $userProfile->getFirstMediaUrl('profile_photo'),
         ]);
     }
 
@@ -60,5 +61,27 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function uploadPhoto(Request $request)
+    {
+        
+        $user = Auth::user();
+        $profile = $user->getFirstMediaUrl('profile_photo');
+        
+        if($request->hasFile('profile_photo')) {
+            if($profile == "" ) {
+                
+                $user->addMedia($request->profile_photo)->toMediaCollection('profile_photo');
+
+            } else {
+                $user->clearMediaCollection('profile_photo');
+                $user->addMedia($request->profile_photo)->toMediaCollection('profile_photo');
+
+            }
+        };
+
+
+        return redirect()->back()->with('success', 'successfull approved');
     }
 }

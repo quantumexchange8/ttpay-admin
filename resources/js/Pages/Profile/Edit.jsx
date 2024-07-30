@@ -2,16 +2,40 @@ import Authenticated from '@/Layouts/AuthenticatedLayout';
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { Head } from '@inertiajs/react';
+import Input from '@/Components/Input';
+import { useRef } from 'react';
+import FileInput from '@/Components/FileInput';
 
-const Profile = ({ userProfile }) => {
+const Profile = ({ userProfile, profile_photo }) => {
+
+    const fileInputRef = useRef(null);
 
     const handleUploadClick = () => {
-        // console.log('Upload button clicked');
-        toast.success('Profile photo uploaded!', {
-            title: 'Profile photo uploaded!',
-            duration: 3000,
-            variant: 'variant3',
-        });
+        fileInputRef.current.click();
+    };
+
+    const handleFileChange = async (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('profile_photo', file);
+
+            try {
+                const response = await axios.post('/upload-photo', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                toast.success('Profile photo uploaded!', {
+                    title: 'Profile photo uploaded!',
+                    duration: 3000,
+                    variant: 'variant3',
+                });
+            } catch (error) {
+                console.error('Error uploading profile photo:', error);
+                toast.error('Failed to upload profile photo.');
+            }
+        }
     };
 
     return (
@@ -23,9 +47,13 @@ const Profile = ({ userProfile }) => {
                         <div className='flex flex-col gap-8 w-[320px] px-[61.5px]'>
                             <div className="rounded-full p-8 self-center" style={{ background: 'var(--others-white-bg-5, rgba(255, 255, 255, 0.05))' }}>
                                 <div className='flex flex-col w-[91.2px] h-[91.2px]'>
-                                <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" alt="" className="rounded-full w-6 md:w-full h-6 md:h-full"/>
+                                <img src={profile_photo ? profile_photo : "https://img.freepik.com/free-icon/user_318-159711.jpg"} alt="" className="rounded-full w-6 md:w-full h-6 md:h-full"/>
                                 </div>
                             </div>
+                            <FileInput 
+                                ref={fileInputRef}
+                                onChange={handleFileChange}
+                            />
                             <button 
                                 onClick={handleUploadClick}
                                 className="flex flex-row items-center gap-2 bg-[#5200FF] text-sm font-semibold text-white py-3 px-4 rounded-lg w-[210px] text-center">

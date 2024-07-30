@@ -48,8 +48,8 @@ export default function MerchantListing({ auth, phoneCodes, rateProfiles, wallet
                         />
                     </InputIconWrapper>
 
-                    <div className='flex justify-end items-center gap-3 w-full'>
-                        <Button
+                    <div className='flex justify-end items-center gap-3 w-full md:w-auto'>
+                        {/* <Button
                             variant='primary'
                             size='lg'
                             iconOnly
@@ -57,7 +57,7 @@ export default function MerchantListing({ auth, phoneCodes, rateProfiles, wallet
                         >
                             <span>Export</span>
                             <ArrowDown aria-hidden="true"/>
-                        </Button>
+                        </Button> */}
                     </div>
                 </div>
 

@@ -3,14 +3,22 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export default function CompanyEarningTable({ searchVal }) {
+export default function CompanyEarningTable({ searchVal, selectedMonthStart, selectedMonthEnd, exportCsv, setExportCsv }) {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const fetchData = async () => {
+    const fetchData = async (selectedMonthStart, selectedMonthEnd) => {
         try {
-            const response = await axios.get('/getCompanyEarning');
+
+            const params = {
+                startDate: selectedMonthStart, 
+                endDate: selectedMonthEnd 
+            };
+
+            const response = await axios.get('/getCompanyEarning', {
+                params
+            });
             
             setData(response.data);
             
@@ -22,8 +30,8 @@ export default function CompanyEarningTable({ searchVal }) {
     };
 
     useEffect(() => {
-        fetchData(); 
-    }, []);
+        fetchData(selectedMonthStart, selectedMonthEnd); 
+    }, [selectedMonthStart, selectedMonthEnd]);
 
     useEffect(() => {
         if (!isLoading) {

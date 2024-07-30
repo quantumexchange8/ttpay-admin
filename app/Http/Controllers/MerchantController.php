@@ -207,6 +207,10 @@ class MerchantController extends Controller
 
         $merchantListing = Merchant::where('bin', null)->with(['merchantWallet', 'merchantWalletAddress', 'merchantWalletAddress.walletAddress', 'merchantEmailContent', 'merchantEmail' ])->get();
 
+        $merchantListing->each(function ($merchant) {
+            $merchant->profile_photo = $merchant->getFirstMediaUrl('profile_photo');
+        });
+        
         return response()->json($merchantListing);
     }
 

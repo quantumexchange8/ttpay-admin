@@ -33,6 +33,7 @@ class MerchantController extends Controller
         $merchant = Merchant::find($user->id);
 
         if ($request->hasFile('profile_photo')) {
+            $merchant->clearMediaCollection('profile_photo');
             $merchant->addMedia($request->profile_photo)->toMediaCollection('profile_photo');
 
             return response()->json([
