@@ -11,6 +11,7 @@ import Dropdown from "@/Components/Dropdown";
 import { useEffect } from "react";
 import { Menu } from '@headlessui/react'
 import { useForm } from '@inertiajs/react';
+import toast from "react-hot-toast";
 
 export default function NewPayoutConfig({ merchants, onNewAddressAdded }) {
 
@@ -65,8 +66,8 @@ export default function NewPayoutConfig({ merchants, onNewAddressAdded }) {
                 reset();
                 // toast.success('You have successfully created a new TRC-20 address!', { duration: Infinity });
                 
-                toast.success('New merchant created', {
-                    title: 'New merchant created',
+                toast.success('New payout created', {
+                    title: 'New payout created',
                     duration: 3000,
                     variant: 'variant3',
                 });

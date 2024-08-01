@@ -50,8 +50,8 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
                 reset();
                 // toast.success('You have successfully created a new TRC-20 address!', { duration: Infinity });
                 
-                toast.success('New merchant created', {
-                    title: 'New merchant created',
+                toast.success('New Trc20 created', {
+                    title: 'New Trc20 created',
                     duration: 3000,
                     variant: 'variant3',
                 });

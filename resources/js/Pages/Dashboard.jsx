@@ -38,7 +38,7 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
             <Head title="Dashboard" />
 
             <div className='flex flex-col flex-wrap gap-5 xl:flex-row'>
-                <div className='flex flex-col gap-5 w-full lg:w-auto xl:w-full xxl:max-w-[868px]'>
+                <div className='flex flex-col gap-5 w-full lg:w-auto xl:w-full xxl:max-w-[830px]'>
                     <div className='flex flex-col md:flex-row w-full gap-5'>
                         <div className='w-full'>
                             <Link href={route('pending')}>
@@ -104,7 +104,7 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                     <MonthlyMerchantWithdrawal /> 
                 </div>
 
-                <div className='p-4 md:p-5 h-full flex flex-col gap-5 w-full lg:w-auto xxl:max-w-[512px] bg-[#ffffff0d] backdrop-blur-3xl'>
+                <div className='p-4 md:p-5 h-full flex flex-col gap-5 w-full lg:w-auto xxl:min-w-[340px] xxl:w-auto bg-[#ffffff0d] backdrop-blur-3xl'>
                     <div className='flex flex-col gap-1'>
                         <div className='text-white text-lg font-bold'>Weekly Top 10 Deposit</div>
                         <div className='text-gray-500 font-xs'>Data updated from </div>
