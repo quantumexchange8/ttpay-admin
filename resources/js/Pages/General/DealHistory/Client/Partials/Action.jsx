@@ -83,7 +83,7 @@ function Action({ transaction }) {
                     <div className='flex gap-3'>
                         <div className='w-[140px] text-gray-500 text-sm font-bold uppercase'>Amount</div>
                         <div className='text-white text-base'>
-                            $ {transaction.total_amount}
+                            $ {transaction.txn_amount}
                         </div>
                     </div>
                     <div className='flex gap-3'>
