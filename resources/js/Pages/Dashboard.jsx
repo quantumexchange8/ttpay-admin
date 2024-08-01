@@ -48,7 +48,7 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                                         <div className='flex flex-col gap-2'>
                                             <div className='text-gray-500 text-sm'>{t('pending_withdrawal')}</div>
                                             <div className='text-white text-lg font-bold'>
-                                                $ <CountUp end={formatAmount(pendingWithdrawal)} duration={1.5} decimals={2}/> 
+                                                $ <CountUp end={pendingWithdrawal} duration={1.5} decimals={2}/> 
                                             </div>
                                         </div>
                                         <div className='flex justify-center items-center'>
@@ -93,7 +93,7 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                             <div className='flex flex-col gap-2 py-3 px-5 w-full bg-[#03071266] rounded'>
                                 <div className='text-gray-500 text-sm'>Freezing Amount</div>
                                 <div className='text-white text-lg font-bold'>
-                                    $ <CountUp end={formatAmount(total_freezing_amount)} duration={1.5} decimals={2}/>
+                                    $ <CountUp end={total_freezing_amount} duration={1.5} decimals={2}/>
                                 </div>
                             </div>
                         </div>

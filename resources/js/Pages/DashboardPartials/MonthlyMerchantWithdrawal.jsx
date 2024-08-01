@@ -167,7 +167,7 @@ export default function MonthlyMerchantWithdrawal() {
                     <div className="flex flex-col gap-1 w-full">
                         <div className="text-sm text-gray-500">Total Withdrawal</div>
                         <div className="text-white text-base font-semibold">
-                            $ <CountUp end={formatAmount(grossDeposit)} duration={1.5} decimals={2}/>
+                            $ <CountUp end={grossDeposit} duration={1.5} decimals={2}/>
                         </div>
                     </div>
                 </div>
@@ -176,7 +176,7 @@ export default function MonthlyMerchantWithdrawal() {
                     <div className="flex flex-col gap-1 w-full">
                         <div className="text-sm text-gray-500">Fee Charges</div>
                         <div className="text-white text-base font-semibold">
-                            $ <CountUp end={formatAmount(fee)} duration={1.5} decimals={2}/>
+                            $ <CountUp end={fee} duration={1.5} decimals={2}/>
                         </div>
                     </div>
                 </div>
@@ -185,7 +185,7 @@ export default function MonthlyMerchantWithdrawal() {
                     <div className="flex flex-col gap-1 w-full">
                         <div className="text-sm text-gray-500">Net Balance</div>
                         <div className="text-white text-base font-semibold">
-                            $ <CountUp end={formatAmount(netBalance)} duration={1.5} decimals={2}/>
+                            $ <CountUp end={netBalance} duration={1.5} decimals={2}/>
                         </div>
                     </div>
                 </div>
