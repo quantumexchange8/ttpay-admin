@@ -18,8 +18,6 @@ class AuthController extends Controller
     {
         $credentials = $request->only('role_id', 'password');
 
-        Log::info('Login attempt with credentials:', $credentials);
-
         // Validate the request data
         $validator = Validator::make($credentials, [
             'role_id' => 'required|string',
