@@ -21,6 +21,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class ConfigurationController extends Controller
 {
@@ -143,6 +144,9 @@ class ConfigurationController extends Controller
 
     public function storePayout(PayoutRequest $request)
     {
+
+        $secretKey = Str::random(40);
+
         $payout = PayoutConfig::create([
             'name' => $request->name,
             'merchant_id' => $request->merchant_id,
@@ -150,6 +154,7 @@ class ConfigurationController extends Controller
             'appId' => $request->appId,
             'returnUrl' => $request->returnUrl,
             'callBackUrl' => $request->callbackUrl,
+            'secret_key' => $secretKey,
         ]);
 
         return redirect()->back()->with('toast', 'Payout successfully created!');

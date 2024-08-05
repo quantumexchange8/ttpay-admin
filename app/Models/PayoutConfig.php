@@ -18,5 +18,6 @@ class PayoutConfig extends Model
         'appId',
         'returnUrl',
         'callBackUrl',
+        'secret_key',
     ];
 }
