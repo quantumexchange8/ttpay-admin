@@ -72,6 +72,10 @@ class DealHistoryController extends Controller
 
                     $datas = $transaction->latest()->get();
 
+                    $datas->each(function ($merchant) {
+                        $merchant->merchant->profile_photo = $merchant->merchant->getFirstMediaUrl('profile_photo');
+                    });
+
 
         return response()->json($datas);
     }
@@ -123,6 +127,10 @@ class DealHistoryController extends Controller
                     }
 
                     $datas = $transaction->latest()->get();
+
+                    $datas->each(function ($merchant) {
+                        $merchant->merchant->profile_photo = $merchant->merchant->getFirstMediaUrl('profile_photo');
+                    });
 
         return response()->json($datas);
     }

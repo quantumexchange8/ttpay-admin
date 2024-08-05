@@ -210,6 +210,10 @@ class ConfigurationController extends Controller
 
         $freeze = Transaction::where('status', 'freeze')->with(['merchant:id,name,role_id'])->get();
 
+        $freeze->each(function ($merchant) {
+            $merchant->merchant->profile_photo = $merchant->merchant->getFirstMediaUrl('profile_photo');
+        });
+
         return response()->json($freeze);
     }
 

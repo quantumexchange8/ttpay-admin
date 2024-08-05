@@ -260,6 +260,11 @@ class MerchantController extends Controller
     {
 
         $merchantBin = Merchant::whereNotNull('bin')->with(['user'])->get();
+
+        $merchantBin->each(function ($merchant) {
+            $merchant->profile_photo = $merchant->getFirstMediaUrl('profile_photo');
+            $merchant->user->profile_photo = $merchant->user->getFirstMediaUrl('profile_photo');
+        });
         
         return response()->json($merchantBin);
     }

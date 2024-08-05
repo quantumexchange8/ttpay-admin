@@ -2,6 +2,7 @@ import React, { useContext, createContext, useState  } from "react";
 import { Admin, Merchant } from '@/Components/Badge';
 import { LineLeft, LineRight, ChevronDown, ChevronUp, XIcon } from '@/Components/Icon/Outline';
 import { Link, usePage } from '@inertiajs/react';
+import { useEffect } from "react";
 
 const SidebarContext = createContext()
 
@@ -9,6 +10,21 @@ export default function Sidebar({ children, expanded, toggleSidebar }) {
   
   const { auth } = usePage().props;
   const { url } = usePage();
+  const [mediaUrl, setMediaUrl] = useState(null);
+  
+  useEffect(() => {
+    // Fetch media URL from API
+    const fetchMediaUrl = async () => {
+        try {
+            const response = await axios.get('/user/media');
+            setMediaUrl(response.data.mediaUrl);
+        } catch (error) {
+            console.error('Failed to fetch media URL:', error);
+        }
+    };
+
+    fetchMediaUrl();
+}, []);
 
   return (
     <aside className={`fixed inset-y-0 z-40 border-r border-transparent md:border-[#1F2937] overflow-auto backdrop-blur-2xl md:bg-[#ffffff0d]
@@ -22,7 +38,7 @@ export default function Sidebar({ children, expanded, toggleSidebar }) {
           }`}>
             <div className="w-60 md:w-full py-3 px-4 flex justify-between items-center gap-3 hover:bg-[#03071299] rounded-lg">
                 <div className="flex items-center gap-3" >
-                  <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" alt="" className="rounded-full w-6 md:w-10 h-6 md:h-10"/>
+                  <img src={mediaUrl ? mediaUrl : "https://img.freepik.com/free-icon/user_318-159711.jpg"} alt="" className="rounded-full w-6 md:w-10 h-6 md:h-10"/>
                   <div className="flex flex-col ">
                     <div className="text-white text-sm">
                         {auth.user.name}

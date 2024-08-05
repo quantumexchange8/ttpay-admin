@@ -77,4 +77,9 @@ class Merchant extends Model implements HasMedia
     {
         return $this->hasMany(MerchantEmail::class, 'merchant_id', 'id');
     }
+
+    public function getFirstMediaUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('profile_photo'); // Adjust 'default' to your media collection name
+    }
 }

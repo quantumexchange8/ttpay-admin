@@ -30,6 +30,8 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
         )
     }
 
+    console.log(topMerchants)
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -114,7 +116,7 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                             <div className='flex flex-col gap-2 p-3 bg-[#03071266] rounded' key={index}>
                                 <div className='flex items-center gap-3 w-full pb-3'>
                                     <div className='flex items-center w-9 h-9'>
-                                        <img className='object-cover rounded-full' src='https://img.freepik.com/free-icon/user_318-159711.jpg' alt="merchant_pic" />
+                                        <img className='object-cover rounded-full w-9 h-9' src={topMerchant.merchant.first_media_url ? topMerchant.merchant.first_media_url : 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt="merchant_pic" />
                                     </div>
                                     <div className='flex flex-col w-full'>
                                         <div className='text-white text-xs font-bold'>{topMerchant.merchant.name}</div>

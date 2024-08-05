@@ -6,6 +6,7 @@ use App\Models\Merchant;
 use App\Models\MerchantWallet;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -32,7 +33,12 @@ class DashboardController extends Controller
         $topMerchants = MerchantWallet::with(['merchant:id,name,role_id'])
                         ->orderBy('gross_deposit', 'desc')
                         ->take(10)
-                        ->get();
+                        ->get()
+                        ->map(function ($wallet) {
+                            $merchant = $wallet->merchant;
+                            $merchant->first_media_url = $merchant->getFirstMediaUrl('profile_photo'); // Adjust 'default' to your media collection name
+                            return $wallet;
+                        });
 
         return Inertia::render('Dashboard', [
             'pendingWithdrawal' => $pendingWithdrawal,
@@ -169,6 +175,17 @@ class DashboardController extends Controller
             'gross_deposit' => $gross_deposit,
             'fee_charges' => $fee_charges,
             'net_balance' => $net_balance,
+        ]);
+    }
+
+    public function getMedia(Request $request)
+    {
+        $user = Auth::user();
+
+        $media = $user->getFirstMediaUrl('profile_photo');
+
+        return response()->json([
+            'mediaUrl' => $media,
         ]);
     }
 }

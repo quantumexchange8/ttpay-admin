@@ -29,6 +29,10 @@ class PendingController extends Controller
                             ->latest()
                             ->get();
 
+        $pendingTransaction->each(function ($merchant) {
+            $merchant->merchant->profile_photo = $merchant->merchant->getFirstMediaUrl('profile_photo');
+        });
+
         return response()->json($pendingTransaction);
     }
 

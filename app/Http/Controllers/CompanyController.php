@@ -38,6 +38,10 @@ class CompanyController extends Controller
 
         $datas = $merchant->get();
 
+        $datas->each(function ($merchant) {
+            $merchant->profile_photo = $merchant->getFirstMediaUrl('profile_photo');
+        });
+
         return response()->json($datas);
     }
 }

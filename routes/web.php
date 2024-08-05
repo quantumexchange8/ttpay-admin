@@ -21,6 +21,8 @@ Route::get('/components/buttons', function () {
 
 Route::middleware('auth', 'verified')->group(function () {
 
+    Route::middleware('auth:sanctum')->get('/user/media', [DashboardController::class, 'getMedia']);
+
     Route::get('/getPendingCount', [DashboardController::class, 'getPendingCount'])->name('getPendingCount');
     /**
      * ==============================
