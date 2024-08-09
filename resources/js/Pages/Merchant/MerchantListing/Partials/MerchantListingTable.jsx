@@ -227,110 +227,112 @@ export default function MerchantListingTable({ searchVal, phoneCodes, rateProfil
             <Modal show={isOpen} onClose={closeModal} title='View USDT Addresses' maxWidth='md' maxHeightClass='xl'>
                 {selectedRow && (
                     <div className='flex flex-col gap-12'>
-                        <table className='w-full overflow-y-scroll'>
-                            <thead>
-                                <tr>
-                                    <th colSpan="2" className='text-left bg-[#ffffff0d] p-3 text-gray-500 text-xs font-bold'>USDT ADDRESS</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {selectedRow.merchant_wallet_address.map((address) => (
-                                    <tr key={address.id} className={`border-b border-[#ffffff0d] p-3 ${deletedIds.includes(address.id) ? 'line-through decoration-white' : ''}`}>
-                                        <td className='pl-3 py-3 text-white text-sm'>
-                                            <div className='flex items-center gap-2'>
-                                                <div>{address.wallet_address.token_address}</div>
-                                                <div onClick={() => handleCopy(address.wallet_address.token_address)} className='cursor-pointer'>
-                                                    <Tooltip text={tooltipText}>
-                                                        <CopyIcon />
-                                                    </Tooltip>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className='pr-3 py-3 w-20'>
-                                            <div className='flex items-center justify-center'>
-                                                <Button variant='secondary' pill className='bg-transparent hover:bg-transparent' type='button' onClick={() => deleteWalletAddress(address.id)}>
-                                                    <Delete width={16} height={16} color='currentColor' className='text-error-600'/>
-                                                </Button>
-                                            </div>
-                                        </td>
+                        <div className='max-h-60 overflow-y-scroll'>
+                            <table className='w-full'>
+                                <thead>
+                                    <tr>
+                                        <th colSpan="2" className='text-left bg-[#ffffff0d] p-3 text-gray-500 text-xs font-bold'>USDT ADDRESS</th>
                                     </tr>
-                                ))}
-                                {walletFields.map((field, index) => (
-                                    <tr key={index}>
-                                        <td colSpan="2">
-                                            <div className="flex items-center gap-2">
-                                                <Listbox value={field.selected} onChange={(wallet) => handleSelectWallet(index, wallet)}>
-                                                    <div className="relative mt-1 max-w-[340px] w-full">
-                                                        <Listbox.Button className="relative w-full cursor-default rounded-lg bg-transparent py-2 px-3 text-left shadow-md focus:outline-none text-white text-sm">
-                                                            <div className="block truncate">
-                                                                {
-                                                                    field.selected ? (
-                                                                        <div className='flex items-center gap-2'>
-                                                                            {field.selected.token_address}
-                                                                        </div>
-                                                                        
-                                                                    ) : (
-                                                                        <span className='text-error-500'>
-                                                                            Select wallet address
-                                                                        </span>
-                                                                    )
-                                                                }
-                                                            </div>
-                                                            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                                                                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                            </span>
-                                                        </Listbox.Button>
-                                                        <Transition
-                                                            as={Fragment}
-                                                            leave="transition ease-in duration-100"
-                                                            leaveFrom="opacity-100"
-                                                            leaveTo="opacity-0"
-                                                        >
-                                                            <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-900 backdrop-blur-3xl py-1 text-white text-sm shadow-lg focus:outline-none scrollbar-thin scrollbar-webkit">
-                                                                
-                                                                {getFilteredWallets(selectedAddresses).map((wallet, walletIdx) => (
-                                                                    <Listbox.Option
-                                                                        key={walletIdx}
-                                                                        className={({ active }) =>
-                                                                            `relative cursor-default select-none py-2 px-4 ${active ? 'bg-transparent text-primary-500' : 'text-white'}`
-                                                                        }
-                                                                        value={wallet}
-                                                                    >
-                                                                        {({ selected }) => (
-                                                                            <>
-                                                                                <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
-                                                                                    {wallet.name}: {wallet.token_address}
-                                                                                </span>
-                                                                                {selected ? (
-                                                                                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                                                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                                                    </span>
-                                                                                ) : null}
-                                                                            </>
-                                                                        )}
-                                                                    </Listbox.Option>
-                                                                ))}
-                                                            </Listbox.Options>
-                                                        </Transition>
+                                </thead>
+                                <tbody>
+                                    {selectedRow.merchant_wallet_address.map((address) => (
+                                        <tr key={address.id} className={`border-b border-[#ffffff0d] p-3 ${deletedIds.includes(address.id) ? 'line-through decoration-white' : ''}`}>
+                                            <td className='pl-3 py-3 text-white text-sm'>
+                                                <div className='flex items-center gap-2'>
+                                                    <div>{address.wallet_address.token_address}</div>
+                                                    <div onClick={() => handleCopy(address.wallet_address.token_address)} className='cursor-pointer'>
+                                                        <Tooltip text={tooltipText}>
+                                                            <CopyIcon />
+                                                        </Tooltip>
                                                     </div>
-                                                </Listbox>
-                                                <Button variant='secondary' pill className='bg-transparent hover:bg-transparent' type='button' onClick={() => removeWalletField(index)}>
-                                                    <Delete width={16} height={16} color='currentColor' className='text-error-600'/>
-                                                </Button>
+                                                </div>
+                                            </td>
+                                            <td className='pr-3 py-3 w-20'>
+                                                <div className='flex items-center justify-center'>
+                                                    <Button variant='secondary' pill className='bg-transparent hover:bg-transparent' type='button' onClick={() => deleteWalletAddress(address.id)}>
+                                                        <Delete width={16} height={16} color='currentColor' className='text-error-600'/>
+                                                    </Button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    {walletFields.map((field, index) => (
+                                        <tr key={index}>
+                                            <td colSpan="2">
+                                                <div className="flex items-center gap-2">
+                                                    <Listbox value={field.selected} onChange={(wallet) => handleSelectWallet(index, wallet)}>
+                                                        <div className="relative mt-1 max-w-[340px] w-full">
+                                                            <Listbox.Button className="relative w-full cursor-default rounded-lg bg-transparent py-2 px-3 text-left shadow-md focus:outline-none text-white text-sm">
+                                                                <div className="block truncate">
+                                                                    {
+                                                                        field.selected ? (
+                                                                            <div className='flex items-center gap-2'>
+                                                                                {field.selected.token_address}
+                                                                            </div>
+                                                                            
+                                                                        ) : (
+                                                                            <span className='text-error-500'>
+                                                                                Select wallet address
+                                                                            </span>
+                                                                        )
+                                                                    }
+                                                                </div>
+                                                                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                                                    <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                </span>
+                                                            </Listbox.Button>
+                                                            <Transition
+                                                                as={Fragment}
+                                                                leave="transition ease-in duration-100"
+                                                                leaveFrom="opacity-100"
+                                                                leaveTo="opacity-0"
+                                                            >
+                                                                <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-900 backdrop-blur-3xl py-1 text-white text-sm shadow-lg focus:outline-none scrollbar-thin scrollbar-webkit">
+                                                                    
+                                                                    {getFilteredWallets(selectedAddresses).map((wallet, walletIdx) => (
+                                                                        <Listbox.Option
+                                                                            key={walletIdx}
+                                                                            className={({ active }) =>
+                                                                                `relative cursor-default select-none py-2 px-4 ${active ? 'bg-transparent text-primary-500' : 'text-white'}`
+                                                                            }
+                                                                            value={wallet}
+                                                                        >
+                                                                            {({ selected }) => (
+                                                                                <>
+                                                                                    <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
+                                                                                        {wallet.name}: {wallet.token_address}
+                                                                                    </span>
+                                                                                    {selected ? (
+                                                                                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                                                                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                                        </span>
+                                                                                    ) : null}
+                                                                                </>
+                                                                            )}
+                                                                        </Listbox.Option>
+                                                                    ))}
+                                                                </Listbox.Options>
+                                                            </Transition>
+                                                        </div>
+                                                    </Listbox>
+                                                    <Button variant='secondary' pill className='bg-transparent hover:bg-transparent' type='button' onClick={() => removeWalletField(index)}>
+                                                        <Delete width={16} height={16} color='currentColor' className='text-error-600'/>
+                                                    </Button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    <tr>
+                                        <td colSpan="2">
+                                            <div className='flex items-center justify-center gap-2 py-3 text-gray-500 hover:text-white select-none cursor-pointer' onClick={addWalletField}>
+                                                <PlusIcon color='currentColor'/>
+                                                <span>Add Another</span>
                                             </div>
                                         </td>
                                     </tr>
-                                ))}
-                                <tr>
-                                    <td colSpan="2">
-                                        <div className='flex items-center justify-center gap-2 py-3 text-gray-500 hover:text-white select-none cursor-pointer' onClick={addWalletField}>
-                                            <PlusIcon color='currentColor'/>
-                                            <span>Add Another</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
 
                         <div className='flex gap-3 items-center'>
                             <Button

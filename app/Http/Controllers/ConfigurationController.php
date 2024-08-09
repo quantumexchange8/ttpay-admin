@@ -171,6 +171,8 @@ class ConfigurationController extends Controller
     {
 
         $payout = PayoutConfig::find($request->id);
+
+        $secretKey = Str::random(50);
         
         $payout->update([
             'name' => $request->name,
@@ -178,6 +180,7 @@ class ConfigurationController extends Controller
             'appId' => $request->appId,
             'returnUrl' => $request->returnUrl,
             'callBackUrl' => $request->callBackUrl,
+            'secret_key' => $secretKey,
         ]);
 
         return redirect()->back()->with('toast', 'Payout successfully updated!');

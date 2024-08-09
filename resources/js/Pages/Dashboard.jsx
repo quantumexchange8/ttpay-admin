@@ -8,11 +8,25 @@ import MonthlyMerchantDeposit from '@/Pages/DashboardPartials/MonthlyMerchantDep
 import MonthlyMerchantWithdrawal from '@/Pages/DashboardPartials/MonthlyMerchantWithdrawal';
 import CountUp from 'react-countup';
 import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, total_freezing, total_freezing_amount, topMerchants }) {
 
     const { t } = useTranslation();
     const { url } = usePage();
+    const [ currentDayToWeek, setCurrentDayToWeek ] = useState('')
+
+    useEffect(() => {
+        const today = dayjs();
+    
+        const startOfWeek = today.subtract(6, 'days').format('DD MMM YYYY');
+        const endOfWeek = today.format('DD MMM YYYY');
+    
+        // Set the date range in the state
+        setCurrentDayToWeek(`${startOfWeek} to ${endOfWeek}`);
+      }, []);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
@@ -29,8 +43,6 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                 : event.target.value
         )
     }
-
-    console.log(topMerchants)
 
     return (
         <AuthenticatedLayout
@@ -109,7 +121,7 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                 <div className='p-4 md:p-5 h-full flex flex-col gap-5 w-full lg:w-auto xxl:min-w-[340px] xxl:w-auto bg-[#ffffff0d] backdrop-blur-3xl'>
                     <div className='flex flex-col gap-1'>
                         <div className='text-white text-lg font-bold'>Weekly Top 10 Deposit</div>
-                        <div className='text-gray-500 font-xs'>Data updated from </div>
+                        <div className='text-gray-500 font-xs'>Data updated from {currentDayToWeek}</div>
                     </div>
                     <div className='flex flex-col gap-3'>
                         {topMerchants.map((topMerchant, index) =>(
