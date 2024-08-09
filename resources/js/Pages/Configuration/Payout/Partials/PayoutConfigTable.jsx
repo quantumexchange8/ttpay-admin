@@ -58,7 +58,11 @@ export default function PayoutConfigTable({searchVal}) {
             header: 'Callback Url',
             sortable: false,
         },
-        
+        {
+            accessor: 'secret_key',
+            header: 'TT Key',
+            sortable: false,
+        },
     ];
 
     return (
