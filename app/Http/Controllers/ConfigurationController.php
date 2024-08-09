@@ -145,7 +145,7 @@ class ConfigurationController extends Controller
     public function storePayout(PayoutRequest $request)
     {
 
-        $secretKey = Str::random(40);
+        $secretKey = Str::random(50);
 
         $payout = PayoutConfig::create([
             'name' => $request->name,
