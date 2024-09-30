@@ -51,8 +51,8 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
         >
             <Head title="Dashboard" />
 
-            <div className='flex flex-col flex-wrap gap-5 xl:flex-row'>
-                <div className='flex flex-col gap-5 w-full lg:w-auto xl:w-full xxl:max-w-[830px]'>
+            <div className='flex flex-col flex-wrap gap-5 xxl:grid xxl:grid-cols-3'>
+                <div className='flex flex-col gap-5 w-full lg:w-auto xl:w-full xxl:col-span-2'>
                     <div className='flex flex-col md:flex-row w-full gap-5'>
                         <div className='w-full'>
                             <Link href={route('pending')}>
@@ -127,16 +127,16 @@ export default function Dashboard({ auth, pendingWithdrawal, totalMerchant, tota
                         {topMerchants.map((topMerchant, index) =>(
                             <div className='flex flex-col gap-2 p-3 bg-[#03071266] rounded' key={index}>
                                 <div className='flex items-center gap-3 w-full pb-3'>
-                                    <div className='flex items-center w-9 h-9'>
+                                    <div className='flex items-center justify-center w-12 xxl:w-1/6 '>
                                         <img className='object-cover rounded-full w-9 h-9' src={topMerchant.merchant.first_media_url ? topMerchant.merchant.first_media_url : 'https://img.freepik.com/free-icon/user_318-159711.jpg'} alt="merchant_pic" />
                                     </div>
-                                    <div className='flex flex-col w-full'>
+                                    <div className='flex flex-col w-full xxl:w-4/6 '>
                                         <div className='text-white text-xs font-bold'>{topMerchant.merchant.name}</div>
                                         <div className='text-gray-500 text-xs'>{topMerchant.merchant.role_id}</div>
                                     </div>
-                                    <div className=' w-8 h-8 text-white text-base relative'>
+                                    <div className='w-12 xxl:w-1/6 h-8 text-white text-base relative'>
                                         <PolygonIcon />
-                                        <span className='absolute inset-0 flex items-center justify-center'>{index + 1}</span>
+                                        <span className='absolute inset-y-0 left-2.5 flex items-center justify-center'>{index + 1}</span>
                                     </div>
                                 </div>
                                 <div className='flex items-center gap-3'>

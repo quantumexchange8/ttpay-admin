@@ -169,7 +169,7 @@ export default function Authenticated({ children, header }) {
             <div className={`min-h-screen flex flex-col ${isSidebarExpanded ? 'lg:ml-[280px]' : 'ml-0'}`}>
                 <Navbar toggleSidebar={toggleSidebar} header={header}/>
                 <main className='w-full flex justify-center'>
-                    <div className='max-w-[1440px] w-full px-3  md:p-5'>
+                    <div className='max-w-[1440px] w-full p-3  md:p-5'>
                         {children}
                     </div>
 
