@@ -85,7 +85,8 @@ export default function MonthlyMerchantDeposit() {
         setSelectedMonth(month);
     }
 
-    const processChartData = (data) => {
+    const processChartData = (datas) => {
+        
         const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
         const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
     
@@ -95,12 +96,16 @@ export default function MonthlyMerchantDeposit() {
             {
               label: 'Daily Merchant Deposits',
               data: days.map((day) => {
-                const dayData = data.filter(transaction => new Date(transaction.created_at).getDate() === day);
-                return dayData.reduce((sum, transaction) => sum + transaction.amount, 0); // Assuming 'amount' is the field you want to sum up
+                const dayData = datas.find(transaction => transaction.day === day);
+                return dayData ? dayData.total_amount : 0;
               }),
               fill: true,
               backgroundColor: ['rgba(22, 163, 74, 0.2)', 'rgba(22, 163, 74, 0.0)'],
               borderColor: '#16A34A',
+              borderWidth: 1,
+              borderRadius: 8,
+              tension: 0.3,
+              pointStyle: false
             },
           ],
         };
@@ -165,7 +170,7 @@ export default function MonthlyMerchantDeposit() {
                 <div className="flex gap-3 w-full">
                     <div className=" rounded-xl bg-[#ffffff0d] p-3"><CreditCardIcon /></div>
                     <div className="flex flex-col gap-1 w-full">
-                        <div className="text-sm text-gray-500">Total Withdrawal</div>
+                        <div className="text-sm text-gray-500">Total Deposit</div>
                         <div className="text-white text-base font-semibold">
                             $ <CountUp end={grossDeposit} duration={1.5} decimals={2}/>
                         </div>

@@ -85,7 +85,7 @@ export default function MonthlyMerchantWithdrawal() {
         setSelectedMonth(month);
     }
 
-    const processChartData = (data) => {
+    const processChartData = (datas) => {
         const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
         const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
     
@@ -95,12 +95,16 @@ export default function MonthlyMerchantWithdrawal() {
             {
               label: 'Daily Merchant Deposits',
               data: days.map((day) => {
-                const dayData = data.filter(transaction => new Date(transaction.created_at).getDate() === day);
-                return dayData.reduce((sum, transaction) => sum + transaction.amount, 0); // Assuming 'amount' is the field you want to sum up
+                const dayData = datas.find(transaction => transaction.day === day);
+                return dayData ? dayData.total_amount : 0;
               }),
               fill: true,
               backgroundColor: ['rgba(220, 38, 38, 0.1)', 'rgba(22, 163, 74, 0.0)'],
               borderColor: '#DC2626',
+              borderWidth: 1,
+              borderRadius: 8,
+              tension: 0.3,
+              pointStyle: false
             },
           ],
         };

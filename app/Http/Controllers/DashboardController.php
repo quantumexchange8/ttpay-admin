@@ -72,6 +72,8 @@ class DashboardController extends Controller
             })
             ->where('status', 'success')
             ->where('transaction_type', 'deposit')
+            ->selectRaw('DAY(created_at) as day, SUM(total_amount) as total_amount')
+            ->groupByRaw('DAY(created_at)')
             ->whereNull('client_id')
             ->get();
 
@@ -85,7 +87,7 @@ class DashboardController extends Controller
             ->where('status', 'success')
             ->where('transaction_type', 'deposit')
             ->whereNull('client_id')
-            ->sum('amount');
+            ->sum('txn_amount');
 
         $fee_charges = Transaction::query()
             ->when($request->filled('month'), function ($query) use ($request) {
@@ -131,6 +133,8 @@ class DashboardController extends Controller
             })
             ->where('status', 'success')
             ->where('transaction_type', 'withdrawal')
+            ->selectRaw('DAY(created_at) as day, SUM(total_amount) as total_amount')
+            ->groupByRaw('DAY(created_at)')
             ->whereNull('client_id')
             ->get();
 
