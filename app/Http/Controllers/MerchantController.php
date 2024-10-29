@@ -58,7 +58,8 @@ class MerchantController extends Controller
     public function step1Validate(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|unique:merchants,email',
+            // 'email' => 'required|string|email|unique:merchants,email', //tempoarary off now
+            'email' => 'required|string|email',
             'name' => 'required|string|unique:merchants,name',
             'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:8|unique:merchants,phone',
         ]);
