@@ -67,9 +67,9 @@ class MerchantController extends Controller
         $errors = [];
 
         if ($validator->fails()) {
-            if ($validator->errors()->has('email')) {
-                $errors['email'] = 'Email already exists';
-            }
+            // if ($validator->errors()->has('email')) {
+            //     $errors['email'] = 'Email already exists';
+            // }
             if ($validator->errors()->has('name')) {
                 $errors['name'] = 'Merchant name already exists';
             }
