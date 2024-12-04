@@ -53,47 +53,53 @@ function Action({ transaction }) {
             </Button>
         </Tooltip>
 
-        <Modal show={isOpen} onClose={closeModal} maxWidth='md' title="View Client Deposit's Details">
+        <Modal show={isOpen} onClose={closeModal} maxWidth='lg' title="View Client Deposit's Details">
             <div className='flex flex-col gap-5'>
                 <div className='flex flex-col gap-2'>
                     <div className='flex gap-3'>
-                        <div className='w-[140px] text-gray-500 text-sm font-bold uppercase'>Transaction ID</div>
+                        <div className='w-[160px] text-gray-500 text-sm font-bold uppercase'>Transaction ID</div>
                         <div className='text-white text-base'>
                             {transaction.tt_txn}
                         </div>
                     </div>
                     <div className='flex gap-3'>
-                        <div className='w-[140px] text-gray-500 text-sm font-bold uppercase'>Requested date</div>
+                        <div className='w-[160px] text-gray-500 text-sm font-bold uppercase'>User Transaction ID</div>
+                        <div className='text-white text-base'>
+                            {transaction.tt_txn}
+                        </div>
+                    </div>
+                    <div className='flex gap-3'>
+                        <div className='w-[160px] text-gray-500 text-sm font-bold uppercase'>Requested date</div>
                         <div className='text-white text-base'>
                             {formatDateTime(transaction.created_at)}
                         </div>
                     </div>
                     <div className='flex gap-3'>
-                        <div className='w-[140px] text-gray-500 text-sm font-bold uppercase'>Approval date</div>
+                        <div className='w-[160px] text-gray-500 text-sm font-bold uppercase'>Approval date</div>
                         <div className='text-white text-base'>
                             {transaction.transaction_date ? formatDateTime(transaction.transaction_date) : '-'}
                         </div>
                     </div>
                     <div className='flex gap-3'>
-                        <div className='w-[140px] text-gray-500 text-sm font-bold uppercase'>Merchant</div>
+                        <div className='w-[160px] text-gray-500 text-sm font-bold uppercase'>Merchant</div>
                         <div className='text-white text-base'>
                             {transaction.merchant.name} ({transaction.merchant.role_id})
                         </div>
                     </div>
                     <div className='flex gap-3'>
-                        <div className='w-[140px] text-gray-500 text-sm font-bold uppercase'>Amount</div>
+                        <div className='w-[160px] text-gray-500 text-sm font-bold uppercase'>Amount</div>
                         <div className='text-white text-base'>
                             $ {transaction.txn_amount}
                         </div>
                     </div>
                     <div className='flex gap-3'>
-                        <div className='w-[140px] text-gray-500 text-sm font-bold uppercase'>Fee</div>
+                        <div className='w-[160px] text-gray-500 text-sm font-bold uppercase'>Fee</div>
                         <div className='text-white text-base'>
                             $ {transaction.fee}
                         </div>
                     </div>
                     <div className='flex gap-3'>
-                        <div className='w-[140px] text-gray-500 text-sm font-bold uppercase'>Status</div>
+                        <div className='w-[160px] text-gray-500 text-sm font-bold uppercase'>Status</div>
                         <div className='text-white text-base'>
                             {transaction.status === 'success' ? <Success /> : <Expired />}
                         </div>
@@ -146,6 +152,12 @@ function Action({ transaction }) {
                                     null
                                 )
                             }
+                        </div>
+                    </div>
+                    <div className='flex flex-col space-y-1'>
+                        <span className='text-sm text-gray-500 font-bold uppercase'>Origin Domain</span>
+                        <div className='text-white text-base leading-none flex items-center gap-2'>
+                            {transaction.origin_domain}
                         </div>
                     </div>
                 </div>
