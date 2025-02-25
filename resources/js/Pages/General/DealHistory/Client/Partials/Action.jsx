@@ -65,7 +65,7 @@ function Action({ transaction }) {
                     <div className='flex gap-3'>
                         <div className='w-[160px] text-gray-500 text-sm font-bold uppercase'>User Transaction ID</div>
                         <div className='text-white text-base'>
-                            {transaction.tt_txn}
+                            {transaction.transaction_number}
                         </div>
                     </div>
                     <div className='flex gap-3'>
@@ -138,7 +138,7 @@ function Action({ transaction }) {
                     <div className='flex flex-col space-y-1'>
                         <span className='text-sm text-gray-500 font-bold uppercase'>TxID</span>
                         <div className='flex gap-2 items-center'>
-                            <div className='max-w-80 text-white text-base leading-none overflow-hidden truncate'>
+                            <div className=' text-white text-base leading-none overflow-hidden truncate'>
                                 {transaction.txID ? transaction.txID : '-'}
                             </div>
                             {
