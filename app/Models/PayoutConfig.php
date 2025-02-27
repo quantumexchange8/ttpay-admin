@@ -19,5 +19,6 @@ class PayoutConfig extends Model
         'returnUrl',
         'callBackUrl',
         'secret_key',
+        'payment_method',
     ];
 }

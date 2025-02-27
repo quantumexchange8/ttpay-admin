@@ -137,10 +137,10 @@ export default function Authenticated({ children, header }) {
                         }`}>
                             <SidebarItem icon={<Freeze/>} text="FREEZING LISTING"/>
                         </Link>
-                        <Link href={route('configuration.trc20-address')} className={`${
-                                url === '/configuration/trc20-address' ? 'bg-[#03071299] rounded-lg' : ''
+                        <Link href={route('configuration.wallet-address')} className={`${
+                                url === '/configuration/wallet-address' ? 'bg-[#03071299] rounded-lg' : ''
                         }`}>
-                            <SidebarItem icon={<Tron/>} text="TRC-20 ADDRESS"/>
+                            <SidebarItem icon={<Tron/>} text="WALLET ADDRESS"/>
                         </Link>
                         <Link href={route('configuration.payout-configuration')} className={`${
                                 url === '/configuration/payout-configuration' ? 'bg-[#03071299] rounded-lg' : ''

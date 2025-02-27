@@ -13,6 +13,7 @@ class WalletAddress extends Model
     protected $fillable = [
         'name',
         'token_address',
-        'contract_address'
+        'contract_address',
+        'wallet_type',
     ];
 }

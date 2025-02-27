@@ -8,6 +8,12 @@ import NewTrc20Address from '@/Pages/Configuration/Trc20/Partials/NewTrc20Addres
 import Trc20Table from '@/Pages/Configuration/Trc20/Partials/Trc20Table'
 import Button from '@/Components/Button';
 import { ArrowDown } from '@/Components/Icon/Icon';
+import { Tab } from '@headlessui/react'
+import Bep20Table from './Partials/Bep20Table';
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
 
 export default function RateProfile({ auth }) {
 
@@ -32,9 +38,9 @@ export default function RateProfile({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header="Trc-20 Address"
+            header="Wallet Address"
         >
-            <Head title="Trc-20 Address" />
+            <Head title="Wallet Address" />
 
             <div className='flex gap-5 flex-col py-5 md:py-0'>
                 <div className='w-full flex flex-col md:flex-row justify-between items-center select-none'>
@@ -78,14 +84,70 @@ export default function RateProfile({ auth }) {
                     </div>
                 </div>
 
-                <div>
-                    <Trc20Table 
-                        searchVal={searchVal} 
-                        key={refreshTable.toString()} 
-                        exportCsv={exportCsv}
-                        setExportCsv={setExportCsv}
-                    />
+                <div className='w-full'>
+                    <Tab.Group>
+                        <Tab.List className="flex py-5 px-3">
+                            <Tab
+                                className={({ selected }) =>
+                                    classNames(
+                                    'p-3 text-sm font-semibold leading-none',
+                                    'focus:outline-none',
+                                    selected
+                                        ? 'bg-transparent text-white border-b-2 border-gray-300'
+                                        : 'text-gray-500 hover:bg-gray-900 rounded-t-md hover:text-white'
+                                    )
+                                }
+                                >
+                                TRC-20
+                            </Tab>
+                            <Tab
+                                className={({ selected }) =>
+                                    classNames(
+                                    'p-3 text-sm font-semibold leading-none',
+                                    'focus:outline-none',
+                                    selected
+                                        ? 'bg-transparent text-white border-b-2 border-gray-300'
+                                        : 'text-gray-500 hover:bg-gray-900 rounded-t-md hover:text-white'
+                                    )
+                                }
+                                >
+                                BEP-20
+                            </Tab>
+                        </Tab.List>
+                        <Tab.Panels className="mt-2">
+                            <Tab.Panel
+                                className={classNames(
+                                    'focus:outline-none'
+                                )}
+                            >
+                                <div>
+                                    <Trc20Table 
+                                        searchVal={searchVal} 
+                                        key={refreshTable.toString()} 
+                                        exportCsv={exportCsv}
+                                        setExportCsv={setExportCsv}
+                                    />
+                                </div>
+                            </Tab.Panel>
+                            <Tab.Panel
+                                className={classNames(
+                                    'focus:outline-none'
+                                )}
+                            >
+                                <div>
+                                    <Bep20Table 
+                                        searchVal={searchVal} 
+                                        key={refreshTable.toString()} 
+                                        exportCsv={exportCsv}
+                                        setExportCsv={setExportCsv}
+                                    />
+                                </div>
+                            </Tab.Panel>
+                        </Tab.Panels>
+                    </Tab.Group>
                 </div>
+
+                
             </div>
         </AuthenticatedLayout>
     );

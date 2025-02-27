@@ -94,7 +94,20 @@ class ConfigurationController extends Controller
             return Excel::download(new Trc20AddressExport($trc20Addresses), Carbon::now() . '-Trc20-Address.xlsx');
         }
 
-        $datas = $trc20Addresses->latest()->get();
+        $datas = $trc20Addresses->where('wallet_type', 'trc-20')->latest()->get();
+
+        return response()->json($datas);
+    }
+
+    public function getBep20Address(Request $request)
+    {
+        $bep20Addresses = WalletAddress::query();
+
+        if ($request->exportCsv == "true") {
+            return Excel::download(new Trc20AddressExport($bep20Addresses), Carbon::now() . '-Bep20-Address.xlsx');
+        }
+
+        $datas = $bep20Addresses->where('wallet_type', 'bep-20')->latest()->get();
 
         return response()->json($datas);
     }
@@ -103,6 +116,7 @@ class ConfigurationController extends Controller
     {
         $newTrc20Address = WalletAddress::create([
             'name' => $request->name,
+            'wallet_type' => $request->wallet_type,
             'token_address' => $request->token_address,
         ]);
 
@@ -116,6 +130,7 @@ class ConfigurationController extends Controller
 
         $trc20Addresses->update([
             'name' => $request->name,
+            'wallet_type' => $request->wallet_type,
             'token_address' => $request->token_address,
         ]);
 
@@ -150,11 +165,12 @@ class ConfigurationController extends Controller
         $payout = PayoutConfig::create([
             'name' => $request->name,
             'merchant_id' => $request->merchant_id,
-            'live_paymentUrl' => $request->url,
+            'live_paymentUrl' => $request->live_paymentUrl,
             'appId' => $request->appId,
             'returnUrl' => $request->returnUrl,
             'callBackUrl' => $request->callbackUrl,
             'secret_key' => $secretKey,
+            'payment_method' => $request->wallet_type,
         ]);
 
         return redirect()->back()->with('toast', 'Payout successfully created!');

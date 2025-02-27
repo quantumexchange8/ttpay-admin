@@ -9,9 +9,16 @@ import { AddIcon } from '@/Components/Icon/Icon';
 // import CustomToaster from '@/Components/CustomToaster';
 import toast from 'react-hot-toast';
 import { dotPulse } from 'ldrs'
+import Dropdown from "@/Components/Dropdown";
+import { Menu } from '@headlessui/react'
 
 export default function NewTrc20Address({ onNewAddressAdded }) {
     
+    const walletTypes = [
+        { name: 'TRC-20', value: 'trc-20'},
+        { name: 'BEP-20', value: 'bep-20'},
+    ]
+
     const [isOpen, modalDetails] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     dotPulse.register()
@@ -32,6 +39,7 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         token_address: '',
+        wallet_type: 'trc-20',
     })
     
     const submit = (e) => {
@@ -72,10 +80,10 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
                 onClick={openModal}
             >
                 <AddIcon aria-hidden="true"/>
-                New TRC-20 Address
+                New Wallet Address
             </Button>
 
-            <Modal show={isOpen} onClose={closeModal} title="New TRC-20 Address" maxWidth='md'>
+            <Modal show={isOpen} onClose={closeModal} title="New Wallet Address" maxWidth='md'>
                 <form onSubmit={submit}>
                     <div className='flex flex-col gap-12'>
                         <div className='flex flex-col gap-5'>
@@ -92,6 +100,30 @@ export default function NewTrc20Address({ onNewAddressAdded }) {
                                     className="w-full"
                                 />
                                 <InputError message={errors.name}/>
+                            </div>
+                            <div className="space-y-1.5">
+                                <div className='flex items-center gap-1'>
+                                    <Label for="name" value="Wallet Type"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                </div>
+                                <Dropdown 
+                                    defaultOptions={data.wallet_type}
+                                    options={walletTypes.map((walletType, index) => (
+                                        <div key={index}>
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                <button
+                                                    type="button"
+                                                    className={`group flex w-full items-center rounded-md px-4 py-2 text-sm text-white hover:bg-[#ffffff1a] `}
+                                                    onClick={() => setData('wallet_type', walletType.value)}
+                                                >
+                                                    {walletType.name}
+                                                </button>
+                                                )}
+                                            </Menu.Item>
+                                        </div>
+                                    ))}
+                                />
+                                <InputError message={errors.wallet_type}/>
                             </div>
                             <div className="space-y-1.5">
                                 <div className='flex items-center gap-1'>

@@ -15,6 +15,11 @@ import toast from "react-hot-toast";
 
 export default function NewPayoutConfig({ merchants, onNewAddressAdded }) {
 
+    const walletTypes = [
+        { name: 'TRC-20', value: 'trc-20'},
+        { name: 'BEP-20', value: 'bep-20'},
+    ]
+
     const [isOpen, modalDetails] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     dotPulse.register()
@@ -37,6 +42,7 @@ export default function NewPayoutConfig({ merchants, onNewAddressAdded }) {
         appId: '',
         returnUrl: '',
         callbackUrl: '',
+        wallet_type: 'trc-20',
     });
 
     useEffect(() => {
@@ -135,6 +141,30 @@ export default function NewPayoutConfig({ merchants, onNewAddressAdded }) {
                                     ))}
                                 />
                                 <InputError message={errors.merchant}/>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <div className='flex items-center gap-1'>
+                                    <Label for="name" value="Payment Type" className='w-24' />
+                                </div>
+                                <Dropdown 
+                                    defaultOptions={data.wallet_type}
+                                    options={walletTypes.map((walletType, index) => (
+                                        <div key={index}>
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                <button
+                                                    type="button"
+                                                    className={`group flex w-full items-center rounded-md px-4 py-2 text-sm text-white hover:bg-[#ffffff1a] `}
+                                                    onClick={() => setData('wallet_type', walletType.value)}
+                                                >
+                                                    {walletType.name}
+                                                </button>
+                                                )}
+                                            </Menu.Item>
+                                        </div>
+                                    ))}
+                                />
+                                <InputError message={errors.wallet_type}/>
                             </div>
                             <div className="flex flex-col gap-1">
                                 <div className="flex items-center gap-3">

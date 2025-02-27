@@ -9,8 +9,15 @@ import Label from '@/Components/Label';
 import InputError from '@/Components/InputError';
 import toast from 'react-hot-toast';
 import { infinity } from 'ldrs';
+import Dropdown from "@/Components/Dropdown";
+import { Menu } from '@headlessui/react'
 
 export default function Action({ payout, fetchDataCallback }) {
+
+    const walletTypes = [
+        { name: 'TRC-20', value: 'trc-20'},
+        { name: 'BEP-20', value: 'bep-20'},
+    ]
 
     const [isOpen, setIsOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
@@ -42,6 +49,7 @@ export default function Action({ payout, fetchDataCallback }) {
         returnUrl: payout.returnUrl,
         callBackUrl: payout.callBackUrl,
         // token_address: payout.token_address,
+        wallet_type: payout.payment_method || '',
     })
 
     const submit = (e) => {
@@ -132,6 +140,30 @@ export default function Action({ payout, fetchDataCallback }) {
                                         // required
                                         isFocused={true}
                                         className="w-full"
+                                    />
+                                    <InputError message={errors.name}/>
+                                </div>
+                                <div className="space-y-1.5">
+                                    <div className='flex items-center gap-1'>
+                                        <Label for="name" value="Wallet Type"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                    </div>
+                                    <Dropdown 
+                                        defaultOptions={data.wallet_type}
+                                        options={walletTypes.map((walletType, index) => (
+                                            <div key={index}>
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                    <button
+                                                        type="button"
+                                                        className={`group flex w-full items-center rounded-md px-4 py-2 text-sm text-white hover:bg-[#ffffff1a] `}
+                                                        onClick={() => setData('wallet_type', walletType.value)}
+                                                    >
+                                                        {walletType.name}
+                                                    </button>
+                                                    )}
+                                                </Menu.Item>
+                                            </div>
+                                        ))}
                                     />
                                     <InputError message={errors.name}/>
                                 </div>

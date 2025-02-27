@@ -113,8 +113,9 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::post('/unfreezeTransaction', [ConfigurationController::class, 'unfreezeTransaction'])->name('configuration.unfreezeTransaction');
 
         // TRC 20 ADDRESS
-        Route::get('/trc20-address', [ConfigurationController::class, 'trc20address'])->name('configuration.trc20-address');
+        Route::get('/wallet-address', [ConfigurationController::class, 'trc20address'])->name('configuration.wallet-address');
         Route::get('/getTrc20Address', [ConfigurationController::class, 'getTrc20Address'])->name('configuration.getTrc20Address');
+        Route::get('/getBep20Address', [ConfigurationController::class, 'getBep20Address'])->name('configuration.getBep20Address');
         Route::post('/add_trc20_address', [ConfigurationController::class, 'storeTrc20Address'])->name('configuration.add_trc20_address');
         Route::post('/edit_trc20_address', [ConfigurationController::class, 'editAddress'])->name('configuration.edit_trc20_address');
         Route::post('/delete_trc20_address', [ConfigurationController::class, 'DeleteAddress'])->name('configuration.delete_trc20_address');
