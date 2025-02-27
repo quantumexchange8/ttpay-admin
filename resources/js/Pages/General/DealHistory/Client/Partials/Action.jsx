@@ -57,6 +57,14 @@ function Action({ transaction }) {
             <div className='flex flex-col gap-5'>
                 <div className='flex flex-col gap-2'>
                     <div className='flex gap-3'>
+                        <div className='w-[160px] text-gray-500 text-sm font-bold uppercase'>Payment Method</div>
+                        <div className='text-white text-base'>
+                            {
+                                transaction.payment_type === 'bep-20' ? 'BEP-20' : 'TRC-20'
+                            }
+                        </div>
+                    </div>
+                    <div className='flex gap-3'>
                         <div className='w-[160px] text-gray-500 text-sm font-bold uppercase'>Transaction ID</div>
                         <div className='text-white text-base'>
                             {transaction.tt_txn}
