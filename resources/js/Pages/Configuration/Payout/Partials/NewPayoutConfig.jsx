@@ -43,6 +43,7 @@ export default function NewPayoutConfig({ merchants, onNewAddressAdded }) {
         returnUrl: '',
         callbackUrl: '',
         wallet_type: 'trc-20',
+        diff_amount: '',
     });
 
     useEffect(() => {
@@ -165,6 +166,22 @@ export default function NewPayoutConfig({ merchants, onNewAddressAdded }) {
                                     ))}
                                 />
                                 <InputError message={errors.wallet_type}/>
+                            </div>
+                            <div className="flex flex-col gap-1">
+                                <div className="flex items-center gap-3">
+                                    <div className='flex items-center gap-1'>
+                                        <Label for="name" value="Different Amount" className='w-24' />
+                                    </div>
+                                    <Input 
+                                        id="diff_amount" 
+                                        type='number' 
+                                        value={data.diff_amount}
+                                        handleChange={(e) => setData('diff_amount', e.target.value)}
+                                        isFocused={true}
+                                        className="w-full"
+                                    />
+                                </div>
+                                <InputError message={errors.diff_amount}/>
                             </div>
                             <div className="flex flex-col gap-1">
                                 <div className="flex items-center gap-3">

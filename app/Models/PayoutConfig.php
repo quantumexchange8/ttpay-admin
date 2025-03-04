@@ -20,5 +20,6 @@ class PayoutConfig extends Model
         'callBackUrl',
         'secret_key',
         'payment_method',
+        'diff_amount',
     ];
 }

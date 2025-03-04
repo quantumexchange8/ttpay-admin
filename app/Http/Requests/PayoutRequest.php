@@ -30,6 +30,7 @@ class PayoutRequest extends FormRequest
             'appId' => ['required', Rule::unique(PayoutConfig::class)],
             'returnUrl' => ['required'],
             'callbackUrl' => ['required'],
+            'diff_amount' => ['required'],
         ];
     }
 
@@ -42,6 +43,7 @@ class PayoutRequest extends FormRequest
             'appId' => 'App ID',
             'returnUrl' => 'Return Url',
             'callbackUrl' => 'Callback Url',
+            'diff_amount' => 'Different Amount',
         ];
     }
 }

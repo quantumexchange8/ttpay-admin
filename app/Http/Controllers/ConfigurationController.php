@@ -171,6 +171,7 @@ class ConfigurationController extends Controller
             'callBackUrl' => $request->callbackUrl,
             'secret_key' => $secretKey,
             'payment_method' => $request->wallet_type,
+            'diff_amount' => $request->diff_amount,
         ]);
 
         return redirect()->back()->with('toast', 'Payout successfully created!');
@@ -195,6 +196,7 @@ class ConfigurationController extends Controller
             'payment_method' => $request->wallet_type,
             'returnUrl' => $request->returnUrl,
             'callBackUrl' => $request->callBackUrl,
+            'diff_amount' => $request->diff_amount,
         ]);
 
         return redirect()->back()->with('toast', 'Payout successfully updated!');
