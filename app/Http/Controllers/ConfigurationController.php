@@ -192,6 +192,7 @@ class ConfigurationController extends Controller
             'name' => $request->name,
             'live_paymentUrl' => $request->live_paymentUrl,
             'appId' => $request->appId,
+            'payment_method' => $request->wallet_type,
             'returnUrl' => $request->returnUrl,
             'callBackUrl' => $request->callBackUrl,
         ]);
