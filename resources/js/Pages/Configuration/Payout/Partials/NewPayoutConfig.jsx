@@ -44,6 +44,7 @@ export default function NewPayoutConfig({ merchants, onNewAddressAdded }) {
         callbackUrl: '',
         wallet_type: 'trc-20',
         diff_amount: '',
+        api_key: '',
     });
 
     useEffect(() => {
@@ -214,6 +215,22 @@ export default function NewPayoutConfig({ merchants, onNewAddressAdded }) {
                                     />
                                 </div>
                                 <InputError message={errors.appId}/>
+                            </div>
+                            <div className="flex flex-col gap-1">
+                                <div className="flex items-center gap-3">
+                                    <div className='flex items-center gap-1'>
+                                        <Label for="name" value="API Key" className='w-24' />
+                                    </div>
+                                    <Input 
+                                        id="api_key" 
+                                        type='text' 
+                                        value={data.api_key}
+                                        handleChange={(e) => setData('api_key', e.target.value)}
+                                        isFocused={true}
+                                        className="w-full"
+                                    />
+                                </div>
+                                <InputError message={errors.api_key}/>
                             </div>
                             <div className="flex flex-col gap-1">
                                 <div className="flex items-center gap-3">

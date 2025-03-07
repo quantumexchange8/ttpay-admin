@@ -21,5 +21,6 @@ class PayoutConfig extends Model
         'secret_key',
         'payment_method',
         'diff_amount',
+        'api_key',
     ];
 }
