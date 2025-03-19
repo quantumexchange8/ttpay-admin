@@ -184,9 +184,11 @@ export default function EditMerchant({ closeModal, phoneCodes, rateProfiles, mer
 
     useEffect(() => {
         if (merchant.deposit_type === '0') {
-          setSelectedMode(approvalMode[0]);
+            setSelectedMode(approvalMode[0]);
         } else if (merchant.deposit_type === '1') {
-          setSelectedMode(approvalMode[1]);
+            setSelectedMode(approvalMode[1]);
+        } else if (merchant.deposit_type === '2') {
+            setSelectedMode(approvalMode[2]);
         }
       }, [merchant.deposit_type]);
 
