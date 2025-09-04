@@ -171,6 +171,8 @@ class ConfigurationController extends Controller
             'callBackUrl' => $request->callbackUrl,
             'secret_key' => $secretKey,
             'payment_method' => $request->wallet_type,
+            'diff_amount' => $request->diff_amount,
+            'api_key' => $request->api_key,
         ]);
 
         return redirect()->back()->with('toast', 'Payout successfully created!');
@@ -200,6 +202,8 @@ class ConfigurationController extends Controller
             'show_txid' => $request->show_txid,
             'show_amount' => $request->show_amount,
             'show_acc_no' => $request->show_acc_no,
+            'diff_amount' => $request->diff_amount,
+            'api_key' => $request->api_key,
         ]);
 
         return redirect()->back()->with('toast', 'Payout successfully updated!');

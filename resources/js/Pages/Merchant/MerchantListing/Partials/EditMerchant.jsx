@@ -22,6 +22,14 @@ const approvalMode = [
       name: 'Automatic Approval of Deposit',
       value: '1'
     },
+    {
+        name: 'TxID Approval of Deposit',
+        value: '2'
+    },
+    {
+        name: 'Queue Wallet Deposit',
+        value: '3'
+    },
   ];
 
   const refreshOptions = [
@@ -180,9 +188,13 @@ export default function EditMerchant({ closeModal, phoneCodes, rateProfiles, mer
 
     useEffect(() => {
         if (merchant.deposit_type === '0') {
-          setSelectedMode(approvalMode[0]);
+            setSelectedMode(approvalMode[0]);
         } else if (merchant.deposit_type === '1') {
-          setSelectedMode(approvalMode[1]);
+            setSelectedMode(approvalMode[1]);
+        } else if (merchant.deposit_type === '2') {
+            setSelectedMode(approvalMode[2]);
+        } else if (merchant.deposit_type === '3') {
+            setSelectedMode(approvalMode[3]);
         }
       }, [merchant.deposit_type]);
 

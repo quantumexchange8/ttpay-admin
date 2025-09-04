@@ -52,6 +52,7 @@ export default function Action({ payout, fetchDataCallback }) {
             show_txid: payout.show_txid,
             show_amount: payout.show_amount,
             show_acc_no: payout.show_acc_no,
+            api_key: payout.api_key
         })
     }
 
@@ -64,6 +65,7 @@ export default function Action({ payout, fetchDataCallback }) {
         appId: '',
         returnUrl: '',
         callBackUrl: '',
+        api_key: '',
         // token_address: payout.token_address,
         wallet_type: '',
         from_wallet: '',
@@ -71,7 +73,10 @@ export default function Action({ payout, fetchDataCallback }) {
         show_txid: '',
         show_amount: '',
         show_acc_no: '',
+        diff_amount: '',
     })
+
+    console.log(payout.api_key)
 
     useEffect(() => {
         if (payout) {
@@ -89,6 +94,8 @@ export default function Action({ payout, fetchDataCallback }) {
                 show_txid: payout.show_txid,
                 show_amount: payout.show_amount,
                 show_acc_no: payout.show_acc_no,
+                api_key: payout.api_key,
+                diff_amount: payout.diff_amount,
             })
         }
     }, [payout])
@@ -268,63 +275,95 @@ export default function Action({ payout, fetchDataCallback }) {
                                 </div>
                                 <div className='w-full flex flex-col gap-5'>
                                     <div className='flex flex-col gap-1'>
-                                        <Label value="Show from wallet"/>
-                                        <div>
-                                            <Radio.Group  
-                                                value={data.from_wallet}
-                                                onChange={(e) => setData('from_wallet', e.target.value)}
-                                                options={[
-                                                    { label: <span className='text-white'>Hide</span>, value: 0},
-                                                    { label: <span className='text-white'>Show</span>, value: 1},
-                                                ]}
-                                                className="py-3"
-                                            />
+                                        <div className='flex items-center gap-1'>
+                                            <Label for="diff_amount" value="Different Amount" />
+                                        </div>
+                                        <Input 
+                                            id="diff_amount" 
+                                            type='text'
+                                            value={data.diff_amount}
+                                            handleChange={(e) => setData('diff_amount', e.target.value)}
+                                            // required
+                                            className="w-full"
+                                        />
+                                        <InputError message={errors.diff_amount}/>
+                                    </div>
+                                    <div className='flex flex-col gap-1'>
+                                        <div className='flex items-center gap-1'>
+                                            <Label value="API Key" />
+                                        </div>
+                                        <Input 
+                                            id="api_key" 
+                                            type='text' 
+                                            value={data.api_key}
+                                            handleChange={(e) => setData('api_key', e.target.value)}
+                                            isFocused={true}
+                                            className="w-full"
+                                        />
+                                        <InputError message={errors.api_key}/>
+                                    </div>
+                                    <div className='grid grid-cols-2'>
+                                        <div className='flex flex-col gap-1'>
+                                            <Label value="Show from wallet"/>
+                                            <div>
+                                                <Radio.Group  
+                                                    value={data.from_wallet}
+                                                    onChange={(e) => setData('from_wallet', e.target.value)}
+                                                    options={[
+                                                        { label: <span className='text-white'>Hide</span>, value: 0},
+                                                        { label: <span className='text-white'>Show</span>, value: 1},
+                                                    ]}
+                                                    className="py-3"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className='flex flex-col gap-1'>
+                                            <Label value="Show to wallet"/>
+                                            <div>
+                                                <Radio.Group  
+                                                    value={data.to_wallet}
+                                                    onChange={(e) => setData('to_wallet', e.target.value)}
+                                                    options={[
+                                                        { label: <span className='text-white'>Hide</span>, value: 0},
+                                                        { label: <span className='text-white'>Show</span>, value: 1},
+                                                    ]}
+                                                    className="py-3"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='grid grid-cols-2'>
+                                        <div className='flex flex-col gap-1'>
+                                            <Label value="Show TxID"/>
+                                            <div>
+                                                <Radio.Group  
+                                                    value={data.show_txid}
+                                                    onChange={(e) => setData('show_txid', e.target.value)}
+                                                    options={[
+                                                        { label: <span className='text-white'>Hide</span>, value: 0},
+                                                        { label: <span className='text-white'>Show</span>, value: 1},
+                                                    ]}
+                                                    className="py-3"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className='flex flex-col gap-1'>
+                                            <Label value="Show Amount"/>
+                                            <div>
+                                                <Radio.Group  
+                                                    value={data.show_amount}
+                                                    onChange={(e) => setData('show_amount', e.target.value)}
+                                                    options={[
+                                                        { label: <span className='text-white'>Hide</span>, value: 0},
+                                                        { label: <span className='text-white'>Show</span>, value: 1},
+                                                    ]}
+                                                    className="py-3"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                     <div className='flex flex-col gap-1'>
-                                        <Label value="Show to wallet"/>
-                                        <div>
-                                            <Radio.Group  
-                                                value={data.to_wallet}
-                                                onChange={(e) => setData('to_wallet', e.target.value)}
-                                                options={[
-                                                    { label: <span className='text-white'>Hide</span>, value: 0},
-                                                    { label: <span className='text-white'>Show</span>, value: 1},
-                                                ]}
-                                                className="py-3"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className='flex flex-col gap-1'>
-                                        <Label value="Show TxID"/>
-                                        <div>
-                                            <Radio.Group  
-                                                value={data.show_txid}
-                                                onChange={(e) => setData('show_txid', e.target.value)}
-                                                options={[
-                                                    { label: <span className='text-white'>Hide</span>, value: 0},
-                                                    { label: <span className='text-white'>Show</span>, value: 1},
-                                                ]}
-                                                className="py-3"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className='flex flex-col gap-1'>
-                                        <Label value="Show amount"/>
-                                        <div>
-                                            <Radio.Group  
-                                                value={data.show_amount}
-                                                onChange={(e) => setData('show_amount', e.target.value)}
-                                                options={[
-                                                    { label: <span className='text-white'>Hide</span>, value: 0},
-                                                    { label: <span className='text-white'>Show</span>, value: 1},
-                                                ]}
-                                                className="py-3"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className='flex flex-col gap-1'>
-                                        <Label value="Show account number"/>
+                                        <Label value="Show Account No"/>
                                         <div>
                                             <Radio.Group  
                                                 value={data.show_acc_no}

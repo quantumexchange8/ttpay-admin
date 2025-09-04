@@ -16,6 +16,14 @@ const approvalMode = [
       name: 'Automatic Approval of Deposit',
       value: '1'
     },
+    {
+        name: 'TxID Approval of Deposit',
+        value: '2'
+    },
+    {
+        name: 'Queue Wallet Deposit',
+        value: '3'
+    },
   ];
 
   const negoMode = [

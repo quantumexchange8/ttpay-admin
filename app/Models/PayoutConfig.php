@@ -25,5 +25,7 @@ class PayoutConfig extends Model
         'show_txid',
         'show_amount',
         'show_acc_no',
+        'diff_amount',
+        'api_key',
     ];
 }

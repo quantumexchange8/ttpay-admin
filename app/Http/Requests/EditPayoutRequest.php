@@ -27,6 +27,7 @@ class EditPayoutRequest extends FormRequest
             'appId' => ['required'],
             'returnUrl' => ['required'],
             'callBackUrl' => ['required'],
+            'diff_amount' => ['required'],
         ];
     }
 
@@ -38,6 +39,7 @@ class EditPayoutRequest extends FormRequest
             'appId' => 'App ID',
             'returnUrl' => 'Return Url',
             'callBackUrl' => 'Callback Url',
+            'diff_amount' => 'Different Amount',
         ];
     }
 }
