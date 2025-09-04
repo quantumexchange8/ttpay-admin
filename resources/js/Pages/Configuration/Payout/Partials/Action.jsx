@@ -11,6 +11,7 @@ import toast from 'react-hot-toast';
 import { infinity } from 'ldrs';
 import Dropdown from "@/Components/Dropdown";
 import { Menu } from '@headlessui/react'
+import { Radio } from 'antd';
 
 export default function Action({ payout, fetchDataCallback }) {
 
@@ -37,20 +38,60 @@ export default function Action({ payout, fetchDataCallback }) {
     const closeModal = () => {
         setIsOpen(false)
         reset();
+        setData({
+            id: payout.id,
+            name: payout.name,
+            live_paymentUrl: payout.live_paymentUrl,
+            appId: payout.appId,
+            returnUrl: payout.returnUrl,
+            callBackUrl: payout.callBackUrl,
+            // token_address: payout.token_address,
+            wallet_type: payout.payment_method,
+            from_wallet: payout.show_from_wallet,
+            to_wallet: payout.show_to_wallet,
+            show_txid: payout.show_txid,
+            show_amount: payout.show_amount,
+            show_acc_no: payout.show_acc_no,
+        })
     }
 
     const user = usePage().props.auth.user
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        id: payout.id,
-        name: payout.name,
-        live_paymentUrl: payout.live_paymentUrl,
-        appId: payout.appId,
-        returnUrl: payout.returnUrl,
-        callBackUrl: payout.callBackUrl,
+        id: '',
+        name: '',
+        live_paymentUrl: '',
+        appId: '',
+        returnUrl: '',
+        callBackUrl: '',
         // token_address: payout.token_address,
-        wallet_type: payout.payment_method || '',
+        wallet_type: '',
+        from_wallet: '',
+        to_wallet: '',
+        show_txid: '',
+        show_amount: '',
+        show_acc_no: '',
     })
+
+    useEffect(() => {
+        if (payout) {
+            setData({
+                id: payout.id,
+                name: payout.name,
+                live_paymentUrl: payout.live_paymentUrl,
+                appId: payout.appId,
+                returnUrl: payout.returnUrl,
+                callBackUrl: payout.callBackUrl,
+                // token_address: payout.token_address,
+                wallet_type: payout.payment_method,
+                from_wallet: payout.show_from_wallet,
+                to_wallet: payout.show_to_wallet,
+                show_txid: payout.show_txid,
+                show_amount: payout.show_amount,
+                show_acc_no: payout.show_acc_no,
+            })
+        }
+    }, [payout])
 
     const submit = (e) => {
         e.preventDefault();
@@ -123,105 +164,179 @@ export default function Action({ payout, fetchDataCallback }) {
                 
             </Tooltip>
 
-            <Modal show={isOpen} onClose={closeModal} title={actionType === 'edit' ? 'Edit Payout' : ''} maxWidth='md' showCloseButton={actionType === 'edit'}>
+            <Modal show={isOpen} onClose={closeModal} title={actionType === 'edit' ? 'Edit Payout' : ''} maxWidth='xl' showCloseButton={actionType === 'edit'}>
                 {actionType === 'edit' ? (
                     <form onSubmit={submit}>
                         <div className='flex flex-col gap-12'>
-                            <div className='flex flex-col gap-5'>
-                                <div className="space-y-1.5">
-                                    <div className='flex items-center gap-1'>
-                                        <Label for="name" value="Payout Name"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                            <div className='flex gap-3'>
+                                <div className='flex flex-col gap-5 w-full'>
+                                    <div className="space-y-1.5">
+                                        <div className='flex items-center gap-1'>
+                                            <Label for="name" value="Payout Name"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                        </div>
+                                        <Input 
+                                            id="name" 
+                                            type='text' 
+                                            value={data.name}
+                                            handleChange={(e) => setData('name', e.target.value)}
+                                            // required
+                                            isFocused={true}
+                                            className="w-full"
+                                        />
+                                        <InputError message={errors.name}/>
                                     </div>
-                                    <Input 
-                                        id="name" 
-                                        type='text' 
-                                        value={data.name}
-                                        handleChange={(e) => setData('name', e.target.value)}
-                                        // required
-                                        isFocused={true}
-                                        className="w-full"
-                                    />
-                                    <InputError message={errors.name}/>
+                                    <div className="space-y-1.5">
+                                        <div className='flex items-center gap-1'>
+                                            <Label for="name" value="Wallet Type"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                        </div>
+                                        <Dropdown 
+                                            defaultOptions={data.wallet_type}
+                                            options={walletTypes.map((walletType, index) => (
+                                                <div key={index}>
+                                                    <Menu.Item>
+                                                        {({ active }) => (
+                                                        <button
+                                                            type="button"
+                                                            className={`group flex w-full items-center rounded-md px-4 py-2 text-sm text-white hover:bg-[#ffffff1a] `}
+                                                            onClick={() => setData('wallet_type', walletType.value)}
+                                                        >
+                                                            {walletType.name}
+                                                        </button>
+                                                        )}
+                                                    </Menu.Item>
+                                                </div>
+                                            ))}
+                                        />
+                                        <InputError message={errors.name}/>
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <div className='flex items-center gap-1'>
+                                            <Label for="live_paymentUrl" value="Payment Url"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                        </div>
+                                        <Input 
+                                            id="live_paymentUrl" 
+                                            type='text'
+                                            value={data.live_paymentUrl}
+                                            handleChange={(e) => setData('live_paymentUrl', e.target.value)}
+                                            // required
+                                            className="w-full"
+                                        />
+                                        <InputError message={errors.live_paymentUrl}/>
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <div className='flex items-center gap-1'>
+                                            <Label for="appId" value="App ID"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                        </div>
+                                        <Input 
+                                            id="appId" 
+                                            type='text'
+                                            value={data.appId}
+                                            handleChange={(e) => setData('appId', e.target.value)}
+                                            // required
+                                            className="w-full"
+                                        />
+                                        <InputError message={errors.appId}/>
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <div className='flex items-center gap-1'>
+                                            <Label for="returnUrl" value="Return Url"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                        </div>
+                                        <Input 
+                                            id="returnUrl" 
+                                            type='text'
+                                            value={data.returnUrl}
+                                            handleChange={(e) => setData('returnUrl', e.target.value)}
+                                            // required
+                                            className="w-full"
+                                        />
+                                        <InputError message={errors.returnUrl}/>
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <div className='flex items-center gap-1'>
+                                            <Label for="callBackUrl" value="Callback Url"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                        </div>
+                                        <Input 
+                                            id="callBackUrl" 
+                                            type='text'
+                                            value={data.callBackUrl}
+                                            handleChange={(e) => setData('callBackUrl', e.target.value)}
+                                            // required
+                                            className="w-full"
+                                        />
+                                        <InputError message={errors.callBackUrl}/>
+                                    </div>
                                 </div>
-                                <div className="space-y-1.5">
-                                    <div className='flex items-center gap-1'>
-                                        <Label for="name" value="Wallet Type"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                <div className='w-full flex flex-col gap-5'>
+                                    <div className='flex flex-col gap-1'>
+                                        <Label value="Show from wallet"/>
+                                        <div>
+                                            <Radio.Group  
+                                                value={data.from_wallet}
+                                                onChange={(e) => setData('from_wallet', e.target.value)}
+                                                options={[
+                                                    { label: <span className='text-white'>Hide</span>, value: 0},
+                                                    { label: <span className='text-white'>Show</span>, value: 1},
+                                                ]}
+                                                className="py-3"
+                                            />
+                                        </div>
                                     </div>
-                                    <Dropdown 
-                                        defaultOptions={data.wallet_type}
-                                        options={walletTypes.map((walletType, index) => (
-                                            <div key={index}>
-                                                <Menu.Item>
-                                                    {({ active }) => (
-                                                    <button
-                                                        type="button"
-                                                        className={`group flex w-full items-center rounded-md px-4 py-2 text-sm text-white hover:bg-[#ffffff1a] `}
-                                                        onClick={() => setData('wallet_type', walletType.value)}
-                                                    >
-                                                        {walletType.name}
-                                                    </button>
-                                                    )}
-                                                </Menu.Item>
-                                            </div>
-                                        ))}
-                                    />
-                                    <InputError message={errors.name}/>
-                                </div>
-                                <div className="space-y-1.5">
-                                    <div className='flex items-center gap-1'>
-                                        <Label for="live_paymentUrl" value="Payment Url"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                    <div className='flex flex-col gap-1'>
+                                        <Label value="Show to wallet"/>
+                                        <div>
+                                            <Radio.Group  
+                                                value={data.to_wallet}
+                                                onChange={(e) => setData('to_wallet', e.target.value)}
+                                                options={[
+                                                    { label: <span className='text-white'>Hide</span>, value: 0},
+                                                    { label: <span className='text-white'>Show</span>, value: 1},
+                                                ]}
+                                                className="py-3"
+                                            />
+                                        </div>
                                     </div>
-                                    <Input 
-                                        id="live_paymentUrl" 
-                                        type='text'
-                                        value={data.live_paymentUrl}
-                                        handleChange={(e) => setData('live_paymentUrl', e.target.value)}
-                                        // required
-                                        className="w-full"
-                                    />
-                                    <InputError message={errors.live_paymentUrl}/>
-                                </div>
-                                <div className="space-y-1.5">
-                                    <div className='flex items-center gap-1'>
-                                        <Label for="appId" value="App ID"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                    <div className='flex flex-col gap-1'>
+                                        <Label value="Show TxID"/>
+                                        <div>
+                                            <Radio.Group  
+                                                value={data.show_txid}
+                                                onChange={(e) => setData('show_txid', e.target.value)}
+                                                options={[
+                                                    { label: <span className='text-white'>Hide</span>, value: 0},
+                                                    { label: <span className='text-white'>Show</span>, value: 1},
+                                                ]}
+                                                className="py-3"
+                                            />
+                                        </div>
                                     </div>
-                                    <Input 
-                                        id="appId" 
-                                        type='text'
-                                        value={data.appId}
-                                        handleChange={(e) => setData('appId', e.target.value)}
-                                        // required
-                                        className="w-full"
-                                    />
-                                    <InputError message={errors.appId}/>
-                                </div>
-                                <div className="space-y-1.5">
-                                    <div className='flex items-center gap-1'>
-                                        <Label for="returnUrl" value="Return Url"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                    <div className='flex flex-col gap-1'>
+                                        <Label value="Show amount"/>
+                                        <div>
+                                            <Radio.Group  
+                                                value={data.show_amount}
+                                                onChange={(e) => setData('show_amount', e.target.value)}
+                                                options={[
+                                                    { label: <span className='text-white'>Hide</span>, value: 0},
+                                                    { label: <span className='text-white'>Show</span>, value: 1},
+                                                ]}
+                                                className="py-3"
+                                            />
+                                        </div>
                                     </div>
-                                    <Input 
-                                        id="returnUrl" 
-                                        type='text'
-                                        value={data.returnUrl}
-                                        handleChange={(e) => setData('returnUrl', e.target.value)}
-                                        // required
-                                        className="w-full"
-                                    />
-                                    <InputError message={errors.returnUrl}/>
-                                </div>
-                                <div className="space-y-1.5">
-                                    <div className='flex items-center gap-1'>
-                                        <Label for="callBackUrl" value="Callback Url"/> <span className='text-sm text-error-600 font-medium'>*</span>
+                                    <div className='flex flex-col gap-1'>
+                                        <Label value="Show account number"/>
+                                        <div>
+                                            <Radio.Group  
+                                                value={data.show_acc_no}
+                                                onChange={(e) => setData('show_acc_no', e.target.value)}
+                                                options={[
+                                                    { label: <span className='text-white'>Hide</span>, value: 0},
+                                                    { label: <span className='text-white'>Show</span>, value: 1},
+                                                ]}
+                                                className="py-3"
+                                            />
+                                        </div>
                                     </div>
-                                    <Input 
-                                        id="callBackUrl" 
-                                        type='text'
-                                        value={data.callBackUrl}
-                                        handleChange={(e) => setData('callBackUrl', e.target.value)}
-                                        // required
-                                        className="w-full"
-                                    />
-                                    <InputError message={errors.callBackUrl}/>
                                 </div>
                             </div>
                             <div className='flex justify-center gap-3'>

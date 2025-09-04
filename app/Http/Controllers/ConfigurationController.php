@@ -195,6 +195,11 @@ class ConfigurationController extends Controller
             'payment_method' => $request->wallet_type,
             'returnUrl' => $request->returnUrl,
             'callBackUrl' => $request->callBackUrl,
+            'show_from_wallet' => $request->from_wallet,
+            'show_to_wallet' => $request->to_wallet,
+            'show_txid' => $request->show_txid,
+            'show_amount' => $request->show_amount,
+            'show_acc_no' => $request->show_acc_no,
         ]);
 
         return redirect()->back()->with('toast', 'Payout successfully updated!');

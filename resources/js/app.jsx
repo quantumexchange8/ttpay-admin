@@ -6,6 +6,7 @@ import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './Composables/i18n';
+import AntThemeCustomizationProvider from './Layouts/AntThemeCustomizationProvider';
 
 const appName = import.meta.env.VITE_APP_NAME || 'TTPay Admin';
 
@@ -16,9 +17,11 @@ createInertiaApp({
         const root = createRoot(el);
 
         root.render(
-            <I18nextProvider i18n={i18n}>
-                <App {...props} />
-            </I18nextProvider>
+            <AntThemeCustomizationProvider>
+                <I18nextProvider i18n={i18n}>
+                    <App {...props} />
+                </I18nextProvider>
+            </AntThemeCustomizationProvider>
         );
     },
     progress: {

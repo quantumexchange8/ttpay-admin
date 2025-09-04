@@ -20,5 +20,10 @@ class PayoutConfig extends Model
         'callBackUrl',
         'secret_key',
         'payment_method',
+        'show_from_wallet',
+        'show_to_wallet',
+        'show_txid',
+        'show_amount',
+        'show_acc_no',
     ];
 }
