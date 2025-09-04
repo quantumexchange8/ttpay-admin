@@ -61,7 +61,7 @@ export default function Action({ payout, fetchDataCallback }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         id: '',
         name: '',
-        live_paymentUrl: '',
+        live_paymentUrl: '', 
         appId: '',
         returnUrl: '',
         callBackUrl: '',
@@ -75,8 +75,6 @@ export default function Action({ payout, fetchDataCallback }) {
         show_acc_no: '',
         diff_amount: '',
     })
-
-    console.log(payout.api_key)
 
     useEffect(() => {
         if (payout) {
